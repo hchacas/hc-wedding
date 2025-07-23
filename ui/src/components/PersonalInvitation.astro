@@ -1,0 +1,96 @@
+---
+export interface Props {
+  invitation: {
+    guest_name: string;
+    message: string;
+    token: string;
+  };
+}
+
+const { invitation } = Astro.props;
+---
+
+<div class="bg-white rounded-3xl shadow-2xl overflow-hidden max-w-2xl mx-auto">
+  <!-- Header decorativo -->
+  <div class="bg-gradient-to-r from-rose-400 via-pink-400 to-purple-400 h-32 relative">
+    <div class="absolute inset-0 bg-black/10"></div>
+    <div class="absolute top-4 left-4 text-white text-2xl">💕</div>
+    <div class="absolute top-4 right-4 text-white text-2xl">🌸</div>
+    <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white text-3xl">👰🤵</div>
+  </div>
+
+  <!-- Contenido principal -->
+  <div class="p-8 md:p-12 text-center">
+    <!-- Saludo personalizado -->
+    <div class="mb-8">
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+        ¡Hola, <span class="text-rose-600">{invitation.guest_name}</span>!
+      </h1>
+      
+      <div class="w-24 h-1 bg-gradient-to-r from-rose-400 to-pink-400 mx-auto mb-6"></div>
+    </div>
+
+    <!-- Mensaje personalizado -->
+    <div class="mb-8">
+      <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
+        {invitation.message}
+      </p>
+      
+      <div class="bg-rose-50 border-l-4 border-rose-400 p-6 rounded-r-lg">
+        <p class="text-gray-700 italic">
+          "Queremos que seas parte de este momento único en nuestras vidas. 
+          Tu presencia haría nuestro día aún más especial."
+        </p>
+        <p class="text-right text-rose-600 font-semibold mt-2">- María & Juan</p>
+      </div>
+    </div>
+
+    <!-- Detalles del evento -->
+    <div class="bg-gray-50 rounded-2xl p-6 mb-8">
+      <h3 class="text-xl font-bold text-gray-800 mb-4">📅 Detalles del Evento</h3>
+      <div class="grid md:grid-cols-2 gap-4 text-left">
+        <div>
+          <p class="font-semibold text-gray-700">Fecha:</p>
+          <p class="text-gray-600">Sábado, 15 de Junio 2024</p>
+        </div>
+        <div>
+          <p class="font-semibold text-gray-700">Hora:</p>
+          <p class="text-gray-600">17:00h</p>
+        </div>
+        <div class="md:col-span-2">
+          <p class="font-semibold text-gray-700">Lugar:</p>
+          <p class="text-gray-600">Iglesia San José, Calle Principal 123</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Botones de acción -->
+    <div class="space-y-4">
+      <a 
+        href="/rsvp/login" 
+        class="block w-full bg-gradient-to-r from-rose-500 to-pink-500 text-white py-4 px-8 rounded-full text-lg font-semibold hover:from-rose-600 hover:to-pink-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+      >
+        💕 Confirmar mi Asistencia
+      </a>
+      
+      <a 
+        href="/" 
+        class="block w-full bg-white border-2 border-gray-300 text-gray-700 py-3 px-8 rounded-full font-medium hover:border-gray-400 hover:shadow-md transition-all duration-200"
+      >
+        📋 Ver más información del evento
+      </a>
+    </div>
+
+    <!-- Nota sobre el token -->
+    <div class="mt-8 text-xs text-gray-400">
+      <p>Invitación personalizada • Token: {invitation.token.slice(0, 8)}...</p>
+    </div>
+  </div>
+
+  <!-- Footer decorativo -->
+  <div class="bg-gradient-to-r from-rose-100 to-pink-100 p-4 text-center">
+    <p class="text-sm text-gray-600">
+      ¡Esperamos verte pronto! 🎉
+    </p>
+  </div>
+</div>

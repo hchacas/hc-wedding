@@ -1,0 +1,150 @@
+---
+// Componente de ubicación y puntos de interés
+---
+
+<section class="py-16 bg-white">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+        📍 Ubicación y Cómo Llegar
+      </h2>
+      <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+        Toda la información para que llegues sin problemas a nuestro gran día
+      </p>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+      <!-- Mapa (placeholder) -->
+      <div class="order-2 lg:order-1">
+        <div class="bg-gray-200 rounded-2xl h-96 flex items-center justify-center shadow-lg">
+          <div class="text-center text-gray-500">
+            <div class="text-6xl mb-4">🗺️</div>
+            <p class="text-lg font-medium">Mapa Interactivo</p>
+            <p class="text-sm">Iglesia San José & Palacio de Eventos</p>
+            <button class="mt-4 bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors">
+              Ver en Google Maps
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Información de ubicación -->
+      <div class="order-1 lg:order-2 space-y-6">
+        <!-- Ceremonia -->
+        <div class="bg-rose-50 rounded-2xl p-6">
+          <div class="flex items-start space-x-4">
+            <div class="text-3xl">⛪</div>
+            <div class="flex-1">
+              <h3 class="text-xl font-bold text-gray-800 mb-2">Ceremonia</h3>
+              <div class="space-y-1 text-gray-600">
+                <p><strong>Iglesia San José</strong></p>
+                <p>Calle Principal, 123</p>
+                <p>28001 Madrid</p>
+                <p>📞 91 123 45 67</p>
+              </div>
+              <button class="mt-3 text-rose-600 hover:text-rose-700 font-medium text-sm">
+                📍 Ver en mapa →
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Celebración -->
+        <div class="bg-purple-50 rounded-2xl p-6">
+          <div class="flex items-start space-x-4">
+            <div class="text-3xl">🏰</div>
+            <div class="flex-1">
+              <h3 class="text-xl font-bold text-gray-800 mb-2">Celebración</h3>
+              <div class="space-y-1 text-gray-600">
+                <p><strong>Palacio de Eventos Real</strong></p>
+                <p>Avenida de los Jardines, 45</p>
+                <p>28002 Madrid</p>
+                <p>📞 91 987 65 43</p>
+              </div>
+              <button class="mt-3 text-purple-600 hover:text-purple-700 font-medium text-sm">
+                📍 Ver en mapa →
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cómo llegar -->
+        <div class="bg-blue-50 rounded-2xl p-6">
+          <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+            <span class="text-2xl mr-2">🚗</span>
+            Cómo Llegar
+          </h3>
+          
+          <div class="space-y-4">
+            <div>
+              <h4 class="font-semibold text-gray-700 mb-1">En Coche</h4>
+              <p class="text-sm text-gray-600">
+                Desde M-30: Salida 7 hacia Centro. Aparcamiento gratuito disponible.
+              </p>
+            </div>
+            
+            <div>
+              <h4 class="font-semibold text-gray-700 mb-1">En Metro</h4>
+              <p class="text-sm text-gray-600">
+                Línea 2 (Roja) - Estación "Plaza Mayor" + 5 min andando
+              </p>
+            </div>
+            
+            <div>
+              <h4 class="font-semibold text-gray-700 mb-1">En Autobús</h4>
+              <p class="text-sm text-gray-600">
+                Líneas 15, 23, 45 - Parada "Iglesia San José"
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Puntos de interés -->
+    <div class="mt-16">
+      <h3 class="text-2xl font-bold text-gray-800 mb-8 text-center">
+        🏛️ Puntos de Interés Cercanos
+      </h3>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+        <div class="bg-gray-50 rounded-xl p-4 text-center">
+          <div class="text-3xl mb-2">🏨</div>
+          <h4 class="font-bold text-gray-800 mb-1">Hotel Plaza</h4>
+          <p class="text-sm text-gray-600">200m - Descuento especial</p>
+        </div>
+        
+        <div class="bg-gray-50 rounded-xl p-4 text-center">
+          <div class="text-3xl mb-2">🍽️</div>
+          <h4 class="font-bold text-gray-800 mb-1">Restaurantes</h4>
+          <p class="text-sm text-gray-600">Varios en un radio de 500m</p>
+        </div>
+        
+        <div class="bg-gray-50 rounded-xl p-4 text-center">
+          <div class="text-3xl mb-2">☕</div>
+          <h4 class="font-bold text-gray-800 mb-1">Cafeterías</h4>
+          <p class="text-sm text-gray-600">Para el café de la mañana</p>
+        </div>
+        
+        <div class="bg-gray-50 rounded-xl p-4 text-center">
+          <div class="text-3xl mb-2">🛍️</div>
+          <h4 class="font-bold text-gray-800 mb-1">Centro Comercial</h4>
+          <p class="text-sm text-gray-600">Plaza Mayor - 10 min andando</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Información de contacto para emergencias -->
+    <div class="mt-12 bg-yellow-50 border border-yellow-200 rounded-2xl p-6 max-w-2xl mx-auto text-center">
+      <h4 class="font-bold text-gray-800 mb-2">📞 ¿Perdido el día de la boda?</h4>
+      <p class="text-gray-600 text-sm mb-3">
+        Si tienes problemas para llegar, no dudes en llamarnos:
+      </p>
+      <div class="space-y-1 text-sm">
+        <p><strong>María:</strong> 600 123 456</p>
+        <p><strong>Juan:</strong> 600 654 321</p>
+        <p><strong>Coordinador:</strong> 600 999 888</p>
+      </div>
+    </div>
+  </div>
+</section>

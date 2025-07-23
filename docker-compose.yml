@@ -1,0 +1,74 @@
+services:
+  # Backend API
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: wedding-api
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+      - FRONTEND_URL=http://localhost
+      - SESSION_SECRET=${SESSION_SECRET}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+    volumes:
+      - ./data:/app/data
+      - ./api/wedding.db:/app/wedding.db
+    ports:
+      - "3001:3001"
+    networks:
+      - wedding-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Frontend UI
+  ui:
+    build:
+      context: ./ui
+      dockerfile: Dockerfile
+    container_name: wedding-ui
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    networks:
+      - wedding-network
+    depends_on:
+      - api
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Reverse Proxy (opcional, para producción avanzada)
+  nginx-proxy:
+    image: nginx:alpine
+    container_name: wedding-proxy
+    restart: unless-stopped
+    ports:
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+    networks:
+      - wedding-network
+    depends_on:
+      - ui
+      - api
+    profiles:
+      - production
+
+networks:
+  wedding-network:
+    driver: bridge
+
+volumes:
+  wedding-data:
+    driver: local

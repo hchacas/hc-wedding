@@ -1,0 +1,49 @@
+# Configuración para desarrollo local
+services:
+  # Backend API en modo desarrollo
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: wedding-api-dev
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=development
+      - PORT=3001
+      - FRONTEND_URL=http://localhost:4321
+      - SESSION_SECRET=dev-secret-key-not-for-production
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+    volumes:
+      - ./api:/app
+      - /app/node_modules
+      - ./api/wedding.db:/app/wedding.db
+    ports:
+      - "3001:3001"
+    networks:
+      - wedding-network
+    command: npm run dev
+
+  # Frontend UI en modo desarrollo
+  ui:
+    build:
+      context: ./ui
+      dockerfile: Dockerfile.dev
+    container_name: wedding-ui-dev
+    restart: unless-stopped
+    environment:
+      - API_URL=http://localhost:3001
+    volumes:
+      - ./ui:/app
+      - /app/node_modules
+    ports:
+      - "4321:4321"
+    networks:
+      - wedding-network
+    depends_on:
+      - api
+    command: npm run dev
+
+networks:
+  wedding-network:
+    driver: bridge

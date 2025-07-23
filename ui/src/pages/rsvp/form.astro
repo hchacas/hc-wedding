@@ -1,0 +1,81 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import RSVPForm from '../../components/RSVPForm.astro';
+
+// Verificar autenticación del lado del servidor
+let user = null;
+let error = null;
+
+try {
+  const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
+  
+  // En un entorno real, necesitarías pasar las cookies de sesión
+  // Por ahora, manejamos la autenticación del lado del cliente
+  
+} catch (e) {
+  console.error('Error checking auth:', e);
+}
+---
+
+<BaseLayout title="Formulario RSVP - Confirma tu Asistencia">
+  <main class="min-h-screen bg-gradient-to-br from-rose-50 to-pink-100 py-8">
+    <div class="container mx-auto px-4 max-w-2xl">
+      <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-rose-500 to-pink-500 text-white p-8 text-center">
+          <div class="text-4xl mb-4">💕</div>
+          <h1 class="text-3xl font-bold mb-2">Confirma tu Asistencia</h1>
+          <p class="text-rose-100">
+            Nos encantaría saber si podrás acompañarnos en este día tan especial
+          </p>
+        </div>
+
+        <!-- Formulario -->
+        <div class="p-8">
+          <RSVPForm />
+        </div>
+      </div>
+
+      <!-- Botón de descarga -->
+      <div class="mt-8 text-center">
+        <button
+          id="download-summary"
+          class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-3 rounded-lg font-medium hover:from-purple-600 hover:to-pink-600 transition-all duration-200 shadow-lg"
+        >
+          📄 Descargar Resumen del Evento
+        </button>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
+
+<script>
+  // Verificar autenticación al cargar la página
+  document.addEventListener('DOMContentLoaded', async () => {
+    try {
+      const response = await fetch('http://localhost:3001/auth/me', {
+        credentials: 'include'
+      });
+      
+      if (!response.ok) {
+        // No autenticado, redirigir al login
+        window.location.href = '/rsvp/login';
+        return;
+      }
+      
+      const data = await response.json();
+      if (!data.success) {
+        window.location.href = '/rsvp/login';
+      }
+    } catch (error) {
+      console.error('Error checking auth:', error);
+      window.location.href = '/rsvp/login';
+    }
+  });
+
+  // Manejar descarga de resumen
+  document.getElementById('download-summary')?.addEventListener('click', () => {
+    // Por ahora, mostrar un mensaje
+    alert('Función de descarga en desarrollo. Próximamente disponible!');
+  });
+</script>

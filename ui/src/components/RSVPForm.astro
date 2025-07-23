@@ -1,0 +1,383 @@
+---
+// Componente del formulario RSVP
+---
+
+<div id="rsvp-form-container">
+  <!-- Loading state -->
+  <div id="loading-state" class="text-center py-8">
+    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-rose-600 mx-auto mb-4"></div>
+    <p class="text-gray-600">Cargando tu información...</p>
+  </div>
+
+  <!-- Formulario principal -->
+  <form id="rsvp-form" class="hidden space-y-6">
+    <!-- Información personal -->
+    <div class="bg-gray-50 rounded-xl p-6">
+      <h3 class="text-xl font-bold text-gray-800 mb-4">👤 Tu Información</h3>
+      
+      <div class="grid md:grid-cols-2 gap-4">
+        <div>
+          <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
+            Nombre completo
+          </label>
+          <input 
+            type="text" 
+            id="name" 
+            name="name" 
+            readonly
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-100 text-gray-600"
+          />
+        </div>
+        
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+            Email
+          </label>
+          <input 
+            type="email" 
+            id="email" 
+            name="email" 
+            readonly
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-100 text-gray-600"
+          />
+        </div>
+        
+        <div class="md:col-span-2">
+          <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">
+            Teléfono (opcional)
+          </label>
+          <input 
+            type="tel" 
+            id="phone" 
+            name="phone" 
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-rose-500"
+            placeholder="+34 600 000 000"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Confirmación de asistencia -->
+    <div class="bg-rose-50 rounded-xl p-6">
+      <h3 class="text-xl font-bold text-gray-800 mb-4">💕 ¿Podrás acompañarnos?</h3>
+      
+      <div class="space-y-3">
+        <label class="flex items-center space-x-3 cursor-pointer">
+          <input 
+            type="radio" 
+            name="attending" 
+            value="true" 
+            class="w-4 h-4 text-rose-600 focus:ring-rose-500"
+          />
+          <span class="text-lg">🎉 ¡Sí, estaré ahí!</span>
+        </label>
+        
+        <label class="flex items-center space-x-3 cursor-pointer">
+          <input 
+            type="radio" 
+            name="attending" 
+            value="false" 
+            class="w-4 h-4 text-rose-600 focus:ring-rose-500"
+          />
+          <span class="text-lg">😢 No podré asistir</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Acompañante -->
+    <div id="plus-one-section" class="bg-purple-50 rounded-xl p-6 hidden">
+      <h3 class="text-xl font-bold text-gray-800 mb-4">👫 ¿Vienes acompañado/a?</h3>
+      
+      <div class="space-y-4">
+        <label class="flex items-center space-x-3 cursor-pointer">
+          <input 
+            type="checkbox" 
+            id="plus_one" 
+            name="plus_one" 
+            class="w-4 h-4 text-purple-600 focus:ring-purple-500 rounded"
+          />
+          <span>Sí, vendré con acompañante</span>
+        </label>
+        
+        <div id="plus-one-name-field" class="hidden">
+          <label for="plus_one_name" class="block text-sm font-medium text-gray-700 mb-2">
+            Nombre del acompañante
+          </label>
+          <input 
+            type="text" 
+            id="plus_one_name" 
+            name="plus_one_name" 
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+            placeholder="Nombre completo"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Preferencias alimentarias -->
+    <div id="dietary-section" class="bg-green-50 rounded-xl p-6 hidden">
+      <h3 class="text-xl font-bold text-gray-800 mb-4">🍽️ Preferencias Alimentarias</h3>
+      
+      <div class="space-y-4">
+        <div>
+          <label for="menu_choice" class="block text-sm font-medium text-gray-700 mb-2">
+            Menú preferido
+          </label>
+          <select 
+            id="menu_choice" 
+            name="menu_choice" 
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+          >
+            <option value="">Selecciona una opción</option>
+            <option value="carne">Menú con carne</option>
+            <option value="pescado">Menú con pescado</option>
+            <option value="vegetariano">Menú vegetariano</option>
+            <option value="vegano">Menú vegano</option>
+          </select>
+        </div>
+        
+        <div>
+          <label for="dietary_restrictions" class="block text-sm font-medium text-gray-700 mb-2">
+            Restricciones alimentarias
+          </label>
+          <textarea 
+            id="dietary_restrictions" 
+            name="dietary_restrictions" 
+            rows="3" 
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+            placeholder="Ej: Sin gluten, sin lactosa, alergia a frutos secos..."
+          ></textarea>
+        </div>
+        
+        <div>
+          <label for="allergies" class="block text-sm font-medium text-gray-700 mb-2">
+            Alergias importantes
+          </label>
+          <input 
+            type="text" 
+            id="allergies" 
+            name="allergies" 
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+            placeholder="Especifica alergias graves"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Comentarios adicionales -->
+    <div id="notes-section" class="bg-blue-50 rounded-xl p-6 hidden">
+      <h3 class="text-xl font-bold text-gray-800 mb-4">💬 Comentarios</h3>
+      
+      <div>
+        <label for="notes" class="block text-sm font-medium text-gray-700 mb-2">
+          ¿Algo más que quieras decirnos?
+        </label>
+        <textarea 
+          id="notes" 
+          name="notes" 
+          rows="4" 
+          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          placeholder="Felicitaciones, sugerencias, necesidades especiales..."
+        ></textarea>
+      </div>
+    </div>
+
+    <!-- Botones de acción -->
+    <div class="flex space-x-4">
+      <button 
+        type="submit" 
+        id="submit-btn"
+        class="flex-1 bg-gradient-to-r from-rose-500 to-pink-500 text-white py-3 px-6 rounded-lg font-semibold hover:from-rose-600 hover:to-pink-600 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        💕 Confirmar RSVP
+      </button>
+      
+      <button 
+        type="button" 
+        id="logout-btn"
+        class="bg-gray-500 text-white py-3 px-6 rounded-lg font-medium hover:bg-gray-600 transition-colors"
+      >
+        Cerrar Sesión
+      </button>
+    </div>
+  </form>
+
+  <!-- Mensaje de éxito -->
+  <div id="success-message" class="hidden text-center py-8">
+    <div class="text-6xl mb-4">🎉</div>
+    <h3 class="text-2xl font-bold text-green-600 mb-2">¡RSVP Confirmado!</h3>
+    <p class="text-gray-600 mb-4">Gracias por confirmar tu asistencia. ¡Nos vemos pronto!</p>
+    <button 
+      id="edit-rsvp-btn"
+      class="bg-rose-500 text-white px-6 py-2 rounded-lg hover:bg-rose-600 transition-colors"
+    >
+      Editar mi respuesta
+    </button>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', async () => {
+    const loadingState = document.getElementById('loading-state');
+    const rsvpForm = document.getElementById('rsvp-form') as HTMLFormElement;
+    const successMessage = document.getElementById('success-message');
+    
+    try {
+      // Verificar autenticación y cargar datos
+      const authResponse = await fetch('http://localhost:3001/auth/me', {
+        credentials: 'include'
+      });
+      
+      if (!authResponse.ok) {
+        window.location.href = '/rsvp/login';
+        return;
+      }
+      
+      const authData = await authResponse.json();
+      if (!authData.success) {
+        window.location.href = '/rsvp/login';
+        return;
+      }
+      
+      // Cargar datos del RSVP
+      const rsvpResponse = await fetch('http://localhost:3001/api/rsvp/form', {
+        credentials: 'include'
+      });
+      
+      if (rsvpResponse.ok) {
+        const rsvpData = await rsvpResponse.json();
+        if (rsvpData.success) {
+          populateForm(rsvpData.form);
+        }
+      }
+      
+      // Mostrar formulario
+      loadingState?.classList.add('hidden');
+      rsvpForm?.classList.remove('hidden');
+      
+    } catch (error) {
+      console.error('Error loading RSVP data:', error);
+      window.location.href = '/rsvp/login';
+    }
+  });
+
+  function populateForm(data: any) {
+    // Llenar campos básicos
+    (document.getElementById('name') as HTMLInputElement).value = data.name || '';
+    (document.getElementById('email') as HTMLInputElement).value = data.email || '';
+    (document.getElementById('phone') as HTMLInputElement).value = data.phone || '';
+    
+    // Asistencia
+    if (data.attending !== null) {
+      const attendingRadio = document.querySelector(`input[name="attending"][value="${data.attending}"]`) as HTMLInputElement;
+      if (attendingRadio) {
+        attendingRadio.checked = true;
+        toggleSections(data.attending);
+      }
+    }
+    
+    // Acompañante
+    if (data.plus_one) {
+      (document.getElementById('plus_one') as HTMLInputElement).checked = true;
+      (document.getElementById('plus_one_name') as HTMLInputElement).value = data.plus_one_name || '';
+      document.getElementById('plus-one-name-field')?.classList.remove('hidden');
+    }
+    
+    // Preferencias
+    (document.getElementById('menu_choice') as HTMLSelectElement).value = data.menu_choice || '';
+    (document.getElementById('dietary_restrictions') as HTMLTextAreaElement).value = data.dietary_restrictions || '';
+    (document.getElementById('allergies') as HTMLInputElement).value = data.allergies || '';
+    (document.getElementById('notes') as HTMLTextAreaElement).value = data.notes || '';
+  }
+
+  function toggleSections(attending: boolean) {
+    const sections = ['plus-one-section', 'dietary-section', 'notes-section'];
+    sections.forEach(sectionId => {
+      const section = document.getElementById(sectionId);
+      if (attending) {
+        section?.classList.remove('hidden');
+      } else {
+        section?.classList.add('hidden');
+      }
+    });
+  }
+
+  // Event listeners
+  document.addEventListener('change', (e) => {
+    const target = e.target as HTMLInputElement;
+    
+    if (target.name === 'attending') {
+      toggleSections(target.value === 'true');
+    }
+    
+    if (target.id === 'plus_one') {
+      const nameField = document.getElementById('plus-one-name-field');
+      if (target.checked) {
+        nameField?.classList.remove('hidden');
+      } else {
+        nameField?.classList.add('hidden');
+        (document.getElementById('plus_one_name') as HTMLInputElement).value = '';
+      }
+    }
+  });
+
+  // Submit form
+  document.getElementById('rsvp-form')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Guardando...';
+    
+    try {
+      const formData = new FormData(e.target as HTMLFormElement);
+      const data = Object.fromEntries(formData.entries());
+      
+      // Convertir valores
+      data.attending = data.attending === 'true';
+      data.plus_one = document.getElementById('plus_one')?.checked || false;
+      
+      const response = await fetch('http://localhost:3001/api/rsvp/form', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify(data)
+      });
+      
+      if (response.ok) {
+        document.getElementById('rsvp-form')?.classList.add('hidden');
+        document.getElementById('success-message')?.classList.remove('hidden');
+      } else {
+        throw new Error('Error saving RSVP');
+      }
+      
+    } catch (error) {
+      console.error('Error submitting RSVP:', error);
+      alert('Error al guardar. Por favor, inténtalo de nuevo.');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = '💕 Confirmar RSVP';
+    }
+  });
+
+  // Logout
+  document.getElementById('logout-btn')?.addEventListener('click', async () => {
+    try {
+      await fetch('http://localhost:3001/auth/logout', {
+        method: 'POST',
+        credentials: 'include'
+      });
+      window.location.href = '/';
+    } catch (error) {
+      console.error('Error logging out:', error);
+    }
+  });
+
+  // Edit RSVP
+  document.getElementById('edit-rsvp-btn')?.addEventListener('click', () => {
+    document.getElementById('success-message')?.classList.add('hidden');
+    document.getElementById('rsvp-form')?.classList.remove('hidden');
+  });
+</script>

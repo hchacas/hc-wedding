@@ -1,0 +1,65 @@
+---
+// Componente Hero con información principal de la boda
+---
+
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+  <!-- Background con gradiente -->
+  <div class="absolute inset-0 bg-gradient-to-br from-rose-100 via-pink-50 to-purple-100"></div>
+  
+  <!-- Contenido principal -->
+  <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
+    <!-- Foto de los novios (placeholder) -->
+    <div class="mb-8">
+      <div class="w-48 h-48 mx-auto rounded-full bg-gradient-to-br from-rose-200 to-pink-300 flex items-center justify-center text-6xl shadow-2xl">
+        👰🤵
+      </div>
+    </div>
+
+    <!-- Nombres de los novios -->
+    <h1 class="text-5xl md:text-7xl font-bold text-gray-800 mb-4">
+      <span class="text-rose-600">María</span>
+      <span class="text-gray-400 mx-4">&</span>
+      <span class="text-pink-600">Juan</span>
+    </h1>
+
+    <!-- Fecha del evento -->
+    <div class="mb-8">
+      <p class="text-xl md:text-2xl text-gray-600 mb-2">Nos casamos el</p>
+      <p class="text-3xl md:text-4xl font-bold text-gray-800">
+        15 de Junio, 2024
+      </p>
+      <p class="text-lg text-gray-600 mt-2">
+        Sábado a las 17:00h
+      </p>
+    </div>
+
+    <!-- Mensaje principal -->
+    <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-xl mb-8">
+      <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
+        Después de tantos años juntos, hemos decidido dar el gran paso. 
+        Queremos compartir contigo este momento tan especial y esperamos 
+        que puedas acompañarnos en el día más importante de nuestras vidas.
+      </p>
+    </div>
+
+    <!-- Botón CTA -->
+    <div class="space-y-4">
+      <a 
+        href="/rsvp/login" 
+        class="inline-block bg-gradient-to-r from-rose-500 to-pink-500 text-white px-8 py-4 rounded-full text-lg font-semibold hover:from-rose-600 hover:to-pink-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+      >
+        💕 Confirmar Asistencia
+      </a>
+      
+      <div class="text-sm text-gray-500">
+        <p>¿Tienes una invitación personalizada? <a href="#invitation-link" class="text-rose-600 hover:text-rose-700 font-medium">Ingresa tu enlace aquí</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Decoración flotante -->
+  <div class="absolute top-10 left-10 text-4xl animate-bounce delay-1000">🌸</div>
+  <div class="absolute top-20 right-20 text-3xl animate-bounce delay-2000">💐</div>
+  <div class="absolute bottom-20 left-20 text-3xl animate-bounce delay-3000">🎉</div>
+  <div class="absolute bottom-10 right-10 text-4xl animate-bounce delay-4000">💖</div>
+</section>

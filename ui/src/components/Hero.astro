@@ -3,63 +3,164 @@
 ---
 
 <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
-  <!-- Background con gradiente -->
-  <div class="absolute inset-0 bg-gradient-to-br from-rose-100 via-pink-50 to-purple-100"></div>
+  <!-- Background con carrusel de imágenes -->
+  <div class="absolute inset-0">
+    <div id="hero-carousel" class="w-full h-full relative overflow-hidden">
+      <!-- Imagen 1 -->
+      <div class="carousel-slide absolute inset-0 opacity-100 transition-opacity duration-1000">
+        <img 
+          src="https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+          alt="Sheila y Habib - Momento especial 1"
+          class="w-full h-full object-cover"
+        />
+      </div>
+      
+      <!-- Imagen 2 -->
+      <div class="carousel-slide absolute inset-0 opacity-0 transition-opacity duration-1000">
+        <img 
+          src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+          alt="Sheila y Habib - Momento especial 2"
+          class="w-full h-full object-cover"
+        />
+      </div>
+      
+      <!-- Imagen 3 -->
+      <div class="carousel-slide absolute inset-0 opacity-0 transition-opacity duration-1000">
+        <img 
+          src="https://images.unsplash.com/photo-1537633552985-df8429e8048b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+          alt="Sheila y Habib - Momento especial 3"
+          class="w-full h-full object-cover"
+        />
+      </div>
+      
+      <!-- Imagen 4 -->
+      <div class="carousel-slide absolute inset-0 opacity-0 transition-opacity duration-1000">
+        <img 
+          src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+          alt="Sheila y Habib - Momento especial 4"
+          class="w-full h-full object-cover"
+        />
+      </div>
+    </div>
+    
+    <!-- Overlay oscuro -->
+    <div class="absolute inset-0 bg-black/40"></div>
+    
+    <!-- Indicadores del carrusel -->
+    <div class="absolute bottom-20 left-1/2 transform -translate-x-1/2 z-10 flex space-x-2">
+      <button class="carousel-indicator w-2 h-2 rounded-full bg-white/50 hover:bg-white/80 transition-colors active" data-slide="0"></button>
+      <button class="carousel-indicator w-2 h-2 rounded-full bg-white/50 hover:bg-white/80 transition-colors" data-slide="1"></button>
+      <button class="carousel-indicator w-2 h-2 rounded-full bg-white/50 hover:bg-white/80 transition-colors" data-slide="2"></button>
+      <button class="carousel-indicator w-2 h-2 rounded-full bg-white/50 hover:bg-white/80 transition-colors" data-slide="3"></button>
+    </div>
+  </div>
+  
+  <!-- Navegación superior -->
+  <nav class="absolute top-0 left-0 right-0 z-20 p-6">
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
+      <div class="text-white font-serif text-xl">S & H</div>
+      <div class="hidden md:flex space-x-8 text-white text-sm font-medium">
+        <a href="#inicio" class="hover:text-gold transition-colors">Inicio</a>
+        <a href="#historia" class="hover:text-gold transition-colors">Nuestra Historia</a>
+        <a href="#evento" class="hover:text-gold transition-colors">El Evento</a>
+        <a href="#viaje" class="hover:text-gold transition-colors">Viaje</a>
+        <a href="#rsvp" class="hover:text-gold transition-colors">RSVP</a>
+      </div>
+    </div>
+  </nav>
   
   <!-- Contenido principal -->
-  <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
-    <!-- Foto de los novios (placeholder) -->
-    <div class="mb-8">
-      <div class="w-48 h-48 mx-auto rounded-full bg-gradient-to-br from-rose-200 to-pink-300 flex items-center justify-center text-6xl shadow-2xl">
-        👰🤵
-      </div>
-    </div>
-
+  <div class="relative z-10 text-center px-4 max-w-4xl mx-auto text-white">
     <!-- Nombres de los novios -->
-    <h1 class="text-5xl md:text-7xl font-bold text-gray-800 mb-4">
-      <span class="text-rose-600">María</span>
-      <span class="text-gray-400 mx-4">&</span>
-      <span class="text-pink-600">Juan</span>
+    <h1 class="font-serif text-6xl md:text-8xl font-light mb-6 tracking-wide">
+      Sheila & Habib
     </h1>
 
+    <!-- Mensaje de bienvenida -->
+    <p class="text-xl md:text-2xl font-light mb-8 max-w-2xl mx-auto leading-relaxed">
+      Nos complace invitarte a celebrar nuestro matrimonio
+    </p>
+
     <!-- Fecha del evento -->
-    <div class="mb-8">
-      <p class="text-xl md:text-2xl text-gray-600 mb-2">Nos casamos el</p>
-      <p class="text-3xl md:text-4xl font-bold text-gray-800">
-        15 de Junio, 2024
-      </p>
-      <p class="text-lg text-gray-600 mt-2">
-        Sábado a las 17:00h
-      </p>
+    <div class="mb-12">
+      <p class="text-2xl md:text-3xl font-serif mb-2">4 de Julio, 2026</p>
+      <p class="text-lg font-light tracking-wider">LUCENA, CÓRDOBA</p>
     </div>
 
-    <!-- Mensaje principal -->
-    <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-xl mb-8">
-      <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
-        Después de tantos años juntos, hemos decidido dar el gran paso. 
-        Queremos compartir contigo este momento tan especial y esperamos 
-        que puedas acompañarnos en el día más importante de nuestras vidas.
-      </p>
-    </div>
-
-    <!-- Botón CTA -->
-    <div class="space-y-4">
+    <!-- Botón RSVP destacado -->
+    <div class="mt-8">
       <a 
         href="/rsvp/login" 
-        class="inline-block bg-gradient-to-r from-rose-500 to-pink-500 text-white px-8 py-4 rounded-full text-lg font-semibold hover:from-rose-600 hover:to-pink-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+        class="inline-block bg-gold text-white px-12 py-4 text-lg font-medium hover:bg-yellow-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 rounded-lg"
       >
-        💕 Confirmar Asistencia
+        Confirmar Asistencia
       </a>
-      
-      <div class="text-sm text-gray-500">
-        <p>¿Tienes una invitación personalizada? <a href="#invitation-link" class="text-rose-600 hover:text-rose-700 font-medium">Ingresa tu enlace aquí</a></p>
-      </div>
     </div>
   </div>
 
-  <!-- Decoración flotante -->
-  <div class="absolute top-10 left-10 text-4xl animate-bounce delay-1000">🌸</div>
-  <div class="absolute top-20 right-20 text-3xl animate-bounce delay-2000">💐</div>
-  <div class="absolute bottom-20 left-20 text-3xl animate-bounce delay-3000">🎉</div>
-  <div class="absolute bottom-10 right-10 text-4xl animate-bounce delay-4000">💖</div>
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10">
+    <div class="w-6 h-10 border-2 border-white rounded-full flex justify-center">
+      <div class="w-1 h-3 bg-white rounded-full mt-2 animate-bounce"></div>
+    </div>
+  </div>
 </section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const slides = document.querySelectorAll('.carousel-slide');
+    const indicators = document.querySelectorAll('.carousel-indicator');
+    let currentSlide = 0;
+    
+    // Función para cambiar slide
+    function changeSlide(newSlide: number) {
+      // Ocultar slide actual
+      slides[currentSlide]?.classList.remove('opacity-100');
+      slides[currentSlide]?.classList.add('opacity-0');
+      indicators[currentSlide]?.classList.remove('active', 'bg-white/80');
+      indicators[currentSlide]?.classList.add('bg-white/50');
+      
+      // Mostrar nuevo slide
+      currentSlide = newSlide;
+      slides[currentSlide]?.classList.remove('opacity-0');
+      slides[currentSlide]?.classList.add('opacity-100');
+      indicators[currentSlide]?.classList.remove('bg-white/50');
+      indicators[currentSlide]?.classList.add('active', 'bg-white/80');
+    }
+    
+    // Auto-play del carrusel
+    function nextSlide() {
+      const next = (currentSlide + 1) % slides.length;
+      changeSlide(next);
+    }
+    
+    // Iniciar auto-play
+    let autoPlay = setInterval(nextSlide, 5000);
+    
+    // Event listeners para los indicadores
+    indicators.forEach((indicator, index) => {
+      indicator.addEventListener('click', () => {
+        clearInterval(autoPlay);
+        changeSlide(index);
+        // Reiniciar auto-play después de interacción
+        autoPlay = setInterval(nextSlide, 5000);
+      });
+    });
+    
+    // Pausar auto-play cuando el mouse está sobre el carrusel
+    const carousel = document.getElementById('hero-carousel');
+    carousel?.addEventListener('mouseenter', () => {
+      clearInterval(autoPlay);
+    });
+    
+    carousel?.addEventListener('mouseleave', () => {
+      autoPlay = setInterval(nextSlide, 5000);
+    });
+  });
+</script>
+
+<style>
+  .carousel-indicator.active {
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+</style>

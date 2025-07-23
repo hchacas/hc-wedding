@@ -5,17 +5,24 @@
 <div id="rsvp-form-container">
   <!-- Loading state -->
   <div id="loading-state" class="text-center py-8">
-    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-rose-600 mx-auto mb-4"></div>
+    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-gold mx-auto mb-4"></div>
     <p class="text-gray-600">Cargando tu información...</p>
   </div>
 
   <!-- Formulario principal -->
-  <form id="rsvp-form" class="hidden space-y-6">
+  <form id="rsvp-form" class="hidden space-y-8">
     <!-- Información personal -->
-    <div class="bg-gray-50 rounded-xl p-6">
-      <h3 class="text-xl font-bold text-gray-800 mb-4">👤 Tu Información</h3>
+    <div class="bg-warm-beige rounded-lg p-6">
+      <div class="flex items-center mb-6">
+        <div class="w-10 h-10 bg-gold rounded-full flex items-center justify-center mr-4">
+          <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+          </svg>
+        </div>
+        <h3 class="font-serif text-xl text-gray-800">Tu Información</h3>
+      </div>
       
-      <div class="grid md:grid-cols-2 gap-4">
+      <div class="grid md:grid-cols-2 gap-6">
         <div>
           <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
             Nombre completo
@@ -25,7 +32,7 @@
             id="name" 
             name="name" 
             readonly
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-100 text-gray-600"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-600"
           />
         </div>
         
@@ -38,11 +45,11 @@
             id="email" 
             name="email" 
             readonly
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-100 text-gray-600"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-600"
           />
         </div>
         
-        <div class="md:col-span-2">
+        <div>
           <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">
             Teléfono (opcional)
           </label>
@@ -50,152 +57,369 @@
             type="tel" 
             id="phone" 
             name="phone" 
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-rose-500"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-gold"
             placeholder="+34 600 000 000"
           />
+        </div>
+
+        <div>
+          <label for="gender" class="block text-sm font-medium text-gray-700 mb-2">
+            Sexo
+          </label>
+          <select 
+            id="gender" 
+            name="gender" 
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-gold"
+          >
+            <option value="">Seleccionar</option>
+            <option value="masculino">Masculino</option>
+            <option value="femenino">Femenino</option>
+            <option value="otro">Otro</option>
+          </select>
         </div>
       </div>
     </div>
 
     <!-- Confirmación de asistencia -->
-    <div class="bg-rose-50 rounded-xl p-6">
-      <h3 class="text-xl font-bold text-gray-800 mb-4">💕 ¿Podrás acompañarnos?</h3>
+    <div class="bg-white border border-gray-200 rounded-lg p-6">
+      <div class="flex items-center mb-6">
+        <div class="w-10 h-10 bg-gold rounded-full flex items-center justify-center mr-4">
+          <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+          </svg>
+        </div>
+        <h3 class="font-serif text-xl text-gray-800">¿Vienes a la fiesta?</h3>
+      </div>
       
-      <div class="space-y-3">
-        <label class="flex items-center space-x-3 cursor-pointer">
+      <div class="space-y-4">
+        <label class="flex items-center space-x-4 cursor-pointer p-4 border border-gray-200 rounded-lg hover:bg-green-50 transition-colors">
           <input 
             type="radio" 
             name="attending" 
             value="true" 
-            class="w-4 h-4 text-rose-600 focus:ring-rose-500"
+            class="w-5 h-5 text-gold focus:ring-gold"
           />
-          <span class="text-lg">🎉 ¡Sí, estaré ahí!</span>
+          <span class="text-lg font-medium text-gray-800">Sí, estaré presente</span>
         </label>
         
-        <label class="flex items-center space-x-3 cursor-pointer">
+        <label class="flex items-center space-x-4 cursor-pointer p-4 border border-gray-200 rounded-lg hover:bg-red-50 transition-colors">
           <input 
             type="radio" 
             name="attending" 
             value="false" 
-            class="w-4 h-4 text-rose-600 focus:ring-rose-500"
+            class="w-5 h-5 text-gold focus:ring-gold"
           />
-          <span class="text-lg">😢 No podré asistir</span>
+          <span class="text-lg font-medium text-gray-800">No podré asistir</span>
         </label>
       </div>
     </div>
 
-    <!-- Acompañante -->
-    <div id="plus-one-section" class="bg-purple-50 rounded-xl p-6 hidden">
-      <h3 class="text-xl font-bold text-gray-800 mb-4">👫 ¿Vienes acompañado/a?</h3>
+    <!-- Acompañantes y Niños -->
+    <div id="plus-one-section" class="bg-white border border-gray-200 rounded-lg p-6 hidden">
+      <div class="flex items-center mb-6">
+        <div class="w-10 h-10 bg-gold rounded-full flex items-center justify-center mr-4">
+          <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"/>
+          </svg>
+        </div>
+        <h3 class="font-serif text-xl text-gray-800">Acompañantes</h3>
+      </div>
       
-      <div class="space-y-4">
-        <label class="flex items-center space-x-3 cursor-pointer">
-          <input 
-            type="checkbox" 
-            id="plus_one" 
-            name="plus_one" 
-            class="w-4 h-4 text-purple-600 focus:ring-purple-500 rounded"
-          />
-          <span>Sí, vendré con acompañante</span>
-        </label>
-        
-        <div id="plus-one-name-field" class="hidden">
-          <label for="plus_one_name" class="block text-sm font-medium text-gray-700 mb-2">
-            Nombre del acompañante
+      <div class="space-y-6">
+        <!-- Acompañante adulto -->
+        <div>
+          <label class="flex items-center space-x-4 cursor-pointer p-4 border border-gray-200 rounded-lg hover:bg-warm-beige transition-colors">
+            <input 
+              type="checkbox" 
+              id="plus_one" 
+              name="plus_one" 
+              class="w-5 h-5 text-gold focus:ring-gold rounded"
+            />
+            <span class="font-medium text-gray-800">Vendré con acompañante adulto</span>
           </label>
-          <input 
-            type="text" 
-            id="plus_one_name" 
-            name="plus_one_name" 
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
-            placeholder="Nombre completo"
-          />
+          
+          <div id="plus-one-details" class="hidden mt-4 space-y-4">
+            <div class="grid md:grid-cols-2 gap-4">
+              <div>
+                <label for="plus_one_name" class="block text-sm font-medium text-gray-700 mb-2">
+                  Nombre completo del acompañante
+                </label>
+                <input 
+                  type="text" 
+                  id="plus_one_name" 
+                  name="plus_one_name" 
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-gold"
+                  placeholder="Nombre completo"
+                />
+              </div>
+              
+              <div>
+                <label for="plus_one_gender" class="block text-sm font-medium text-gray-700 mb-2">
+                  Sexo
+                </label>
+                <select 
+                  id="plus_one_gender" 
+                  name="plus_one_gender" 
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-gold"
+                >
+                  <option value="">Seleccionar</option>
+                  <option value="masculino">Masculino</option>
+                  <option value="femenino">Femenino</option>
+                  <option value="otro">Otro</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Niños -->
+        <div>
+          <label class="flex items-center space-x-4 cursor-pointer p-4 border border-gray-200 rounded-lg hover:bg-warm-beige transition-colors">
+            <input 
+              type="checkbox" 
+              id="children" 
+              name="children" 
+              class="w-5 h-5 text-gold focus:ring-gold rounded"
+            />
+            <span class="font-medium text-gray-800">Vendré con niños</span>
+          </label>
+          
+          <div id="children-details" class="hidden mt-4 space-y-4">
+            <div>
+              <label for="children_count" class="block text-sm font-medium text-gray-700 mb-2">
+                Número de niños
+              </label>
+              <select 
+                id="children_count" 
+                name="children_count" 
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-gold"
+              >
+                <option value="">Seleccionar</option>
+                <option value="1">1 niño</option>
+                <option value="2">2 niños</option>
+                <option value="3">3 niños</option>
+                <option value="4">4 o más niños</option>
+              </select>
+            </div>
+            
+            <div>
+              <label for="children_names" class="block text-sm font-medium text-gray-700 mb-2">
+                Nombres de los niños
+              </label>
+              <textarea 
+                id="children_names" 
+                name="children_names" 
+                rows="3" 
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-gold"
+                placeholder="Nombres y edades de los niños (ej: Ana 5 años, Carlos 8 años)"
+              ></textarea>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- Preferencias alimentarias -->
-    <div id="dietary-section" class="bg-green-50 rounded-xl p-6 hidden">
-      <h3 class="text-xl font-bold text-gray-800 mb-4">🍽️ Preferencias Alimentarias</h3>
+    <div id="dietary-section" class="bg-white border border-gray-200 rounded-lg p-6 hidden">
+      <div class="flex items-center mb-6">
+        <div class="w-10 h-10 bg-gold rounded-full flex items-center justify-center mr-4">
+          <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M3 5a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2h-2.22l.123.489.804.804A1 1 0 0113 18H7a1 1 0 01-.707-1.707l.804-.804L7.22 15H5a2 2 0 01-2-2V5zm5.771 7H5V5h10v7H8.771z" clip-rule="evenodd"/>
+          </svg>
+        </div>
+        <h3 class="font-serif text-xl text-gray-800">Preferencias Alimentarias</h3>
+      </div>
       
-      <div class="space-y-4">
-        <div>
-          <label for="menu_choice" class="block text-sm font-medium text-gray-700 mb-2">
-            Menú preferido
-          </label>
-          <select 
-            id="menu_choice" 
-            name="menu_choice" 
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
-          >
-            <option value="">Selecciona una opción</option>
-            <option value="carne">Menú con carne</option>
-            <option value="pescado">Menú con pescado</option>
-            <option value="vegetariano">Menú vegetariano</option>
-            <option value="vegano">Menú vegano</option>
-          </select>
+      <div class="space-y-8">
+        <!-- Menú del invitado principal -->
+        <div class="border-l-4 border-gold pl-4">
+          <h4 class="font-medium text-gray-800 mb-4">Tu menú</h4>
+          <div class="space-y-4">
+            <div>
+              <label for="menu_choice" class="block text-sm font-medium text-gray-700 mb-2">
+                Menú preferido
+              </label>
+              <select 
+                id="menu_choice" 
+                name="menu_choice" 
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-gold"
+              >
+                <option value="">Selecciona una opción</option>
+                <option value="carne">Menú con carne</option>
+                <option value="pescado">Menú con pescado</option>
+                <option value="vegetariano">Menú vegetariano</option>
+                <option value="vegano">Menú vegano</option>
+              </select>
+            </div>
+            
+            <div>
+              <label for="dietary_restrictions" class="block text-sm font-medium text-gray-700 mb-2">
+                Restricciones alimentarias
+              </label>
+              <textarea 
+                id="dietary_restrictions" 
+                name="dietary_restrictions" 
+                rows="2" 
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-gold"
+                placeholder="Ej: Sin gluten, sin lactosa, alergia a frutos secos..."
+              ></textarea>
+            </div>
+          </div>
         </div>
-        
-        <div>
-          <label for="dietary_restrictions" class="block text-sm font-medium text-gray-700 mb-2">
-            Restricciones alimentarias
-          </label>
-          <textarea 
-            id="dietary_restrictions" 
-            name="dietary_restrictions" 
-            rows="3" 
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
-            placeholder="Ej: Sin gluten, sin lactosa, alergia a frutos secos..."
-          ></textarea>
+
+        <!-- Menú del acompañante -->
+        <div id="plus-one-menu" class="border-l-4 border-gray-300 pl-4 hidden">
+          <h4 class="font-medium text-gray-800 mb-4">Menú del acompañante</h4>
+          <div class="space-y-4">
+            <div>
+              <label for="plus_one_menu_choice" class="block text-sm font-medium text-gray-700 mb-2">
+                Menú preferido del acompañante
+              </label>
+              <select 
+                id="plus_one_menu_choice" 
+                name="plus_one_menu_choice" 
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-gold"
+              >
+                <option value="">Selecciona una opción</option>
+                <option value="carne">Menú con carne</option>
+                <option value="pescado">Menú con pescado</option>
+                <option value="vegetariano">Menú vegetariano</option>
+                <option value="vegano">Menú vegano</option>
+              </select>
+            </div>
+            
+            <div>
+              <label for="plus_one_dietary_restrictions" class="block text-sm font-medium text-gray-700 mb-2">
+                Restricciones alimentarias del acompañante
+              </label>
+              <textarea 
+                id="plus_one_dietary_restrictions" 
+                name="plus_one_dietary_restrictions" 
+                rows="2" 
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-gold"
+                placeholder="Ej: Sin gluten, sin lactosa, alergia a frutos secos..."
+              ></textarea>
+            </div>
+          </div>
         </div>
-        
+
+        <!-- Menú de niños -->
+        <div id="children-menu" class="border-l-4 border-blue-300 pl-4 hidden">
+          <h4 class="font-medium text-gray-800 mb-4">Menú de los niños</h4>
+          <div class="space-y-4">
+            <div>
+              <label for="children_menu_choice" class="block text-sm font-medium text-gray-700 mb-2">
+                Menú para los niños
+              </label>
+              <select 
+                id="children_menu_choice" 
+                name="children_menu_choice" 
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-gold"
+              >
+                <option value="">Selecciona una opción</option>
+                <option value="ninos">Menú niños</option>
+                <option value="adulto">Menú de adulto</option>
+              </select>
+            </div>
+            
+            <div>
+              <label for="children_dietary_restrictions" class="block text-sm font-medium text-gray-700 mb-2">
+                Restricciones alimentarias de los niños
+              </label>
+              <textarea 
+                id="children_dietary_restrictions" 
+                name="children_dietary_restrictions" 
+                rows="2" 
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-gold"
+                placeholder="Alergias o restricciones específicas de los niños..."
+              ></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Alergias importantes generales -->
         <div>
           <label for="allergies" class="block text-sm font-medium text-gray-700 mb-2">
-            Alergias importantes
+            Alergias importantes (cualquier persona del grupo)
           </label>
           <input 
             type="text" 
             id="allergies" 
             name="allergies" 
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
-            placeholder="Especifica alergias graves"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-gold"
+            placeholder="Especifica alergias graves que debemos conocer"
           />
         </div>
       </div>
     </div>
 
+    <!-- Bus Lanzadera -->
+    <div id="transport-section" class="bg-white border border-gray-200 rounded-lg p-6 hidden">
+      <div class="flex items-center mb-6">
+        <div class="w-10 h-10 bg-gold rounded-full flex items-center justify-center mr-4">
+          <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/>
+            <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3z"/>
+          </svg>
+        </div>
+        <h3 class="font-serif text-xl text-gray-800">Transporte</h3>
+      </div>
+      
+      <div class="space-y-4">
+        <label class="flex items-center space-x-4 cursor-pointer p-4 border border-gray-200 rounded-lg hover:bg-warm-beige transition-colors">
+          <input 
+            type="checkbox" 
+            id="shuttle_bus" 
+            name="shuttle_bus" 
+            class="w-5 h-5 text-gold focus:ring-gold rounded"
+          />
+          <div>
+            <span class="font-medium text-gray-800 block">Necesito bus lanzadera</span>
+            <span class="text-sm text-gray-600">Servicio de transporte al evento (más detalles próximamente)</span>
+          </div>
+        </label>
+      </div>
+    </div>
+
     <!-- Comentarios adicionales -->
-    <div id="notes-section" class="bg-blue-50 rounded-xl p-6 hidden">
-      <h3 class="text-xl font-bold text-gray-800 mb-4">💬 Comentarios</h3>
+    <div id="notes-section" class="bg-white border border-gray-200 rounded-lg p-6 hidden">
+      <div class="flex items-center mb-6">
+        <div class="w-10 h-10 bg-gold rounded-full flex items-center justify-center mr-4">
+          <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M18 13V5a2 2 0 00-2-2H4a2 2 0 00-2 2v8a2 2 0 002 2h3l3 3 3-3h3a2 2 0 002-2zM5 7a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1zm1 3a1 1 0 100 2h3a1 1 0 100-2H6z" clip-rule="evenodd"/>
+          </svg>
+        </div>
+        <h3 class="font-serif text-xl text-gray-800">Comentarios</h3>
+      </div>
       
       <div>
         <label for="notes" class="block text-sm font-medium text-gray-700 mb-2">
-          ¿Algo más que quieras decirnos?
+          ¿Algo más que quieras contarnos?
         </label>
         <textarea 
           id="notes" 
           name="notes" 
           rows="4" 
-          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-          placeholder="Felicitaciones, sugerencias, necesidades especiales..."
+          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-gold"
+          placeholder="¡Cuéntanos lo que quieras! Felicitaciones, sugerencias, necesidades especiales..."
         ></textarea>
       </div>
     </div>
 
     <!-- Botones de acción -->
-    <div class="flex space-x-4">
+    <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
       <button 
         type="submit" 
         id="submit-btn"
-        class="flex-1 bg-gradient-to-r from-rose-500 to-pink-500 text-white py-3 px-6 rounded-lg font-semibold hover:from-rose-600 hover:to-pink-600 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+        class="flex-1 bg-gold text-white py-4 px-8 rounded-lg font-medium hover:bg-yellow-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        💕 Confirmar RSVP
+        Confirmar Asistencia
       </button>
       
       <button 
         type="button" 
         id="logout-btn"
-        class="bg-gray-500 text-white py-3 px-6 rounded-lg font-medium hover:bg-gray-600 transition-colors"
+        class="bg-gray-800 text-white py-4 px-8 rounded-lg font-medium hover:bg-gray-700 transition-colors"
       >
         Cerrar Sesión
       </button>
@@ -203,15 +427,19 @@
   </form>
 
   <!-- Mensaje de éxito -->
-  <div id="success-message" class="hidden text-center py-8">
-    <div class="text-6xl mb-4">🎉</div>
-    <h3 class="text-2xl font-bold text-green-600 mb-2">¡RSVP Confirmado!</h3>
-    <p class="text-gray-600 mb-4">Gracias por confirmar tu asistencia. ¡Nos vemos pronto!</p>
+  <div id="success-message" class="hidden text-center py-12">
+    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+      <svg class="w-8 h-8 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+      </svg>
+    </div>
+    <h3 class="font-serif text-2xl text-gray-800 mb-4">¡Genial, ya lo tenemos!</h3>
+    <p class="text-gray-600 mb-8 max-w-md mx-auto">Gracias por confirmar. ¡Ya tenemos ganas de verte en la fiesta!</p>
     <button 
       id="edit-rsvp-btn"
-      class="bg-rose-500 text-white px-6 py-2 rounded-lg hover:bg-rose-600 transition-colors"
+      class="bg-gold text-white px-8 py-3 rounded-lg font-medium hover:bg-yellow-600 transition-colors"
     >
-      Editar mi respuesta
+      Editar mi Confirmación
     </button>
   </div>
 </div>
@@ -291,7 +519,7 @@
   }
 
   function toggleSections(attending: boolean) {
-    const sections = ['plus-one-section', 'dietary-section', 'notes-section'];
+    const sections = ['plus-one-section', 'dietary-section', 'transport-section', 'notes-section'];
     sections.forEach(sectionId => {
       const section = document.getElementById(sectionId);
       if (attending) {
@@ -311,12 +539,34 @@
     }
     
     if (target.id === 'plus_one') {
-      const nameField = document.getElementById('plus-one-name-field');
+      const detailsField = document.getElementById('plus-one-details');
+      const menuField = document.getElementById('plus-one-menu');
       if (target.checked) {
-        nameField?.classList.remove('hidden');
+        detailsField?.classList.remove('hidden');
+        menuField?.classList.remove('hidden');
       } else {
-        nameField?.classList.add('hidden');
+        detailsField?.classList.add('hidden');
+        menuField?.classList.add('hidden');
         (document.getElementById('plus_one_name') as HTMLInputElement).value = '';
+        (document.getElementById('plus_one_gender') as HTMLSelectElement).value = '';
+        (document.getElementById('plus_one_menu_choice') as HTMLSelectElement).value = '';
+        (document.getElementById('plus_one_dietary_restrictions') as HTMLTextAreaElement).value = '';
+      }
+    }
+    
+    if (target.id === 'children') {
+      const childrenDetails = document.getElementById('children-details');
+      const childrenMenu = document.getElementById('children-menu');
+      if (target.checked) {
+        childrenDetails?.classList.remove('hidden');
+        childrenMenu?.classList.remove('hidden');
+      } else {
+        childrenDetails?.classList.add('hidden');
+        childrenMenu?.classList.add('hidden');
+        (document.getElementById('children_count') as HTMLSelectElement).value = '';
+        (document.getElementById('children_names') as HTMLTextAreaElement).value = '';
+        (document.getElementById('children_menu_choice') as HTMLSelectElement).value = '';
+        (document.getElementById('children_dietary_restrictions') as HTMLTextAreaElement).value = '';
       }
     }
   });
@@ -358,7 +608,7 @@
       alert('Error al guardar. Por favor, inténtalo de nuevo.');
     } finally {
       submitBtn.disabled = false;
-      submitBtn.textContent = '💕 Confirmar RSVP';
+      submitBtn.textContent = 'Confirmar Asistencia';
     }
   });
 

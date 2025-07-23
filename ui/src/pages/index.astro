@@ -1,27 +1,35 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
-import EventDetails from '../components/EventDetails.astro';
 import Countdown from '../components/Countdown.astro';
-import Location from '../components/Location.astro';
+import OurStory from '../components/OurStory.astro';
+import EventDetails from '../components/EventDetails.astro';
+import TravelAccommodation from '../components/TravelAccommodation.astro';
 import RSVPSection from '../components/RSVPSection.astro';
+import Footer from '../components/Footer.astro';
 ---
 
-<BaseLayout title="Nuestra Boda - Información del Evento">
-  <main>
-    <!-- Hero Section con foto de los novios -->
+<BaseLayout title="María & Juan - 15 de Junio, 2024 | Sevilla">
+  <main id="inicio">
+    <!-- Hero Section con imagen de ceremonia -->
     <Hero />
     
-    <!-- Cuenta atrás -->
+    <!-- Cuenta atrás elegante -->
     <Countdown />
+    
+    <!-- Nuestra Historia -->
+    <OurStory />
     
     <!-- Detalles del evento -->
     <EventDetails />
     
-    <!-- Ubicación y puntos de interés -->
-    <Location />
+    <!-- Viaje y Alojamiento -->
+    <TravelAccommodation />
     
     <!-- Sección RSVP -->
     <RSVPSection />
   </main>
+  
+  <!-- Footer -->
+  <Footer />
 </BaseLayout>

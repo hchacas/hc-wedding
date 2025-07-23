@@ -14,20 +14,49 @@ const { title, description = "Invitación de boda interactiva" } = Astro.props;
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <title>{title}</title>
   </head>
-  <body class="min-h-screen bg-gradient-to-br from-rose-50 to-pink-100">
+  <body class="min-h-screen bg-white">
     <slot />
   </body>
 </html>
 
 <style is:global>
   html {
-    font-family: system-ui, sans-serif;
+    font-family: 'Inter', system-ui, sans-serif;
+    scroll-behavior: smooth;
   }
   
   body {
     margin: 0;
     padding: 0;
+    line-height: 1.6;
+  }
+
+  .font-serif {
+    font-family: 'Playfair Display', serif;
+  }
+
+  .text-gold {
+    color: #d4af37;
+  }
+
+  .bg-gold {
+    background-color: #d4af37;
+  }
+
+  .border-gold {
+    border-color: #d4af37;
+  }
+
+  .text-warm-gray {
+    color: #8b7355;
+  }
+
+  .bg-warm-beige {
+    background-color: #f7f3f0;
   }
 </style>

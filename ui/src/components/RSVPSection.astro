@@ -2,144 +2,125 @@
 // Sección RSVP en la página principal
 ---
 
-<section class="py-16 bg-gradient-to-r from-rose-500 to-pink-500">
-  <div class="container mx-auto px-4 text-center">
-    <div class="max-w-3xl mx-auto">
-      <!-- Título principal -->
-      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
-        💕 ¿Podrás Acompañarnos?
-      </h2>
-      
-      <p class="text-xl text-rose-100 mb-8">
-        Tu presencia haría nuestro día aún más especial. 
-        Por favor, confirma tu asistencia antes del <strong>1 de Mayo</strong>.
+<section class="py-20 bg-gray-800" id="rsvp">
+  <div class="container mx-auto px-4 text-center max-w-4xl">
+    <div class="mb-16">
+      <h2 class="font-serif text-4xl md:text-5xl text-white mb-6">RSVP</h2>
+      <div class="w-24 h-0.5 bg-gold mx-auto mb-8"></div>
+      <p class="text-xl text-gray-300 leading-relaxed">
+        ¡Necesitamos saber si vienes! Confirma antes del <strong class="text-gold">1 de Junio de 2026</strong>
       </p>
+    </div>
 
-      <!-- Estadísticas (placeholder) -->
-      <div class="grid grid-cols-3 gap-4 mb-8 max-w-md mx-auto">
-        <div class="bg-white/20 backdrop-blur-sm rounded-lg p-4">
-          <div class="text-2xl font-bold text-white">85</div>
-          <div class="text-sm text-rose-100">Invitados</div>
-        </div>
-        <div class="bg-white/20 backdrop-blur-sm rounded-lg p-4">
-          <div class="text-2xl font-bold text-white">42</div>
-          <div class="text-sm text-rose-100">Confirmados</div>
-        </div>
-        <div class="bg-white/20 backdrop-blur-sm rounded-lg p-4">
-          <div class="text-2xl font-bold text-white">43</div>
-          <div class="text-sm text-rose-100">Pendientes</div>
-        </div>
-      </div>
-
-      <!-- Botones de acción -->
-      <div class="space-y-4">
+    <!-- Botones principales -->
+    <div class="mb-16 space-y-4">
+      <div>
         <a 
           href="/rsvp/login" 
-          class="inline-block bg-white text-rose-600 px-8 py-4 rounded-full text-lg font-bold hover:bg-rose-50 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+          class="inline-block bg-gold text-white px-12 py-4 text-lg font-medium hover:bg-yellow-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
         >
-          ✨ Confirmar mi Asistencia
+          Confirmar Asistencia
         </a>
-        
-        <div class="text-rose-100">
-          <p class="mb-2">¿Ya tienes una invitación personalizada?</p>
-          <div class="flex justify-center">
-            <div class="bg-white/10 backdrop-blur-sm rounded-lg p-4 max-w-md">
-              <input 
-                type="text" 
-                id="invitation-token" 
-                placeholder="Ingresa tu código de invitación"
-                class="w-full px-4 py-2 rounded-lg text-gray-800 placeholder-gray-500 mb-3"
-              />
-              <button 
-                id="check-invitation"
-                class="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition-colors"
-              >
-                Ver mi Invitación Personal
-              </button>
-            </div>
-          </div>
-        </div>
       </div>
-
-      <!-- Información adicional -->
-      <div class="mt-12 bg-white/10 backdrop-blur-sm rounded-2xl p-6">
-        <h3 class="text-xl font-bold text-white mb-4">
-          📋 Información Importante sobre el RSVP
-        </h3>
-        
-        <div class="grid md:grid-cols-2 gap-4 text-left text-rose-100">
-          <div>
-            <h4 class="font-semibold mb-2">🗓️ Fecha límite</h4>
-            <p class="text-sm">
-              Por favor, confirma tu asistencia antes del <strong>1 de Mayo de 2024</strong> 
-              para poder organizar todo correctamente.
-            </p>
-          </div>
-          
-          <div>
-            <h4 class="font-semibold mb-2">👥 Acompañantes</h4>
-            <p class="text-sm">
-              Si vienes acompañado/a, por favor indícalo en el formulario 
-              junto con el nombre de tu acompañante.
-            </p>
-          </div>
-          
-          <div>
-            <h4 class="font-semibold mb-2">🍽️ Menú</h4>
-            <p class="text-sm">
-              Podrás elegir entre diferentes opciones de menú y 
-              especificar alergias o restricciones alimentarias.
-            </p>
-          </div>
-          
-          <div>
-            <h4 class="font-semibold mb-2">✏️ Modificaciones</h4>
-            <p class="text-sm">
-              Puedes modificar tu respuesta en cualquier momento 
-              hasta la fecha límite iniciando sesión nuevamente.
-            </p>
-          </div>
-        </div>
+      
+      <div>
+        <button 
+          id="download-summary-main"
+          class="bg-gray-800 text-white px-8 py-3 text-base font-medium hover:bg-gray-700 transition-colors shadow-sm"
+        >
+          Descargar Resumen del Evento
+        </button>
       </div>
+    </div>
 
-      <!-- Contacto para dudas -->
-      <div class="mt-8 text-rose-100">
-        <p class="text-sm">
-          ¿Tienes alguna duda? Contáctanos: 
-          <a href="mailto:maria.juan.boda@email.com" class="underline hover:text-white">
-            maria.juan.boda@email.com
+    <!-- Sección de preguntas -->
+    <div class="bg-gray-900 rounded-lg p-8">
+      <h3 class="font-serif text-2xl text-white mb-8">¿Dudas? ¡Pregúntanos!</h3>
+      <div class="space-y-4 text-gray-300">
+        <p>Para cualquier cosa que necesites, ¡escríbenos!</p>
+        <div class="flex flex-col md:flex-row justify-center items-center space-y-2 md:space-y-0 md:space-x-8">
+          <a href="mailto:sheila.habib.boda@email.com" class="text-gold hover:text-yellow-400 transition-colors">
+            sheila.habib.boda@email.com
           </a>
-        </p>
+          <span class="hidden md:inline text-gray-500">|</span>
+          <span>Sheila: 600 123 456 | Habib: 600 654 321</span>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <script>
-  document.getElementById('check-invitation')?.addEventListener('click', () => {
-    const tokenInput = document.getElementById('invitation-token') as HTMLInputElement;
-    const token = tokenInput.value.trim();
-    
-    if (!token) {
-      alert('Por favor, ingresa tu código de invitación');
-      return;
-    }
-    
-    // Validar formato UUID (básico)
-    const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-    if (!uuidRegex.test(token)) {
-      alert('El código de invitación no tiene un formato válido');
-      return;
-    }
-    
-    // Redirigir a la invitación personalizada
-    window.location.href = `/invitacion/${token}`;
-  });
+  // Botón de descarga de resumen
+  document.getElementById('download-summary-main')?.addEventListener('click', () => {
+    // Generar contenido del resumen
+    const summaryContent = `
+BODA SHEILA & HABIB
+===================
 
-  // Permitir envío con Enter
-  document.getElementById('invitation-token')?.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-      document.getElementById('check-invitation')?.click();
-    }
+Hola! Aquí tienes toda la info de nuestra boda:
+
+FECHA: 4 de Julio, 2026
+LUGAR: Los Jardines Palacio de La Dehesa (Zona Lago)
+       Lucena, Córdoba
+WEB: www.palaciodeladehesa.com
+
+HORARIOS:
+- 19:00h - Ceremonia Civil
+- 20:30h - Cóctel 
+- 23:00h - Cena
+- 00:00h - Fiesta hasta que den las energías!
+
+MÚSICA: DJ MAI (va a ser increíble!)
+
+DIRECCIÓN COMPLETA:
+Ctra. Pilar de la Dehesa S/N
+14900 Lucena (Córdoba)
+
+HOTEL RECOMENDADO:
+Hotel Los Bronces
+Ctra. Córdoba-Málaga, km 74
+14900 Lucena (Córdoba)
+Email: reservas@hotellosbronces.com
+Precio estimado: 50€ habitación doble
+
+BUS LANZADERA: Tendremos! (dinos en el RSVP si lo necesitas)
+
+CÓDIGO DE VESTIMENTA: Ven como quieras!
+Temática formal, aunque Sheila seguro que acaba en chándal
+
+CÓMO LLEGAR A LUCENA:
+- En coche: Acceso directo
+- Tren: Hasta Córdoba, luego bus/taxi/VTC a Lucena
+- Avión: Málaga, luego bus/taxi/VTC a Lucena
+- Autobús: Hasta Córdoba, luego bus/taxi/VTC a Lucena
+
+SITIOS DE INTERÉS PARA VISITAR:
+- Priego de Córdoba (nuestro actual lugar de residencia)
+- Carcabuey (pueblo de parte de la familia de la novia)
+- Zuheros (uno de los pueblos más bonitos de España)
+- Lucena (ciudad anfitriona con rica historia)
+
+CONTACTO (para lo que necesites):
+Sheila: 600 123 456
+Habib: 600 654 321
+Email: sheila.habib.boda@email.com
+
+CONFIRMA ANTES DEL 1 DE JUNIO 2026!
+Necesitamos saber si vienes para organizarlo todo
+
+Nos vemos en la fiesta!
+    `;
+
+    // Crear y descargar archivo
+    const blob = new Blob([summaryContent], { type: 'text/plain;charset=utf-8' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'Resumen_Boda_Sheila_Habib_2026.txt';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
   });
 </script>

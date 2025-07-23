@@ -2,43 +2,40 @@
 // Componente de cuenta atrás hasta la boda
 ---
 
-<section class="py-16 bg-white">
-  <div class="container mx-auto px-4 text-center">
-    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-8">
-      ⏰ Faltan...
-    </h2>
+<section class="py-20 bg-warm-beige" id="countdown-section">
+  <div class="container mx-auto px-4 text-center max-w-5xl">
+    <div class="mb-12">
+      <h2 class="font-serif text-3xl md:text-4xl text-gray-800 mb-4">Faltan</h2>
+      <div class="w-16 h-0.5 bg-gold mx-auto"></div>
+    </div>
     
-    <div id="countdown" class="flex justify-center space-x-4 md:space-x-8 mb-8">
-      <div class="bg-gradient-to-br from-rose-500 to-pink-500 text-white rounded-2xl p-4 md:p-6 shadow-lg">
-        <div id="days" class="text-3xl md:text-5xl font-bold">--</div>
-        <div class="text-sm md:text-base font-medium">Días</div>
+    <div id="countdown" class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+      <div class="bg-white rounded-lg p-8 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+        <div id="days" class="text-5xl md:text-6xl font-serif text-gold font-light mb-3">--</div>
+        <div class="text-sm font-medium text-warm-gray uppercase tracking-wider">Días</div>
       </div>
       
-      <div class="bg-gradient-to-br from-pink-500 to-purple-500 text-white rounded-2xl p-4 md:p-6 shadow-lg">
-        <div id="hours" class="text-3xl md:text-5xl font-bold">--</div>
-        <div class="text-sm md:text-base font-medium">Horas</div>
+      <div class="bg-white rounded-lg p-8 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+        <div id="hours" class="text-5xl md:text-6xl font-serif text-gold font-light mb-3">--</div>
+        <div class="text-sm font-medium text-warm-gray uppercase tracking-wider">Horas</div>
       </div>
       
-      <div class="bg-gradient-to-br from-purple-500 to-indigo-500 text-white rounded-2xl p-4 md:p-6 shadow-lg">
-        <div id="minutes" class="text-3xl md:text-5xl font-bold">--</div>
-        <div class="text-sm md:text-base font-medium">Minutos</div>
+      <div class="bg-white rounded-lg p-8 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+        <div id="minutes" class="text-5xl md:text-6xl font-serif text-gold font-light mb-3">--</div>
+        <div class="text-sm font-medium text-warm-gray uppercase tracking-wider">Minutos</div>
       </div>
       
-      <div class="bg-gradient-to-br from-indigo-500 to-blue-500 text-white rounded-2xl p-4 md:p-6 shadow-lg">
-        <div id="seconds" class="text-3xl md:text-5xl font-bold">--</div>
-        <div class="text-sm md:text-base font-medium">Segundos</div>
+      <div class="bg-white rounded-lg p-8 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+        <div id="seconds" class="text-5xl md:text-6xl font-serif text-gold font-light mb-3">--</div>
+        <div class="text-sm font-medium text-warm-gray uppercase tracking-wider">Segundos</div>
       </div>
     </div>
-
-    <p class="text-lg text-gray-600">
-      ¡Cada segundo cuenta para nuestro gran día! 💕
-    </p>
   </div>
 </section>
 
 <script>
-  // Fecha de la boda (15 de Junio, 2024 a las 17:00)
-  const weddingDate = new Date('2024-06-15T17:00:00').getTime();
+  // Fecha de la boda (4 de Julio, 2026 a las 17:00)
+  const weddingDate = new Date('2026-07-04T17:00:00').getTime();
 
   function updateCountdown() {
     const now = new Date().getTime();
@@ -47,8 +44,8 @@
     if (distance < 0) {
       // La boda ya pasó
       document.getElementById('countdown')!.innerHTML = `
-        <div class="text-4xl font-bold text-rose-600">
-          ¡Ya nos casamos! 🎉💕
+        <div class="col-span-4 text-4xl font-serif text-gold">
+          ¡Ya nos casamos!
         </div>
       `;
       return;
@@ -59,10 +56,15 @@
     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-    document.getElementById('days')!.textContent = days.toString().padStart(2, '0');
-    document.getElementById('hours')!.textContent = hours.toString().padStart(2, '0');
-    document.getElementById('minutes')!.textContent = minutes.toString().padStart(2, '0');
-    document.getElementById('seconds')!.textContent = seconds.toString().padStart(2, '0');
+    const daysEl = document.getElementById('days');
+    const hoursEl = document.getElementById('hours');
+    const minutesEl = document.getElementById('minutes');
+    const secondsEl = document.getElementById('seconds');
+
+    if (daysEl) daysEl.textContent = days.toString();
+    if (hoursEl) hoursEl.textContent = hours.toString().padStart(2, '0');
+    if (minutesEl) minutesEl.textContent = minutes.toString().padStart(2, '0');
+    if (secondsEl) secondsEl.textContent = seconds.toString().padStart(2, '0');
   }
 
   // Actualizar cada segundo

@@ -18,8 +18,15 @@ const PORT = process.env.PORT || 3001;
 
 // Middleware básico
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:4321',
-  credentials: true
+  origin: [
+    process.env.FRONTEND_URL || 'http://localhost',
+    'http://localhost:4321',
+    'http://localhost:80',
+    'http://localhost'
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Cookie']
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -30,8 +37,10 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    secure: process.env.NODE_ENV === 'production',
-    maxAge: 24 * 60 * 60 * 1000 // 24 horas
+    secure: false, // Deshabilitado para desarrollo local
+    httpOnly: true,
+    maxAge: 24 * 60 * 60 * 1000, // 24 horas
+    sameSite: 'lax'
   }
 }));
 
@@ -49,6 +58,30 @@ app.use('/api/rsvp', rsvpRoutes);
 // Ruta de salud
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
+// Debug endpoints (temporal)
+app.get('/debug/oauth', (req, res) => {
+  res.json({
+    hasClientId: !!process.env.GOOGLE_CLIENT_ID,
+    hasClientSecret: !!process.env.GOOGLE_CLIENT_SECRET,
+    clientIdPrefix: process.env.GOOGLE_CLIENT_ID?.substring(0, 10) + '...',
+    secretPrefix: process.env.GOOGLE_CLIENT_SECRET?.substring(0, 10) + '...'
+  });
+});
+
+app.get('/debug/session', (req, res) => {
+  res.json({
+    isAuthenticated: req.isAuthenticated(),
+    sessionID: req.sessionID,
+    user: req.user ? {
+      id: req.user.id,
+      name: req.user.name,
+      email: req.user.email
+    } : null,
+    cookies: req.headers.cookie,
+    session: req.session
+  });
 });
 
 // Inicializar base de datos y servidor

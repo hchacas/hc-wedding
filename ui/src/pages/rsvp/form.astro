@@ -17,16 +17,17 @@ try {
 }
 ---
 
-<BaseLayout title="Formulario RSVP - Confirma tu Asistencia">
-  <main class="min-h-screen bg-gradient-to-br from-rose-50 to-pink-100 py-8">
-    <div class="container mx-auto px-4 max-w-2xl">
-      <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+<BaseLayout title="Confirmar Asistencia - Sheila & Habib">
+  <main class="min-h-screen bg-warm-beige py-12">
+    <div class="container mx-auto px-4 max-w-3xl">
+      <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
         <!-- Header -->
-        <div class="bg-gradient-to-r from-rose-500 to-pink-500 text-white p-8 text-center">
-          <div class="text-4xl mb-4">💕</div>
-          <h1 class="text-3xl font-bold mb-2">Confirma tu Asistencia</h1>
-          <p class="text-rose-100">
-            Nos encantaría saber si podrás acompañarnos en este día tan especial
+        <div class="bg-gold text-white p-8 text-center">
+          <h1 class="font-serif text-4xl mb-4">Sheila & Habib</h1>
+          <div class="w-16 h-0.5 bg-white mx-auto mb-4"></div>
+          <p class="text-xl mb-2">4 de Julio, 2026</p>
+          <p class="text-gold-100">
+            ¡Cuéntanos si vienes a la fiesta!
           </p>
         </div>
 
@@ -40,9 +41,9 @@ try {
       <div class="mt-8 text-center">
         <button
           id="download-summary"
-          class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-3 rounded-lg font-medium hover:from-purple-600 hover:to-pink-600 transition-all duration-200 shadow-lg"
+          class="bg-gray-800 text-white px-8 py-3 rounded-lg font-medium hover:bg-gray-700 transition-colors shadow-sm"
         >
-          📄 Descargar Resumen del Evento
+          Descargar Resumen del Evento
         </button>
       </div>
     </div>
@@ -75,7 +76,74 @@ try {
 
   // Manejar descarga de resumen
   document.getElementById('download-summary')?.addEventListener('click', () => {
-    // Por ahora, mostrar un mensaje
-    alert('Función de descarga en desarrollo. Próximamente disponible!');
+    // Generar contenido del resumen
+    const summaryContent = `
+BODA SHEILA & HABIB
+===================
+
+Hola! Aquí tienes toda la info de nuestra boda:
+
+FECHA: 4 de Julio, 2026
+LUGAR: Los Jardines Palacio de La Dehesa (Zona Lago)
+       Lucena, Córdoba
+WEB: www.palaciodeladehesa.com
+
+HORARIOS:
+- 19:00h - Ceremonia Civil
+- 20:30h - Cóctel 
+- 23:00h - Cena
+- 00:00h - Fiesta hasta que den las energías!
+
+MÚSICA: DJ MAI (va a ser increíble!)
+
+DIRECCIÓN COMPLETA:
+Ctra. Pilar de la Dehesa S/N
+14900 Lucena (Córdoba)
+
+HOTEL RECOMENDADO:
+Hotel Los Bronces
+Ctra. Córdoba-Málaga, km 74
+14900 Lucena (Córdoba)
+Email: reservas@hotellosbronces.com
+Precio estimado: 50€ habitación doble
+
+BUS LANZADERA: Tendremos! (dinos en el RSVP si lo necesitas)
+
+CÓDIGO DE VESTIMENTA: Ven como quieras!
+Temática formal, aunque Sheila seguro que acaba en chándal
+
+CÓMO LLEGAR A LUCENA:
+- En coche: Acceso directo
+- Tren: Hasta Córdoba, luego bus/taxi/VTC a Lucena
+- Avión: Málaga, luego bus/taxi/VTC a Lucena
+- Autobús: Hasta Córdoba, luego bus/taxi/VTC a Lucena
+
+SITIOS DE INTERÉS PARA VISITAR:
+- Priego de Córdoba (nuestro actual lugar de residencia)
+- Carcabuey (pueblo de parte de la familia de la novia)
+- Zuheros (uno de los pueblos más bonitos de España)
+- Lucena (ciudad anfitriona con rica historia)
+
+CONTACTO (para lo que necesites):
+Sheila: 600 123 456
+Habib: 600 654 321
+Email: sheila.habib.boda@email.com
+
+CONFIRMA ANTES DEL 1 DE JUNIO 2026!
+Necesitamos saber si vienes para organizarlo todo
+
+Nos vemos en la fiesta!
+    `;
+
+    // Crear y descargar archivo
+    const blob = new Blob([summaryContent], { type: 'text/plain;charset=utf-8' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'Resumen_Boda_Sheila_Habib_2026.txt';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
   });
 </script>

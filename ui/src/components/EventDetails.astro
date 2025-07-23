@@ -2,128 +2,125 @@
 // Componente con detalles del evento
 ---
 
-<section class="py-16 bg-gradient-to-br from-purple-50 to-pink-50">
-  <div class="container mx-auto px-4">
-    <div class="text-center mb-12">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-        📋 Detalles del Evento
-      </h2>
-      <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-        Toda la información que necesitas saber sobre nuestro gran día
-      </p>
+<section class="py-20 bg-warm-beige" id="evento">
+  <div class="container mx-auto px-4 max-w-6xl">
+    <div class="text-center mb-16">
+      <h2 class="font-serif text-4xl md:text-5xl text-gray-800 mb-4">Detalles del Evento</h2>
+      <div class="w-24 h-0.5 bg-gold mx-auto"></div>
     </div>
 
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-      <!-- Ceremonia -->
-      <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow">
-        <div class="text-4xl mb-4 text-center">⛪</div>
-        <h3 class="text-xl font-bold text-gray-800 mb-3">Ceremonia Religiosa</h3>
-        <div class="space-y-2 text-gray-600">
-          <p><strong>Hora:</strong> 17:00h</p>
-          <p><strong>Lugar:</strong> Iglesia San José</p>
-          <p><strong>Dirección:</strong> Calle Principal 123</p>
-          <p><strong>Duración:</strong> ~45 minutos</p>
+    <div class="bg-white rounded-lg p-8 shadow-sm border border-gray-100 mb-16">
+      <div class="text-center mb-8">
+        <div class="w-16 h-16 bg-gold rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M3 6a3 3 0 013-3h10a1 1 0 01.8 1.6L14.25 8l2.55 3.4A1 1 0 0116 13H6a1 1 0 00-1 1v3a1 1 0 11-2 0V6z" clip-rule="evenodd"/>
+          </svg>
+        </div>
+        <h3 class="font-serif text-3xl text-gray-800 mb-4">Los Jardines Palacio de La Dehesa</h3>
+        <p class="text-gray-600 mb-4">Zona Lago - Ceremonia Civil, Cóctel, Banquete y Fiesta</p>
+        <a href="https://www.palaciodeladehesa.com/" target="_blank" class="text-gold hover:text-yellow-600 font-medium">
+          www.palaciodeladehesa.com
+        </a>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <!-- Ceremonia Civil -->
+        <div class="text-center p-4 bg-warm-beige rounded-lg">
+          <div class="text-2xl font-serif text-gold mb-2">19:00h</div>
+          <div class="font-medium text-gray-800">Ceremonia Civil</div>
+        </div>
+
+        <!-- Cóctel -->
+        <div class="text-center p-4 bg-warm-beige rounded-lg">
+          <div class="text-2xl font-serif text-gold mb-2">20:30h</div>
+          <div class="font-medium text-gray-800">Cóctel</div>
+        </div>
+
+        <!-- Cena -->
+        <div class="text-center p-4 bg-warm-beige rounded-lg">
+          <div class="text-2xl font-serif text-gold mb-2">23:00h</div>
+          <div class="font-medium text-gray-800">Cena</div>
+        </div>
+
+        <!-- Fiesta -->
+        <div class="text-center p-4 bg-warm-beige rounded-lg">
+          <div class="text-2xl font-serif text-gold mb-2">00:00h</div>
+          <div class="font-medium text-gray-800">Fiesta</div>
         </div>
       </div>
 
-      <!-- Cóctel -->
-      <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow">
-        <div class="text-4xl mb-4 text-center">🥂</div>
-        <h3 class="text-xl font-bold text-gray-800 mb-3">Cóctel de Bienvenida</h3>
-        <div class="space-y-2 text-gray-600">
-          <p><strong>Hora:</strong> 18:00h</p>
-          <p><strong>Lugar:</strong> Jardines del Palacio</p>
-          <p><strong>Duración:</strong> ~1 hora</p>
-          <p><strong>Dress code:</strong> Elegante</p>
-        </div>
+      <div class="text-center">
+        <p class="text-gray-700 mb-2">
+          <strong>Dirección:</strong> Ctra. Pilar de la Dehesa S/N, 14900 Lucena (Córdoba)
+        </p>
+        <p class="text-gray-600">
+          Todo el evento se celebra en el mismo lugar
+        </p>
       </div>
+    </div>
 
-      <!-- Banquete -->
-      <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow">
-        <div class="text-4xl mb-4 text-center">🍽️</div>
-        <h3 class="text-xl font-bold text-gray-800 mb-3">Banquete</h3>
-        <div class="space-y-2 text-gray-600">
-          <p><strong>Hora:</strong> 19:30h</p>
-          <p><strong>Lugar:</strong> Salón Real</p>
-          <p><strong>Menú:</strong> 3 platos + postre</p>
-          <p><strong>Bebidas:</strong> Barra libre</p>
+    <!-- Información sobre DJ -->
+    <div class="bg-white rounded-lg p-8 shadow-sm border border-gray-100 mb-16">
+      <div class="text-center mb-6">
+        <div class="w-16 h-16 bg-gold rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M18 3a1 1 0 00-1 1v3a1 1 0 00.5.866l-1.5 1.5A1 1 0 0015 10h-3a1 1 0 00-1 1v3a1 1 0 001 1h3a1 1 0 001-1v-3a1 1 0 00-.5-.866l1.5-1.5A1 1 0 0018 8V4a1 1 0 00-1-1zM8 5a3 3 0 00-3 3v4a3 3 0 003 3h1a1 1 0 001-1V6a1 1 0 00-1-1H8z"/>
+          </svg>
         </div>
-      </div>
-
-      <!-- Fiesta -->
-      <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow">
-        <div class="text-4xl mb-4 text-center">🎉</div>
-        <h3 class="text-xl font-bold text-gray-800 mb-3">Fiesta y Baile</h3>
-        <div class="space-y-2 text-gray-600">
-          <p><strong>Hora:</strong> 22:30h</p>
-          <p><strong>DJ:</strong> Música variada</p>
-          <p><strong>Hasta:</strong> 04:00h</p>
-          <p><strong>Sorpresas:</strong> ¡Ya verás! 😉</p>
-        </div>
-      </div>
-
-      <!-- Dress Code -->
-      <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow">
-        <div class="text-4xl mb-4 text-center">👗</div>
-        <h3 class="text-xl font-bold text-gray-800 mb-3">Código de Vestimenta</h3>
-        <div class="space-y-2 text-gray-600">
-          <p><strong>Estilo:</strong> Elegante/Formal</p>
-          <p><strong>Hombres:</strong> Traje oscuro</p>
-          <p><strong>Mujeres:</strong> Vestido elegante</p>
-          <p><strong>Evitar:</strong> Blanco y negro total</p>
-        </div>
-      </div>
-
-      <!-- Regalos -->
-      <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow">
-        <div class="text-4xl mb-4 text-center">🎁</div>
-        <h3 class="text-xl font-bold text-gray-800 mb-3">Lista de Regalos</h3>
-        <div class="space-y-2 text-gray-600">
-          <p><strong>Preferencia:</strong> Sobre con dinero</p>
-          <p><strong>También:</strong> Lista en El Corte Inglés</p>
-          <p><strong>Código:</strong> #MariaJuan2024</p>
-          <p><strong>Nota:</strong> Tu presencia es el mejor regalo</p>
-        </div>
+        <h3 class="font-serif text-2xl text-gray-800 mb-4">Fiesta Asegurada</h3>
+        <p class="text-gray-700 mb-4">
+          La música estará a cargo de <strong>DJ MAI</strong>, que nos va a poner a todos a bailar 
+          hasta que no podamos más. Preparad las piernas porque va a ser increíble!
+        </p>
+        <p class="text-gray-600 text-sm">
+          Síguelo en Instagram para hacerte una idea de lo que nos espera
+        </p>
       </div>
     </div>
 
     <!-- Información adicional -->
-    <div class="mt-12 bg-white rounded-2xl p-8 shadow-lg max-w-4xl mx-auto">
-      <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">
-        ℹ️ Información Importante
-      </h3>
+    <div class="bg-white rounded-lg p-8 shadow-sm border border-gray-100">
+      <h3 class="font-serif text-2xl text-gray-800 mb-8 text-center">Información Adicional</h3>
       
-      <div class="grid md:grid-cols-2 gap-6">
-        <div>
-          <h4 class="font-bold text-gray-800 mb-2">🚗 Aparcamiento</h4>
-          <p class="text-gray-600 text-sm">
-            Disponible aparcamiento gratuito en el recinto. 
-            También hay parking público a 200m.
-          </p>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="text-center">
+          <div class="w-12 h-12 bg-gold rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+            </svg>
+          </div>
+          <h4 class="font-medium text-gray-800 mb-3">¿Qué me pongo?</h4>
+          <div class="space-y-2">
+            <p class="text-gray-600 text-sm">¡Ven como quieras!</p>
+            <p class="text-gray-600 text-sm">Temática formal, aunque Sheila seguro que acaba en chándal</p>
+          </div>
         </div>
         
-        <div>
-          <h4 class="font-bold text-gray-800 mb-2">🏨 Alojamiento</h4>
-          <p class="text-gray-600 text-sm">
-            Hotel recomendado: Hotel Plaza (descuento del 15% 
-            mencionando "Boda María & Juan").
-          </p>
+        <div class="text-center">
+          <div class="w-12 h-12 bg-gold rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/>
+              <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3z"/>
+            </svg>
+          </div>
+          <h4 class="font-medium text-gray-800 mb-3">Aparcamiento</h4>
+          <div class="space-y-2">
+            <p class="text-gray-600 text-sm">Disponible en el recinto</p>
+            <p class="text-gray-600 text-sm">¡No te preocupes por aparcar!</p>
+          </div>
         </div>
         
-        <div>
-          <h4 class="font-bold text-gray-800 mb-2">👶 Niños</h4>
-          <p class="text-gray-600 text-sm">
-            Los niños son bienvenidos. Habrá menú infantil 
-            y zona de juegos disponible.
-          </p>
-        </div>
-        
-        <div>
-          <h4 class="font-bold text-gray-800 mb-2">📱 Contacto</h4>
-          <p class="text-gray-600 text-sm">
-            Para dudas: María (600 123 456) o 
-            Juan (600 654 321)
-          </p>
+        <div class="text-center">
+          <div class="w-12 h-12 bg-gold rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+            </svg>
+          </div>
+          <h4 class="font-medium text-gray-800 mb-3">Contacto</h4>
+          <div class="space-y-2">
+            <p class="text-gray-600 text-sm">Sheila: 600 123 456</p>
+            <p class="text-gray-600 text-sm">Habib: 600 654 321</p>
+          </div>
         </div>
       </div>
     </div>

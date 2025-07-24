@@ -43,13 +43,25 @@ cp .env.production .env
 nano .env
 ```
 
-### 2. Configurar OAuth
-1. Ir a [Google Cloud Console](https://console.cloud.google.com/)
-2. Crear proyecto y habilitar Google+ API
-3. Crear credenciales OAuth 2.0
-4. Agregar URIs de redirección:
-   - `http://localhost:3001/auth/google/callback` (desarrollo)
-   - `https://tu-dominio.com/auth/google/callback` (producción)
+### 2. Configurar OAuth (IMPORTANTE)
+⚠️ **NUNCA commitees credenciales reales a Git**
+
+1. Copiar plantilla de configuración:
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Configurar credenciales OAuth:
+   - Ver guía detallada: [`OAUTH_SETUP.md`](OAUTH_SETUP.md)
+   - Ir a [Google Cloud Console](https://console.cloud.google.com/)
+   - Crear proyecto y habilitar Google Identity API
+   - Crear credenciales OAuth 2.0
+   - Completar `.env` con tus credenciales reales
+
+3. Generar SESSION_SECRET seguro:
+   ```bash
+   node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
+   ```
 
 ### 3. Desplegar
 ```bash
@@ -241,18 +253,51 @@ docker-compose exec ui sh
 
 ## 🔒 Seguridad
 
+⚠️ **IMPORTANTE**: Lee [`SECURITY.md`](SECURITY.md) antes de desplegar en producción.
+
+### 🚨 Reglas Críticas de Seguridad
+
+1. **NUNCA commitees credenciales reales**:
+   ```bash
+   # ❌ MAL - No hagas esto
+   GOOGLE_CLIENT_SECRET=GOCSPX-tu-secreto-real
+   
+   # ✅ BIEN - Usa placeholders
+   GOOGLE_CLIENT_SECRET=your-google-client-secret
+   ```
+
+2. **Usa diferentes credenciales para desarrollo y producción**
+
+3. **Genera SESSION_SECRET seguro**:
+   ```bash
+   # Mínimo 64 caracteres aleatorios
+   node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
+   ```
+
+### Verificación de Seguridad
+
+```bash
+# Verificar que no hay credenciales expuestas
+./scripts/check-security.sh
+
+# Verificar configuración antes de deploy
+./scripts/pre-deploy-check.sh
+```
+
 ### Configuración de Producción
 - Certificados SSL configurados
 - Headers de seguridad habilitados
 - Rate limiting implementado
-- Cookies seguras habilitadas
+- Cookies seguras habilitadas (`SECURE_COOKIES=true`)
 - CORS configurado correctamente
 
 ### Variables de Entorno Críticas
 ```bash
-SESSION_SECRET=          # Clave secreta fuerte (32+ caracteres)
+SESSION_SECRET=          # Clave secreta fuerte (64+ caracteres)
 GOOGLE_CLIENT_ID=        # ID de cliente OAuth
-GOOGLE_CLIENT_SECRET=    # Secreto de cliente OAuth
+GOOGLE_CLIENT_SECRET=    # Secreto de cliente OAuth (MUY SENSIBLE)
+NODE_ENV=production      # Habilita modo producción
+SECURE_COOKIES=true      # Cookies seguras en HTTPS
 ```
 
 ## 📈 Escalabilidad

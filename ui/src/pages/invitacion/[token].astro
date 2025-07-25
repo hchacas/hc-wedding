@@ -1,58 +1,147 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import PersonalInvitation from '../../components/PersonalInvitation.astro';
+export const prerender = false;
 
-export async function getStaticPaths() {
-  // En desarrollo, retornamos paths vacíos
-  // En producción, esto se generaría dinámicamente
-  return [];
-}
+import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const { token } = Astro.params;
-
-// Obtener datos de la invitación desde la API
-let invitation = null;
-let error = null;
-
-try {
-  const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
-  const response = await fetch(`${apiUrl}/api/invitacion/${token}`);
-  
-  if (response.ok) {
-    const data = await response.json();
-    invitation = data.invitation;
-  } else {
-    error = 'Invitación no encontrada';
-  }
-} catch (e) {
-  error = 'Error al cargar la invitación';
-  console.error('Error fetching invitation:', e);
-}
 ---
 
-<BaseLayout title={invitation ? `Invitación para ${invitation.guest_name}` : "Invitación"}>
+<BaseLayout title="Invitación - Sheila & Habib">
   <main class="min-h-screen flex items-center justify-center p-4">
-    {error ? (
-      <div class="text-center">
-        <div class="bg-red-50 border border-red-200 rounded-lg p-8 max-w-md mx-auto">
-          <div class="text-red-600 text-6xl mb-4">💔</div>
-          <h1 class="text-2xl font-bold text-red-800 mb-2">Oops!</h1>
-          <p class="text-red-600 mb-4">{error}</p>
-          <a 
-            href="/" 
-            class="inline-block bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition-colors"
-          >
-            Ir a la página principal
+    <!-- Loading State -->
+    <div id="loading-state" class="text-center">
+      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-rose-600 mx-auto mb-4"></div>
+      <p class="text-gray-600">Cargando invitación...</p>
+    </div>
+
+    <!-- Error State -->
+    <div id="error-state" class="hidden text-center">
+      <div class="bg-red-50 border border-red-200 rounded-lg p-8 max-w-md mx-auto">
+        <div class="text-red-600 text-6xl mb-4">💔</div>
+        <h1 class="text-2xl font-bold text-red-800 mb-2">Oops!</h1>
+        <p id="error-message" class="text-red-600 mb-4">Error al cargar la invitación</p>
+        <a href="/" class="inline-block bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition-colors">
+          Ir a la página principal
+        </a>
+      </div>
+    </div>
+
+    <!-- Invitation Content -->
+    <div id="invitation-content" class="hidden bg-white rounded-3xl shadow-2xl overflow-hidden max-w-2xl mx-auto">
+      <!-- Header decorativo -->
+      <div class="bg-gradient-to-r from-rose-400 via-pink-400 to-purple-400 h-32 relative">
+        <div class="absolute inset-0 bg-black/10"></div>
+        <div class="absolute top-4 left-4 text-white text-2xl">💕</div>
+        <div class="absolute top-4 right-4 text-white text-2xl">🌸</div>
+        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white text-3xl">👰🤵</div>
+      </div>
+
+      <!-- Contenido principal -->
+      <div class="p-8 md:p-12 text-center">
+        <!-- Saludo personalizado -->
+        <div class="mb-8">
+          <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+            ¡Hola, <span id="guest-name" class="text-rose-600">Invitado</span>!
+          </h1>
+          
+          <div class="w-24 h-1 bg-gradient-to-r from-rose-400 to-pink-400 mx-auto mb-6"></div>
+        </div>
+
+        <!-- Mensaje personalizado -->
+        <div class="mb-8">
+          <p id="personal-message" class="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
+            Nos complace invitarte a celebrar nuestro día especial.
+          </p>
+          
+          <div class="bg-rose-50 border-l-4 border-rose-400 p-6 rounded-r-lg">
+            <p class="text-gray-700 italic">
+              "Queremos que seas parte de este momento único en nuestras vidas. 
+              Tu presencia haría nuestro día aún más especial."
+            </p>
+            <p class="text-right text-rose-600 font-semibold mt-2">- Sheila & Habib</p>
+          </div>
+        </div>
+
+        <!-- Detalles del evento -->
+        <div class="bg-gray-50 rounded-2xl p-6 mb-8">
+          <h3 class="text-xl font-bold text-gray-800 mb-4">📅 Detalles del Evento</h3>
+          <div class="grid md:grid-cols-2 gap-4 text-left">
+            <div>
+              <p class="font-semibold text-gray-700">Fecha:</p>
+              <p class="text-gray-600">4 de Julio, 2026</p>
+            </div>
+            <div>
+              <p class="font-semibold text-gray-700">Hora:</p>
+              <p class="text-gray-600">17:00h</p>
+            </div>
+            <div class="md:col-span-2">
+              <p class="font-semibold text-gray-700">Lugar:</p>
+              <p class="text-gray-600">Lugar de la celebración</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Botones de acción -->
+        <div class="space-y-4">
+          <a href="/rsvp/login" class="block w-full bg-gradient-to-r from-rose-500 to-pink-500 text-white py-4 px-8 rounded-full text-lg font-semibold hover:from-rose-600 hover:to-pink-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+            💕 Confirmar mi Asistencia
+          </a>
+          
+          <a href="/" class="block w-full bg-white border-2 border-gray-300 text-gray-700 py-3 px-8 rounded-full font-medium hover:border-gray-400 hover:shadow-md transition-all duration-200">
+            📋 Ver más información del evento
           </a>
         </div>
+
+        <!-- Nota sobre el token -->
+        <div class="mt-8 text-xs text-gray-400">
+          <p>Invitación personalizada • Token: <span id="token-display"></span></p>
+        </div>
       </div>
-    ) : invitation ? (
-      <PersonalInvitation invitation={invitation} />
-    ) : (
-      <div class="text-center">
-        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-rose-600 mx-auto mb-4"></div>
-        <p class="text-gray-600">Cargando invitación...</p>
+
+      <!-- Footer decorativo -->
+      <div class="bg-gradient-to-r from-rose-100 to-pink-100 p-4 text-center">
+        <p class="text-sm text-gray-600">
+          ¡Esperamos verte pronto! 🎉
+        </p>
       </div>
-    )}
+    </div>
   </main>
+
+  <script define:vars={{ token }}>
+    // Cargar datos de la invitación dinámicamente
+    async function loadInvitation() {
+      try {
+        const response = await fetch(`/api/invitacion/${token}`);
+        
+        if (response.ok) {
+          const data = await response.json();
+          
+          if (data.success) {
+            // Actualizar contenido
+            document.getElementById('guest-name').textContent = data.invitation.guest_name;
+            document.getElementById('personal-message').textContent = data.invitation.message || 'Nos complace invitarte a celebrar nuestro día especial.';
+            document.getElementById('token-display').textContent = token.slice(0, 8) + '...';
+            
+            // Mostrar invitación
+            document.getElementById('loading-state').classList.add('hidden');
+            document.getElementById('invitation-content').classList.remove('hidden');
+          } else {
+            throw new Error(data.message || 'Invitación no encontrada');
+          }
+        } else {
+          throw new Error('Invitación no encontrada');
+        }
+      } catch (error) {
+        console.error('Error loading invitation:', error);
+        
+        // Mostrar error
+        document.getElementById('error-message').textContent = error.message;
+        document.getElementById('loading-state').classList.add('hidden');
+        document.getElementById('error-state').classList.remove('hidden');
+      }
+    }
+
+    // Cargar invitación al cargar la página
+    document.addEventListener('DOMContentLoaded', loadInvitation);
+  </script>
 </BaseLayout>

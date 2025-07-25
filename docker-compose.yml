@@ -34,6 +34,8 @@ services:
       dockerfile: Dockerfile
     container_name: wedding-ui
     restart: unless-stopped
+    volumes:
+      - ui-node-modules:/app/node_modules
     ports:
       - "80:80"
     networks:
@@ -71,4 +73,6 @@ networks:
 
 volumes:
   wedding-data:
+    driver: local
+  ui-node-modules:
     driver: local

@@ -1,16 +1,20 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout title="Mi Confirmación - Sheila & Habib">
   <main class="min-h-screen bg-warm-beige py-12">
     <div class="container mx-auto px-4 max-w-5xl">
       <!-- Header -->
-      <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-8 mb-8">
+      <div
+        class="bg-white rounded-lg shadow-sm border border-gray-100 p-8 mb-8"
+      >
         <div class="text-center">
           <h1 class="font-serif text-4xl text-gray-800 mb-4">Bienvenido</h1>
           <div class="w-16 h-0.5 bg-gold mx-auto mb-4"></div>
-          <p class="text-gray-600" id="welcome-message">Cargando tu información...</p>
+          <p class="text-gray-600" id="welcome-message">
+            Cargando tu información...
+          </p>
         </div>
       </div>
 
@@ -19,30 +23,39 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <!-- Mi RSVP -->
         <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-8">
           <div class="flex items-center mb-6">
-            <div class="w-12 h-12 bg-gold rounded-full flex items-center justify-center mr-4">
-              <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+            <div
+              class="w-12 h-12 bg-gold rounded-full flex items-center justify-center mr-4"
+            >
+              <svg
+                class="w-6 h-6 text-white"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                  clip-rule="evenodd"></path>
               </svg>
             </div>
             <h2 class="font-serif text-2xl text-gray-800">Mi Confirmación</h2>
           </div>
-          
+
           <div id="rsvp-status" class="space-y-4 mb-8">
             <div class="animate-pulse">
               <div class="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
               <div class="h-4 bg-gray-200 rounded w-1/2"></div>
             </div>
           </div>
-          
+
           <div class="space-y-4">
-            <a 
-              href="/rsvp/form" 
+            <a
+              href="/rsvp/form"
               class="block w-full bg-gold text-white py-3 px-6 rounded-lg text-center font-medium hover:bg-yellow-600 transition-colors"
             >
               Editar mi Confirmación
             </a>
-            
-            <button 
+
+            <button
               id="download-summary"
               class="w-full bg-gray-800 text-white py-3 px-6 rounded-lg font-medium hover:bg-gray-700 transition-colors"
             >
@@ -54,74 +67,125 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <!-- Información del evento -->
         <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-8">
           <div class="flex items-center mb-6">
-            <div class="w-12 h-12 bg-gold rounded-full flex items-center justify-center mr-4">
-              <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+            <div
+              class="w-12 h-12 bg-gold rounded-full flex items-center justify-center mr-4"
+            >
+              <svg
+                class="w-6 h-6 text-white"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+                  clip-rule="evenodd"></path>
               </svg>
             </div>
-            <h2 class="font-serif text-2xl text-gray-800">Información del Evento</h2>
+            <h2 class="font-serif text-2xl text-gray-800">
+              Información del Evento
+            </h2>
           </div>
-          
+
           <div class="space-y-6">
             <div class="border-l-4 border-gold pl-4">
               <h3 class="font-medium text-gray-800 mb-2">Ceremonia Civil</h3>
               <p class="text-sm text-gray-600">Viernes, 4 de Julio 2026</p>
-              <p class="text-sm text-gray-600">19:00h - Los Jardines Palacio de La Dehesa</p>
+              <p class="text-sm text-gray-600">
+                19:00h - Los Jardines Palacio de La Dehesa
+              </p>
             </div>
-            
+
             <div class="border-l-4 border-gold pl-4">
-              <h3 class="font-medium text-gray-800 mb-2">Cóctel, Cena y Fiesta</h3>
+              <h3 class="font-medium text-gray-800 mb-2">
+                Cóctel, Cena y Fiesta
+              </h3>
               <p class="text-sm text-gray-600">20:30h - Mismo lugar</p>
               <p class="text-sm text-gray-600">Lucena, Córdoba</p>
             </div>
-            
+
             <div class="border-l-4 border-gold pl-4">
               <h3 class="font-medium text-gray-800 mb-2">Recordatorio</h3>
-              <p class="text-sm text-gray-600">Confirma antes del 1 de Junio 2026</p>
-              <p class="text-sm text-gray-600">Código de vestimenta: Elegante</p>
+              <p class="text-sm text-gray-600">
+                Confirma antes del 1 de Junio 2026
+              </p>
+              <p class="text-sm text-gray-600">
+                Código de vestimenta: Elegante
+              </p>
             </div>
           </div>
         </div>
       </div>
 
       <!-- Acciones adicionales -->
-      <div class="mt-8 bg-white rounded-lg shadow-sm border border-gray-100 p-8">
-        <h2 class="font-serif text-2xl text-gray-800 mb-8 text-center">Enlaces Útiles</h2>
-        
+      <div
+        class="mt-8 bg-white rounded-lg shadow-sm border border-gray-100 p-8"
+      >
+        <h2 class="font-serif text-2xl text-gray-800 mb-8 text-center">
+          Enlaces Útiles
+        </h2>
+
         <div class="grid md:grid-cols-3 gap-6">
-          <a 
-            href="/" 
+          <a
+            href="/"
             class="bg-warm-beige hover:bg-gray-100 rounded-lg p-6 text-center transition-colors group"
           >
-            <div class="w-12 h-12 bg-gold rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-yellow-600 transition-colors">
-              <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+            <div
+              class="w-12 h-12 bg-gold rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-yellow-600 transition-colors"
+            >
+              <svg
+                class="w-6 h-6 text-white"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"
+                ></path>
               </svg>
             </div>
             <p class="font-medium text-gray-800 mb-2">Página Principal</p>
-            <p class="text-sm text-gray-600">Ver toda la información del evento</p>
+            <p class="text-sm text-gray-600">
+              Ver toda la información del evento
+            </p>
           </a>
-          
-          <a 
-            href="/#viaje" 
+
+          <a
+            href="/#viaje"
             class="bg-warm-beige hover:bg-gray-100 rounded-lg p-6 text-center transition-colors group"
           >
-            <div class="w-12 h-12 bg-gold rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-yellow-600 transition-colors">
-              <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+            <div
+              class="w-12 h-12 bg-gold rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-yellow-600 transition-colors"
+            >
+              <svg
+                class="w-6 h-6 text-white"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                  clip-rule="evenodd"></path>
               </svg>
             </div>
             <p class="font-medium text-gray-800 mb-2">Viaje y Alojamiento</p>
             <p class="text-sm text-gray-600">Información sobre cómo llegar</p>
           </a>
-          
-          <button 
+
+          <button
             id="logout-btn"
             class="bg-warm-beige hover:bg-gray-100 rounded-lg p-6 text-center transition-colors group"
           >
-            <div class="w-12 h-12 bg-gold rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-yellow-600 transition-colors">
-              <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd"/>
+            <div
+              class="w-12 h-12 bg-gold rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-yellow-600 transition-colors"
+            >
+              <svg
+                class="w-6 h-6 text-white"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z"
+                  clip-rule="evenodd"></path>
               </svg>
             </div>
             <p class="font-medium text-gray-800 mb-2">Cerrar Sesión</p>
@@ -134,54 +198,53 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 </BaseLayout>
 
 <script>
-  document.addEventListener('DOMContentLoaded', async () => {
+  document.addEventListener("DOMContentLoaded", async () => {
     try {
       // Verificar autenticación
-      const authResponse = await fetch('http://localhost:3001/auth/me', {
-        credentials: 'include'
+      const authResponse = await fetch("http://localhost:3001/auth/me", {
+        credentials: "include",
       });
-      
+
       if (!authResponse.ok) {
-        window.location.href = '/rsvp/login';
+        window.location.href = "/rsvp/login";
         return;
       }
-      
+
       const authData = await authResponse.json();
       if (!authData.success) {
-        window.location.href = '/rsvp/login';
+        window.location.href = "/rsvp/login";
         return;
       }
-      
+
       // Mostrar información del usuario
-      const welcomeMessage = document.getElementById('welcome-message');
+      const welcomeMessage = document.getElementById("welcome-message");
       if (welcomeMessage) {
         welcomeMessage.textContent = `Hola ${authData.user.name}, aquí tienes tu información de RSVP`;
       }
-      
+
       // Cargar estado del RSVP
-      const rsvpResponse = await fetch('http://localhost:3001/api/rsvp/form', {
-        credentials: 'include'
+      const rsvpResponse = await fetch("http://localhost:3001/api/rsvp/form", {
+        credentials: "include",
       });
-      
+
       if (rsvpResponse.ok) {
         const rsvpData = await rsvpResponse.json();
         if (rsvpData.success) {
           displayRSVPStatus(rsvpData.form);
         }
       }
-      
     } catch (error) {
-      console.error('Error loading dashboard:', error);
-      window.location.href = '/rsvp/login';
+      console.error("Error loading dashboard:", error);
+      window.location.href = "/rsvp/login";
     }
   });
 
   function displayRSVPStatus(rsvp: any) {
-    const statusContainer = document.getElementById('rsvp-status');
+    const statusContainer = document.getElementById("rsvp-status");
     if (!statusContainer) return;
-    
-    let statusHtml = '';
-    
+
+    let statusHtml = "";
+
     if (rsvp.attending === null) {
       statusHtml = `
         <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
@@ -194,7 +257,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <div class="bg-green-50 border border-green-200 rounded-lg p-4">
           <p class="font-semibold text-green-800">Confirmado</p>
           <p class="text-sm text-green-600">Gracias por confirmar tu asistencia</p>
-          ${rsvp.plus_one ? `<p class="text-sm text-green-600">Acompañante: ${rsvp.plus_one_name || 'Sin especificar'}</p>` : ''}
+          ${rsvp.plus_one ? `<p class="text-sm text-green-600">Acompañante: ${rsvp.plus_one_name || "Sin especificar"}</p>` : ""}
         </div>
       `;
     } else {
@@ -205,37 +268,37 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         </div>
       `;
     }
-    
+
     // Agregar detalles adicionales si existen
     if (rsvp.menu_choice || rsvp.dietary_restrictions || rsvp.notes) {
       statusHtml += `
         <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-4">
           <p class="font-semibold text-blue-800 mb-2">Detalles adicionales</p>
-          ${rsvp.menu_choice ? `<p class="text-sm text-blue-600">Menú: ${rsvp.menu_choice}</p>` : ''}
-          ${rsvp.dietary_restrictions ? `<p class="text-sm text-blue-600">Restricciones: ${rsvp.dietary_restrictions}</p>` : ''}
-          ${rsvp.notes ? `<p class="text-sm text-blue-600">Notas: ${rsvp.notes}</p>` : ''}
+          ${rsvp.menu_choice ? `<p class="text-sm text-blue-600">Menú: ${rsvp.menu_choice}</p>` : ""}
+          ${rsvp.dietary_restrictions ? `<p class="text-sm text-blue-600">Restricciones: ${rsvp.dietary_restrictions}</p>` : ""}
+          ${rsvp.notes ? `<p class="text-sm text-blue-600">Notas: ${rsvp.notes}</p>` : ""}
         </div>
       `;
     }
-    
+
     statusContainer.innerHTML = statusHtml;
   }
 
   // Logout
-  document.getElementById('logout-btn')?.addEventListener('click', async () => {
+  document.getElementById("logout-btn")?.addEventListener("click", async () => {
     try {
-      await fetch('http://localhost:3001/auth/logout', {
-        method: 'POST',
-        credentials: 'include'
+      await fetch("http://localhost:3001/auth/logout", {
+        method: "POST",
+        credentials: "include",
       });
-      window.location.href = '/';
+      window.location.href = "/";
     } catch (error) {
-      console.error('Error logging out:', error);
+      console.error("Error logging out:", error);
     }
   });
 
   // Download summary
-  document.getElementById('download-summary')?.addEventListener('click', () => {
-    alert('Función de descarga en desarrollo. ¡Próximamente disponible!');
+  document.getElementById("download-summary")?.addEventListener("click", () => {
+    alert("Función de descarga en desarrollo. ¡Próximamente disponible!");
   });
 </script>

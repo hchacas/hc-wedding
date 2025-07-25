@@ -42,7 +42,7 @@ services:
       - wedding-network
     depends_on:
       - api
-    command: npm run dev
+    command: npm run dev -- --host 0.0.0.0
 
 networks:
   wedding-network:

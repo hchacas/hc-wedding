@@ -86,7 +86,7 @@ docker-compose logs -f
 ### Opción 1: Docker Compose (Recomendado)
 ```bash
 # Desarrollo con Docker
-docker-compose -f docker-compose.dev.yml up --build
+docker-compose -f docker-compose.dev.yml up --build -d
 
 # Frontend: http://localhost:4321
 # Backend: http://localhost:3001

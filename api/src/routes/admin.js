@@ -111,12 +111,14 @@ router.get('/export', requireBasicAuth, async (req, res) => {
     const guests = await Guest.getAll();
     
     if (format === 'csv') {
-      // Generar CSV
-      const csvHeader = 'ID,Nombre,Email,Teléfono,Asiste,Acompañante,Nombre Acompañante,Restricciones,Menú,Alergias,Notas,Fecha Creación\n';
+      // Generar CSV con campos actualizados
+      const csvHeader = 'ID,Nombre,Email,Teléfono,Asiste,Acompañante,Nombre Acompañante,Género,Grupo Edad,Género Acompañante,Edad Acompañante,Restricciones,Menú,Alergias,Transporte,Ubicación Transporte,Alojamiento,Solicitudes Especiales,Notas,Fecha Creación\n';
       const csvRows = guests.map(guest => {
         const escapeCsv = (str) => str ? `"${str.replace(/"/g, '""')}"` : '""';
-        const attending = guest.attending === true ? 'Sí' : guest.attending === false ? 'No' : 'Pendiente';
+        const attending = guest.attending === 1 ? 'Sí' : guest.attending === 0 ? 'No' : 'Pendiente';
         const plusOne = guest.plus_one ? 'Sí' : 'No';
+        const transport = guest.needs_transport ? 'Sí' : 'No';
+        const accommodation = guest.accommodation_needed ? 'Sí' : 'No';
         
         return [
           guest.id,
@@ -126,9 +128,17 @@ router.get('/export', requireBasicAuth, async (req, res) => {
           attending,
           plusOne,
           escapeCsv(guest.plus_one_name || ''),
+          escapeCsv(guest.gender || ''),
+          escapeCsv(guest.age_group || ''),
+          escapeCsv(guest.plus_one_gender || ''),
+          escapeCsv(guest.plus_one_age_group || ''),
           escapeCsv(guest.dietary_restrictions || ''),
           escapeCsv(guest.menu_choice || ''),
           escapeCsv(guest.allergies || ''),
+          transport,
+          escapeCsv(guest.transport_location || ''),
+          accommodation,
+          escapeCsv(guest.special_requests || ''),
           escapeCsv(guest.notes || ''),
           escapeCsv(guest.created_at || '')
         ].join(',');
@@ -148,6 +158,111 @@ router.get('/export', requireBasicAuth, async (req, res) => {
     }
   } catch (error) {
     console.error('Error exporting guests:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error del servidor'
+    });
+  }
+});
+
+// GET /api/admin/invitations - Listar todas las invitaciones enviadas
+router.get('/invitations', requireBasicAuth, async (req, res) => {
+  try {
+    const invitations = await Invitation.getAll();
+    const invitationStats = await Invitation.getStatistics();
+    
+    res.json({
+      success: true,
+      invitations,
+      statistics: invitationStats
+    });
+  } catch (error) {
+    console.error('Error fetching invitations:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error del servidor'
+    });
+  }
+});
+
+// PUT /api/admin/invitations/:id - Actualizar invitación
+router.put('/invitations/:id', requireBasicAuth, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { guest_name, message } = req.body;
+    
+    if (!guest_name) {
+      return res.status(400).json({
+        success: false,
+        message: 'Nombre del invitado requerido'
+      });
+    }
+
+    const invitation = await Invitation.update(id, { guest_name, message });
+    
+    if (!invitation) {
+      return res.status(404).json({
+        success: false,
+        message: 'Invitación no encontrada'
+      });
+    }
+
+    res.json({
+      success: true,
+      message: 'Invitación actualizada correctamente',
+      invitation
+    });
+  } catch (error) {
+    console.error('Error updating invitation:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error del servidor'
+    });
+  }
+});
+
+// DELETE /api/admin/invitations/:id - Eliminar invitación
+router.delete('/invitations/:id', requireBasicAuth, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deleted = await Invitation.delete(id);
+    
+    if (!deleted) {
+      return res.status(404).json({
+        success: false,
+        message: 'Invitación no encontrada'
+      });
+    }
+
+    res.json({
+      success: true,
+      message: 'Invitación eliminada correctamente'
+    });
+  } catch (error) {
+    console.error('Error deleting invitation:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error del servidor'
+    });
+  }
+});
+
+// GET /api/admin/analytics - Estadísticas avanzadas y analíticas
+router.get('/analytics', requireBasicAuth, async (req, res) => {
+  try {
+    const guestSummary = await Guest.getSummary();
+    const invitationStats = await Invitation.getStatistics();
+    
+    res.json({
+      success: true,
+      analytics: {
+        guests: guestSummary,
+        invitations: invitationStats,
+        generated_at: new Date().toISOString()
+      }
+    });
+  } catch (error) {
+    console.error('Error fetching analytics:', error);
     res.status(500).json({
       success: false,
       message: 'Error del servidor'

@@ -44,4 +44,42 @@ export class Invitation {
     const result = await dbRun('DELETE FROM invitations WHERE id = ?', [id]);
     return result.changes > 0;
   }
+
+  static async getStatistics() {
+    const totalInvitations = await dbGet('SELECT COUNT(*) as count FROM invitations');
+    
+    // Invitaciones con respuesta (que tienen un guest asociado)
+    const respondedInvitations = await dbGet(`
+      SELECT COUNT(DISTINCT i.id) as count 
+      FROM invitations i 
+      INNER JOIN guests g ON g.name = i.guest_name
+    `);
+
+    // Invitaciones pendientes (sin respuesta)
+    const pendingInvitations = await dbGet(`
+      SELECT COUNT(*) as count 
+      FROM invitations i 
+      WHERE NOT EXISTS (
+        SELECT 1 FROM guests g WHERE g.name = i.guest_name
+      )
+    `);
+
+    // Invitaciones por mes de creación
+    const invitationsByMonth = await dbAll(`
+      SELECT 
+        strftime('%Y-%m', created_at) as month,
+        COUNT(*) as count
+      FROM invitations 
+      GROUP BY strftime('%Y-%m', created_at)
+      ORDER BY month DESC
+      LIMIT 12
+    `);
+
+    return {
+      total: totalInvitations.count,
+      responded: respondedInvitations.count,
+      pending: pendingInvitations.count,
+      byMonth: invitationsByMonth
+    };
+  }
 }

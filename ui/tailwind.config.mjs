@@ -6,6 +6,8 @@ export default {
   theme: {
     extend: {
       colors: {
+        gold: '#D4AF37',
+        'warm-beige': '#F5F1E8',
         rose: {
           50: '#fff1f2',
           100: '#ffe4e6',

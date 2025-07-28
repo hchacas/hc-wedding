@@ -8,23 +8,19 @@ dotenv.config();
 async function initializeDatabase() {
   try {
     console.log('🚀 Inicializando base de datos...');
-    
+
     // Inicializar tablas
     await initDatabase();
-    
-    // Crear administrador por defecto
-    const defaultAdmin = await Admin.findByUsername('admin');
-    if (!defaultAdmin) {
-      await Admin.create({
-        username: 'admin',
-        password: 'admin123',
-        name: 'Administrador'
-      });
-      console.log('👤 Administrador por defecto creado (admin/admin123)');
-    } else {
+
+    // Verificar si existe administrador
+    const adminCount = await Admin.findByUsername('admin');
+    if (adminCount) {
       console.log('👤 Administrador ya existe');
+    } else {
+      console.log('👤 No hay administrador configurado');
+      console.log('💡 Ejecuta: node scripts/create-admin.js');
     }
-    
+
     // Crear algunas invitaciones de ejemplo
     const existingInvitations = await Invitation.getAll();
     if (existingInvitations.length === 0) {
@@ -42,7 +38,7 @@ async function initializeDatabase() {
           message: 'Esperamos celebrar contigo este momento único'
         }
       ];
-      
+
       for (const invitationData of sampleInvitations) {
         const invitation = await Invitation.create(invitationData);
         console.log(`📧 Invitación creada para ${invitation.guest_name} - Token: ${invitation.token}`);
@@ -50,13 +46,13 @@ async function initializeDatabase() {
     } else {
       console.log('📧 Ya existen invitaciones en la base de datos');
     }
-    
+
     console.log('✅ Base de datos inicializada correctamente');
     console.log('\n📋 Resumen:');
-    console.log('- Administrador: admin/admin123');
+    console.log('- Tablas de base de datos creadas');
     console.log('- Invitaciones de ejemplo creadas');
-    console.log('- Base de datos lista para usar');
-    
+    console.log('- Para crear admin: node scripts/create-admin.js');
+
   } catch (error) {
     console.error('❌ Error inicializando base de datos:', error);
     process.exit(1);

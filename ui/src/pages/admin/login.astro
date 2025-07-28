@@ -107,8 +107,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         sessionStorage.setItem('adminAuth', authString);
         sessionStorage.setItem('adminUser', JSON.stringify(data.admin));
         
-        // Redirigir al dashboard
-        window.location.href = '/admin/dashboard';
+        // Redirigir al panel de administración
+        window.location.href = '/admin/admin-panel';
       } else {
         throw new Error(data.message || 'Error de autenticación');
       }

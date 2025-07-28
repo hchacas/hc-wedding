@@ -10,10 +10,13 @@ services:
     environment:
       - NODE_ENV=development
       - PORT=3001
-      - FRONTEND_URL=http://localhost:4321
-      - SESSION_SECRET=dev-secret-key-not-for-production
+      - FRONTEND_URL=${FRONTEND_URL}
+      - API_URL=${API_URL}
+      - SESSION_SECRET=${SESSION_SECRET}
       - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
       - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+      - SECURE_COOKIES=${SECURE_COOKIES}
+      - CORS_ORIGIN=${CORS_ORIGIN}
     volumes:
       - ./api:/app
       - /app/node_modules

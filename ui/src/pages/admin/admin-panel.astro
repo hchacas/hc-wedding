@@ -548,11 +548,11 @@ Modal para crear invitación -->
       }
     });
   }
-ß
+
   // Cargar datos del dashboard
   async function loadDashboardData() {
     try {
-      const response = await authenticatedFetch('/api/admin/dashboard');
+      const response = await authenticatedFetch('/api/admin/summary');
       const data = await response.json();
       
       if (data.success) {

@@ -18,7 +18,7 @@ Frontend de la aplicación de invitaciones de boda construido con Astro, Tailwin
 - `/invitacion/[token]` - Invitación personalizada por token
 - `/rsvp/login` - Página de login OAuth
 - `/rsvp/form` - Formulario de confirmación RSVP
-- `/dashboard` - Dashboard personal del usuario
+- `/guest-dashboard` - Dashboard personal del usuario
 
 ### Componentes
 - `Hero.astro` - Sección principal con nombres y fecha
@@ -63,7 +63,7 @@ http://localhost:4321
 ### Invitado Regular
 1. Accede a `/` → Ve información del evento
 2. Hace clic en "Confirmar Asistencia" → `/rsvp/login`
-3. Se autentica con Google → Redirigido a `/dashboard`
+3. Se autentica con Google → Redirigido a `/guest-dashboard`
 4. Completa formulario RSVP → `/rsvp/form`
 5. Puede descargar resumen del evento
 
@@ -119,7 +119,7 @@ ui/
 │   │   └── BaseLayout.astro     # Layout base
 │   ├── pages/
 │   │   ├── index.astro          # Página principal
-│   │   ├── dashboard.astro      # Dashboard usuario
+│   │   ├── guest-dashboard.astro # Dashboard usuario
 │   │   ├── invitacion/
 │   │   │   └── [token].astro    # Invitación personalizada
 │   │   └── rsvp/

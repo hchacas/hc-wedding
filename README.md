@@ -11,17 +11,97 @@ Aplicación web completa para invitaciones de boda interactivas con sistema RSVP
 - **Despliegue con Docker** listo para producción
 - **Base de datos SQLite** ligera y eficiente
 
+## 📁 Estructura del Proyecto
+
+```
+wedding-app/
+├── 📁 api/                     # Backend Node.js + Express
+│   ├── 📁 src/                 # Código fuente del API
+│   ├── 📁 scripts/             # Scripts específicos del backend
+│   │   ├── create-admin.js     # 👤 Crear administradores
+│   │   ├── init-db.js          # 🗄️ Inicializar base de datos
+│   │   └── migrate-database.js # 🔄 Migrar esquema de BD
+│   ├── Dockerfile              # 🐳 Docker para producción
+│   └── README.md               # 📖 Documentación del API
+│
+├── 📁 ui/                      # Frontend Astro + Tailwind
+│   ├── 📁 src/pages/           # Páginas de la aplicación
+│   ├── 📁 src/components/      # Componentes reutilizables
+│   ├── Dockerfile              # 🐳 Docker para producción
+│   ├── Dockerfile.dev          # 🐳 Docker para desarrollo
+│   └── README.md               # 📖 Documentación del UI
+│
+├── 📁 scripts/                 # Scripts de gestión del proyecto
+│   ├── oauth-manager.sh        # 🔐 Gestión OAuth completa
+│   ├── oauth-configure-interactive.sh # ⚙️ Config OAuth paso a paso
+│   ├── production-deploy.sh    # 🚀 Despliegue producción
+│   ├── initial-setup.sh        # 🛠️ Setup inicial del proyecto
+│   ├── database-backup.sh      # 💾 Backup automático de BD
+│   ├── system-monitor.sh       # 📊 Monitoreo del sistema
+│   ├── security-check.sh       # 🔒 Verificación de seguridad
+│   └── README.md               # 📖 Documentación de scripts
+│
+├── 📁 docs/                    # Documentación especializada
+│   ├── oauth-setup.md          # 🔐 Configuración OAuth detallada
+│   ├── security.md             # 🔒 Guía de seguridad
+│   └── project-structure.md    # 📁 Estructura del proyecto
+│
+├── 📁 nginx/                   # Configuración del proxy reverso
+├── 📁 backups/                 # Backups automáticos de la BD
+├── 📁 data/                    # Datos persistentes (volúmenes Docker)
+├── 📁 logs/                    # Logs de la aplicación
+│
+├── .env                        # ⚙️ Variables de entorno (NO commitear)
+├── .env.example                # 📋 Plantilla de configuración
+├── .env.production             # 🏭 Configuración de producción
+├── docker-compose.yml          # 🐳 Docker para producción
+├── docker-compose.dev.yml      # 🐳 Docker para desarrollo
+└── README.md                   # 📖 Este archivo
+```
+
 ## 🏗️ Arquitectura
 
 ```
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
 │   Frontend UI   │    │   Backend API   │    │   Database      │
 │   (Astro)       │◄──►│   (Node.js)     │◄──►│   (SQLite)      │
-│   Port: 80      │    │   Port: 3001    │    │   wedding.db    │
+│   Port: 4321    │    │   Port: 3001    │    │   wedding.db    │
 └─────────────────┘    └─────────────────┘    └─────────────────┘
          │                       │
          └───────────────────────┘
               Docker Network
+```
+
+## ⚡ Comandos Rápidos
+
+### 🚀 Inicio Rápido (Desarrollo)
+```bash
+# 1. Configurar OAuth
+./scripts/oauth-manager.sh setup
+
+# 2. Inicializar base de datos
+node api/scripts/init-db.js
+
+# 3. Crear administrador
+node api/scripts/create-admin.js
+
+# 4. Iniciar aplicación
+docker-compose -f docker-compose.dev.yml up --build
+```
+
+### 🔧 Comandos Útiles
+```bash
+# Verificar configuración OAuth
+./scripts/oauth-manager.sh check
+
+# Monitorear sistema
+./scripts/system-monitor.sh
+
+# Crear backup
+./scripts/database-backup.sh
+
+# Verificar seguridad
+./scripts/security-check.sh
 ```
 
 ## 🚀 Despliegue Rápido
@@ -81,15 +161,93 @@ nano .env
 docker-compose logs -f
 ```
 
+## 🔧 Scripts y Herramientas
+
+### 📋 Scripts Principales
+
+| Script | Descripción | Uso |
+|--------|-------------|-----|
+| `oauth-manager.sh` | 🔐 Gestión OAuth unificada | `./scripts/oauth-manager.sh [setup\|check\|test\|fix]` |
+| `oauth-configure-interactive.sh` | ⚙️ Config OAuth paso a paso | `./scripts/oauth-configure-interactive.sh` |
+| `production-deploy.sh` | 🚀 Despliegue producción | `./scripts/production-deploy.sh` |
+| `initial-setup.sh` | 🛠️ Setup inicial proyecto | `./scripts/initial-setup.sh` |
+| `database-backup.sh` | 💾 Backup automático BD | `./scripts/database-backup.sh` |
+| `system-monitor.sh` | 📊 Monitoreo sistema | `./scripts/system-monitor.sh` |
+| `security-check.sh` | 🔒 Verificación seguridad | `./scripts/security-check.sh` |
+
+### 🗄️ Scripts de Base de Datos (api/scripts/)
+
+| Script | Descripción | Uso |
+|--------|-------------|-----|
+| `create-admin.js` | 👤 Crear administradores | `node api/scripts/create-admin.js [opciones]` |
+| `init-db.js` | 🗄️ Inicializar BD y datos | `node api/scripts/init-db.js` |
+| `migrate-database.js` | 🔄 Migrar esquema BD | `node api/scripts/migrate-database.js` |
+
+### 🐳 Archivos Docker
+
+| Archivo | Descripción | Uso |
+|---------|-------------|-----|
+| `docker-compose.yml` | 🏭 Configuración producción | `docker-compose up -d` |
+| `docker-compose.dev.yml` | 🛠️ Configuración desarrollo | `docker-compose -f docker-compose.dev.yml up` |
+| `api/Dockerfile` | 🐳 Imagen API producción | Usado por docker-compose |
+| `ui/Dockerfile` | 🐳 Imagen UI producción | Usado por docker-compose |
+| `ui/Dockerfile.dev` | 🐳 Imagen UI desarrollo | Usado por docker-compose.dev.yml |
+
+### ⚙️ Archivos de Configuración
+
+| Archivo | Descripción | Commitear |
+|---------|-------------|-----------|
+| `.env` | ⚙️ Variables entorno actuales | ❌ NO |
+| `.env.example` | 📋 Plantilla configuración | ✅ SÍ |
+| `.env.production` | 🏭 Referencia producción | ✅ SÍ |
+| `nginx/nginx.conf` | 🌐 Configuración proxy | ✅ SÍ |
+
+### 📖 Documentación
+
+| Archivo | Descripción |
+|---------|-------------|
+| `README.md` | 📖 Documentación principal |
+| `api/README.md` | 📖 Documentación del backend |
+| `ui/README.md` | 📖 Documentación del frontend |
+| `scripts/README.md` | 📖 Documentación de scripts |
+| `docs/oauth-setup.md` | 🔐 Configuración OAuth detallada |
+| `docs/security.md` | 🔒 Guía de seguridad |
+| `docs/project-structure.md` | 📁 Estructura del proyecto |
+
 ## 🛠️ Desarrollo Local
+
+### Configuración Inicial
+
+1. **Configurar OAuth** (ver [`docs/oauth-setup.md`](docs/oauth-setup.md)):
+   ```bash
+   ./scripts/oauth-manager.sh setup
+   ```
+
+2. **Inicializar base de datos**:
+   ```bash
+   node api/scripts/init-db.js
+   ```
+
+3. **Crear usuario administrador**:
+   ```bash
+   # Admin por defecto (usuario: admin, contraseña: admin123)
+   node api/scripts/create-admin.js
+   
+   # Admin personalizado interactivo
+   node api/scripts/create-admin.js --interactive
+   
+   # Admin con parámetros específicos
+   node api/scripts/create-admin.js -u admin -p mypass123 -n "Mi Admin"
+   ```
 
 ### Opción 1: Docker Compose (Recomendado)
 ```bash
 # Desarrollo con Docker
-docker-compose -f docker-compose.dev.yml up --build -d
+docker-compose -f docker-compose.dev.yml up --build
 
 # Frontend: http://localhost:4321
 # Backend: http://localhost:3001
+# Admin: http://localhost:4321/admin/login
 ```
 
 ### Opción 2: Desarrollo Nativo
@@ -97,7 +255,6 @@ docker-compose -f docker-compose.dev.yml up --build -d
 # Terminal 1 - Backend
 cd api
 npm install
-npm run init-db
 npm run dev
 
 # Terminal 2 - Frontend
@@ -106,38 +263,7 @@ npm install
 npm run dev
 ```
 
-## 📁 Estructura del Proyecto
 
-```
-wedding-app/
-├── api/                    # Backend Node.js
-│   ├── src/
-│   │   ├── config/        # Configuración DB y OAuth
-│   │   ├── models/        # Modelos de datos
-│   │   ├── routes/        # Endpoints API
-│   │   ├── middleware/    # Middleware de auth
-│   │   └── index.js       # Servidor principal
-│   ├── scripts/           # Scripts de inicialización
-│   ├── Dockerfile         # Docker para producción
-│   └── package.json
-├── ui/                     # Frontend Astro
-│   ├── src/
-│   │   ├── components/    # Componentes reutilizables
-│   │   ├── layouts/       # Layouts base
-│   │   ├── pages/         # Páginas de la app
-│   │   └── assets/        # Assets estáticos
-│   ├── Dockerfile         # Docker para producción
-│   ├── Dockerfile.dev     # Docker para desarrollo
-│   └── package.json
-├── nginx/                  # Configuración proxy
-├── scripts/               # Scripts de gestión
-│   ├── deploy.sh          # Script de despliegue
-│   ├── backup.sh          # Script de backup
-│   └── monitor.sh         # Script de monitoreo
-├── docker-compose.yml     # Configuración producción
-├── docker-compose.dev.yml # Configuración desarrollo
-└── README.md
-```
 
 ## 🔗 Endpoints API
 
@@ -208,7 +334,7 @@ CREATE TABLE admins (
 ### Backups
 ```bash
 # Crear backup
-./scripts/backup.sh
+./scripts/database-backup.sh
 
 # Los backups se guardan en ./backups/
 # Se mantienen automáticamente los últimos 10
@@ -217,7 +343,7 @@ CREATE TABLE admins (
 ### Monitoreo
 ```bash
 # Estado general
-./scripts/monitor.sh
+./scripts/system-monitor.sh
 
 # Logs en tiempo real
 docker-compose logs -f
@@ -233,10 +359,32 @@ docker-compose logs -f ui
 git pull origin main
 
 # Redesplegar
-./scripts/deploy.sh --clean
+./scripts/production-deploy.sh --clean
 ```
 
 ### Troubleshooting
+
+#### Problemas OAuth
+```bash
+# Gestión completa de OAuth
+./scripts/oauth-manager.sh check    # Verificar configuración
+./scripts/oauth-manager.sh fix      # Solucionar errores
+./scripts/oauth-manager.sh test     # Probar OAuth
+```
+
+#### Problemas Admin Login
+```bash
+# Crear admin por defecto si no existe
+node api/scripts/create-admin.js
+
+# Crear admin personalizado
+node api/scripts/create-admin.js --interactive
+
+# Verificar que existe admin en la base de datos
+sqlite3 api/wedding.db "SELECT * FROM admins;"
+```
+
+#### Problemas Generales
 ```bash
 # Reiniciar servicios
 docker-compose restart
@@ -253,7 +401,7 @@ docker-compose exec ui sh
 
 ## 🔒 Seguridad
 
-⚠️ **IMPORTANTE**: Lee [`SECURITY.md`](SECURITY.md) antes de desplegar en producción.
+⚠️ **IMPORTANTE**: Lee [`docs/security.md`](docs/security.md) antes de desplegar en producción.
 
 ### 🚨 Reglas Críticas de Seguridad
 
@@ -278,10 +426,10 @@ docker-compose exec ui sh
 
 ```bash
 # Verificar que no hay credenciales expuestas
-./scripts/check-security.sh
+./scripts/security-check.sh
 
-# Verificar configuración antes de deploy
-./scripts/pre-deploy-check.sh
+# OAuth y configuración general
+./scripts/oauth-manager.sh check
 ```
 
 ### Configuración de Producción

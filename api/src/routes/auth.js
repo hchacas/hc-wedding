@@ -14,7 +14,7 @@ router.get('/google/callback',
   (req, res) => {
     // Redirigir al frontend con éxito
     const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:4321';
-    res.redirect(`${frontendUrl}/dashboard`);
+    res.redirect(`${frontendUrl}/guest-dashboard`);
   }
 );
 

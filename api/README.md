@@ -111,10 +111,48 @@ curl http://localhost:3001/api/admin/summary \
   -H "Authorization: Basic YWRtaW46YWRtaW4xMjM="
 ```
 
-## Credenciales por Defecto
+## Configuración de Administrador
 
-- **Admin:** `admin` / `admin123`
-- **Base64 para Basic Auth:** `YWRtaW46YWRtaW4xMjM=`
+### Crear Usuario Admin
+
+**Script unificado con múltiples opciones:**
+
+```bash
+# Admin por defecto (admin/admin123)
+node scripts/create-admin.js
+
+# Admin personalizado interactivo
+node scripts/create-admin.js --interactive
+
+# Admin con parámetros
+node scripts/create-admin.js -u usuario -p contraseña -n "Nombre"
+
+# Ver ayuda
+node scripts/create-admin.js --help
+```
+
+**Características:**
+- ✅ Verifica si el usuario ya existe antes de crear
+- ✅ Admin por defecto: `admin` / `admin123`
+- ✅ Modo interactivo con contraseña oculta
+- ✅ Creación por parámetros para scripts
+- ✅ Validación de contraseña (mínimo 6 caracteres)
+- ✅ Base64 para Basic Auth: `YWRtaW46YWRtaW4xMjM=`
+
+### Verificar Admin Existente
+```bash
+# Ver admins en la base de datos
+sqlite3 wedding.db "SELECT id, username, name FROM admins;"
+```
+
+### Usar Admin en Requests
+```bash
+# Generar Basic Auth header
+echo -n "usuario:contraseña" | base64
+
+# Ejemplo con admin por defecto
+curl -H "Authorization: Basic YWRtaW46YWRtaW4xMjM=" http://localhost:3001/api/admin/summary
+```
 
 ## Scripts
 

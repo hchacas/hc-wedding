@@ -439,6 +439,36 @@ Modal para crear invitación -->
       </div>
     </div>
 
+    <!-- Modal de confirmación de eliminación -->
+    <div id="delete-confirmation-modal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+      <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+        <div class="text-center">
+          <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-red-600" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+            </svg>
+          </div>
+          <h3 class="text-lg font-medium text-gray-900 mb-2">Eliminar Invitación</h3>
+          <p class="text-gray-600 mb-4">
+            ¿Estás seguro de que quieres eliminar la invitación para 
+            <span id="delete-guest-name" class="font-semibold"></span>?
+          </p>
+          <p class="text-sm text-gray-500 mb-6">Esta acción no se puede deshacer.</p>
+          
+          <div class="flex space-x-3">
+            <button id="cancel-delete"
+              class="flex-1 px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition-colors">
+              Cancelar
+            </button>
+            <button id="confirm-delete"
+              class="flex-1 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors">
+              Eliminar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Notificación Toast -->
     <div id="toast-notification" class="hidden fixed top-4 right-4 z-50">
       <div class="bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg flex items-center space-x-3">
@@ -726,8 +756,9 @@ Modal para crear invitación -->
           <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600">${status}</td>
           <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${date}</td>
           <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-            <button onclick="viewInvitation('${invitation.token}')" class="text-blue-600 hover:text-blue-900 mr-2">Ver</button>
-            <button onclick="copyInvitationLink('${invitation.token}')" class="text-green-600 hover:text-green-900">Copiar</button>
+            <button onclick="viewInvitation('${invitation.token}')" class="text-blue-600 hover:text-blue-900 mr-2" title="Ver invitación">Ver</button>
+            <button onclick="copyInvitationLink('${invitation.token}')" class="text-green-600 hover:text-green-900 mr-2" title="Copiar enlace">Copiar</button>
+            <button onclick="deleteInvitation('${invitation.id}', '${invitation.guest_name}')" class="text-red-600 hover:text-red-900" title="Eliminar invitación">Eliminar</button>
           </td>
         </tr>
       `;
@@ -761,16 +792,60 @@ Modal para crear invitación -->
     }).join('');
   }
   
-  // Funciones para gestión de invitaciones
-  function viewInvitation(token) {
-    window.open(`/invitacion/${token}`, '_blank');
-  }
+  // Variables para el modal de eliminación
+  let invitationToDelete = null;
 
-  function copyInvitationLink(token) {
+  // Funciones globales para gestión de invitaciones
+  window.viewInvitation = function(token) {
+    window.open(`/invitacion/${token}`, '_blank');
+  };
+
+  window.copyInvitationLink = function(token) {
     const link = `${window.location.origin}/invitacion/${token}`;
     navigator.clipboard.writeText(link).then(() => {
       showToast('Enlace copiado al portapapeles');
     });
+  };
+
+  // Función para mostrar modal de confirmación de eliminación
+  window.deleteInvitation = function(invitationId, guestName) {
+    invitationToDelete = invitationId;
+    document.getElementById('delete-guest-name').textContent = guestName;
+    document.getElementById('delete-confirmation-modal').classList.remove('hidden');
+  };
+
+  // Función para confirmar eliminación
+  async function confirmDeleteInvitation() {
+    if (!invitationToDelete) return;
+
+    try {
+      const response = await authenticatedFetch(`/api/admin/invitations/${invitationToDelete}`, {
+        method: 'DELETE'
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        showToast('Invitación eliminada correctamente');
+        // Recargar la lista de invitaciones
+        loadInvitations();
+      } else {
+        showToast(data.message || 'Error al eliminar la invitación', 'error');
+      }
+    } catch (error) {
+      console.error('Error deleting invitation:', error);
+      showToast('Error al eliminar la invitación', 'error');
+    } finally {
+      // Cerrar modal y limpiar variable
+      document.getElementById('delete-confirmation-modal').classList.add('hidden');
+      invitationToDelete = null;
+    }
+  }
+
+  // Función para cancelar eliminación
+  function cancelDeleteInvitation() {
+    document.getElementById('delete-confirmation-modal').classList.add('hidden');
+    invitationToDelete = null;
   }
 
   // Función para mostrar toast notification
@@ -970,6 +1045,17 @@ Modal para crear invitación -->
       // Restaurar botón
       submitBtn.disabled = false;
       submitBtn.textContent = originalText;
+    }
+  });
+
+  // Event listeners para modal de eliminación
+  document.getElementById('confirm-delete')?.addEventListener('click', confirmDeleteInvitation);
+  document.getElementById('cancel-delete')?.addEventListener('click', cancelDeleteInvitation);
+
+  // Cerrar modal al hacer clic fuera de él
+  document.getElementById('delete-confirmation-modal')?.addEventListener('click', (e) => {
+    if (e.target.id === 'delete-confirmation-modal') {
+      cancelDeleteInvitation();
     }
   });
 </script>

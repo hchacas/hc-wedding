@@ -436,12 +436,22 @@
     </div>
     <h3 class="font-serif text-2xl text-gray-800 mb-4">¡Genial, ya lo tenemos!</h3>
     <p class="text-gray-600 mb-8 max-w-md mx-auto">Gracias por confirmar. ¡Ya tenemos ganas de verte en la fiesta!</p>
-    <button 
-      id="edit-rsvp-btn"
-      class="bg-gold text-white px-8 py-3 rounded-lg font-medium hover:bg-yellow-600 transition-colors"
-    >
-      Editar mi Confirmación
-    </button>
+    
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <button 
+        id="edit-rsvp-btn"
+        class="bg-gold text-white px-8 py-3 rounded-lg font-medium hover:bg-yellow-600 transition-colors"
+      >
+        Editar mi Confirmación
+      </button>
+      
+      <a 
+        href="/"
+        class="bg-gray-800 text-white px-8 py-3 rounded-lg font-medium hover:bg-gray-700 transition-colors text-center"
+      >
+        Volver a Inicio
+      </a>
+    </div>
   </div>
 </div>
 
@@ -509,7 +519,13 @@
     if (data.plus_one) {
       (document.getElementById('plus_one') as HTMLInputElement).checked = true;
       (document.getElementById('plus_one_name') as HTMLInputElement).value = data.plus_one_name || '';
-      document.getElementById('plus-one-name-field')?.classList.remove('hidden');
+      (document.getElementById('plus_one_gender') as HTMLSelectElement).value = data.plus_one_gender || '';
+      (document.getElementById('plus_one_menu_choice') as HTMLSelectElement).value = data.plus_one_menu_choice || '';
+      (document.getElementById('plus_one_dietary_restrictions') as HTMLTextAreaElement).value = data.plus_one_dietary_restrictions || '';
+      
+      // Mostrar secciones del acompañante
+      document.getElementById('plus-one-details')?.classList.remove('hidden');
+      document.getElementById('plus-one-menu')?.classList.remove('hidden');
     }
     
     // Preferencias
@@ -517,6 +533,32 @@
     (document.getElementById('dietary_restrictions') as HTMLTextAreaElement).value = data.dietary_restrictions || '';
     (document.getElementById('allergies') as HTMLInputElement).value = data.allergies || '';
     (document.getElementById('notes') as HTMLTextAreaElement).value = data.notes || '';
+    
+    // Actualizar visibilidad de todas las secciones después de cargar los datos
+    updateFormVisibility();
+  }
+
+  // Función para actualizar la visibilidad de todas las secciones del formulario
+  function updateFormVisibility() {
+    // Verificar estado de asistencia
+    const attendingRadio = document.querySelector('input[name="attending"]:checked') as HTMLInputElement;
+    if (attendingRadio) {
+      toggleSections(attendingRadio.value === 'true');
+    }
+    
+    // Verificar estado del acompañante
+    const plusOneCheckbox = document.getElementById('plus_one') as HTMLInputElement;
+    if (plusOneCheckbox) {
+      const detailsField = document.getElementById('plus-one-details');
+      const menuField = document.getElementById('plus-one-menu');
+      if (plusOneCheckbox.checked) {
+        detailsField?.classList.remove('hidden');
+        menuField?.classList.remove('hidden');
+      } else {
+        detailsField?.classList.add('hidden');
+        menuField?.classList.add('hidden');
+      }
+    }
   }
 
   function toggleSections(attending: boolean) {
@@ -630,5 +672,7 @@
   document.getElementById('edit-rsvp-btn')?.addEventListener('click', () => {
     document.getElementById('success-message')?.classList.add('hidden');
     document.getElementById('rsvp-form')?.classList.remove('hidden');
+    // Actualizar visibilidad del formulario al editarlo
+    updateFormVisibility();
   });
 </script>

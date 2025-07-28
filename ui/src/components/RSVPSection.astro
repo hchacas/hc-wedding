@@ -53,74 +53,11 @@
 <script>
   // Botón de descarga de resumen
   document.getElementById('download-summary-main')?.addEventListener('click', () => {
-    // Generar contenido del resumen
-    const summaryContent = `
-BODA SHEILA & HABIB
-===================
-
-Hola! Aquí tienes toda la info de nuestra boda:
-
-FECHA: 4 de Julio, 2026
-LUGAR: Los Jardines Palacio de La Dehesa (Zona Lago)
-       Lucena, Córdoba
-WEB: www.palaciodeladehesa.com
-
-HORARIOS:
-- 19:00h - Ceremonia Civil
-- 20:30h - Cóctel 
-- 23:00h - Cena
-- 00:00h - Fiesta hasta que den las energías!
-
-MÚSICA: DJ MAI (va a ser increíble!)
-
-DIRECCIÓN COMPLETA:
-Ctra. Pilar de la Dehesa S/N
-14900 Lucena (Córdoba)
-
-HOTEL RECOMENDADO:
-Hotel Los Bronces
-Ctra. Córdoba-Málaga, km 74
-14900 Lucena (Córdoba)
-Email: reservas@hotellosbronces.com
-Precio estimado: 50€ habitación doble
-
-BUS LANZADERA: Tendremos! (dinos en el RSVP si lo necesitas)
-
-CÓDIGO DE VESTIMENTA: Ponte algo con lo que te sientas cómodo
-Queremos gente feliz!
-
-CÓMO LLEGAR A LUCENA:
-- En coche: Acceso directo
-- Tren: Hasta Córdoba, luego bus/taxi/VTC a Lucena
-- Avión: Málaga, luego bus/taxi/VTC a Lucena
-- Autobús: Hasta Córdoba, luego bus/taxi/VTC a Lucena
-
-SITIOS DE INTERÉS PARA VISITAR:
-- Priego de Córdoba (nuestro actual lugar de residencia)
-- Carcabuey (pueblo de parte de la familia de la novia)
-- Zuheros (uno de los pueblos más bonitos de España)
-- Lucena (ciudad anfitriona con rica historia)
-
-CONTACTO (para lo que necesites):
-Sheila: 600 123 456
-Habib: 600 654 321
-Email: sheila.habib.boda@email.com
-
-CONFIRMA ANTES DEL 1 DE JUNIO 2026!
-Necesitamos saber si vienes para organizarlo todo
-
-Nos vemos en la fiesta!
-    `;
-
-    // Crear y descargar archivo
-    const blob = new Blob([summaryContent], { type: 'text/plain;charset=utf-8' });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'Resumen_Boda_Sheila_Habib_2026.txt';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    window.URL.revokeObjectURL(url);
+    const link = document.createElement('a');
+    link.href = '/images/summary/resumenBodaSheilaYHabib.png';
+    link.download = 'resumenBodaSheilaYHabib.png';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   });
 </script>

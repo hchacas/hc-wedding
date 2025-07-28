@@ -51,6 +51,8 @@ try {
 </BaseLayout>
 
 <script>
+import { todo } from "node:test";
+
   // Verificar autenticación al cargar la página
   document.addEventListener('DOMContentLoaded', async () => {
     try {
@@ -76,23 +78,12 @@ try {
 
   // Manejar descarga de resumen
   document.getElementById('download-summary')?.addEventListener('click', () => {
-    // Generar contenido del resumen
-    const summaryContent = `
-BODA SHEILA & HABIB
-===================
-
-Hola! Aquí tienes toda la info de nuestra boda:
-
-FECHA: 4 de Julio, 2026
-LUGAR: Los Jardines Palacio de La Dehesa (Zona Lago)
-       Lucena, Córdoba
-WEB: www.palaciodeladehesa.com
-
-HORARIOS:
-- 19:00h - Ceremonia Civil
-- 20:30h - Cóctel 
-- 23:00h - Cena
-- 00:00h - Fiesta hasta que den las energías!
+    const link = document.createElement('a');
+    link.href = '/images/summary/resumenBodaSheilaYHabib.png';
+    link.download = 'resumenBodaSheilaYHabib.png';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 
 MÚSICA: DJ MAI (va a ser increíble!)
 
@@ -133,17 +124,5 @@ CONFIRMA ANTES DEL 1 DE JUNIO 2026!
 Necesitamos saber si vienes para organizarlo todo
 
 Nos vemos en la fiesta!
-    `;
-
-    // Crear y descargar archivo
-    const blob = new Blob([summaryContent], { type: 'text/plain;charset=utf-8' });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'Resumen_Boda_Sheila_Habib_2026.txt';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    window.URL.revokeObjectURL(url);
   });
 </script>

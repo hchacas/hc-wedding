@@ -299,6 +299,11 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
   // Download summary
   document.getElementById("download-summary")?.addEventListener("click", () => {
-    alert("Función de descarga en desarrollo. ¡Próximamente disponible!");
+    const link = document.createElement('a');
+    link.href = '/images/summary/resumenBodaSheilaYHabib.png';
+    link.download = 'resumenBodaSheilaYHabib.png';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   });
 </script>

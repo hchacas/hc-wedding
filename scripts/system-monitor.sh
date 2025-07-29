@@ -66,7 +66,7 @@ check_service "API Auth Endpoint" "http://localhost:3001/auth/me" "401"
 log "Verificando uso de recursos..."
 echo ""
 echo "=== Estado de contenedores ==="
-docker-compose ps
+docker compose ps
 
 echo ""
 echo "=== Uso de recursos ==="
@@ -74,11 +74,11 @@ docker stats --no-stream --format "table {{.Container}}\t{{.CPUPerc}}\t{{.MemUsa
 
 echo ""
 echo "=== Logs recientes de la API ==="
-docker-compose logs --tail=10 api
+docker compose logs --tail=10 api
 
 echo ""
 echo "=== Logs recientes del Frontend ==="
-docker-compose logs --tail=10 ui
+docker compose logs --tail=10 ui
 
 # Verificar espacio en disco
 echo ""

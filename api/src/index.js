@@ -37,7 +37,7 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    secure: false, // Deshabilitado para desarrollo local
+    secure: process.env.NODE_ENV === 'production' && process.env.SECURE_COOKIES === 'true',
     httpOnly: true,
     maxAge: 24 * 60 * 60 * 1000, // 24 horas
     sameSite: 'lax'

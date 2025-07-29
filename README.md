@@ -86,7 +86,7 @@ node api/scripts/init-db.js
 node api/scripts/create-admin.js
 
 # 4. Iniciar aplicación
-docker-compose -f docker-compose.dev.yml up --build
+docker compose -f docker-compose.dev.yml up --build
 ```
 
 ### 🔧 Comandos Útiles
@@ -144,6 +144,25 @@ nano .env
    ```
 
 ### 3. Desplegar
+
+#### Opciones de Despliegue
+
+**Desarrollo:**
+```bash
+docker compose -f docker-compose.dev.yml up --build
+```
+
+**Producción básica:**
+```bash
+docker compose up -d --build
+```
+
+**Producción avanzada (con SSL proxy):**
+```bash
+docker compose --profile production up -d --build
+```
+
+#### Scripts de Despliegue
 ```bash
 # Despliegue completo
 ./scripts/deploy.sh
@@ -187,8 +206,8 @@ docker-compose logs -f
 
 | Archivo | Descripción | Uso |
 |---------|-------------|-----|
-| `docker-compose.yml` | 🏭 Configuración producción | `docker-compose up -d` |
-| `docker-compose.dev.yml` | 🛠️ Configuración desarrollo | `docker-compose -f docker-compose.dev.yml up` |
+| `docker-compose.yml` | 🏭 Configuración producción | `docker compose up -d` |
+| `docker-compose.dev.yml` | 🛠️ Configuración desarrollo | `docker compose -f docker-compose.dev.yml up` |
 | `api/Dockerfile` | 🐳 Imagen API producción | Usado por docker-compose |
 | `ui/Dockerfile` | 🐳 Imagen UI producción | Usado por docker-compose |
 | `ui/Dockerfile.dev` | 🐳 Imagen UI desarrollo | Usado por docker-compose.dev.yml |
@@ -243,7 +262,7 @@ docker-compose logs -f
 ### Opción 1: Docker Compose (Recomendado)
 ```bash
 # Desarrollo con Docker
-docker-compose -f docker-compose.dev.yml up --build
+docker compose -f docker-compose.dev.yml up --build
 
 # Frontend: http://localhost:4321
 # Backend: http://localhost:3001
@@ -346,11 +365,11 @@ CREATE TABLE admins (
 ./scripts/system-monitor.sh
 
 # Logs en tiempo real
-docker-compose logs -f
+docker compose logs -f
 
 # Logs específicos
-docker-compose logs -f api
-docker-compose logs -f ui
+docker compose logs -f api
+docker compose logs -f ui
 ```
 
 ### Actualizaciones
@@ -387,16 +406,16 @@ sqlite3 api/wedding.db "SELECT * FROM admins;"
 #### Problemas Generales
 ```bash
 # Reiniciar servicios
-docker-compose restart
+docker compose restart
 
 # Reconstruir completamente
-docker-compose down
-docker-compose build --no-cache
-docker-compose up -d
+docker compose down
+docker compose build --no-cache
+docker compose up -d
 
 # Acceder a contenedores
-docker-compose exec api sh
-docker-compose exec ui sh
+docker compose exec api sh
+docker compose exec ui sh
 ```
 
 ## 🔒 Seguridad
@@ -480,7 +499,7 @@ Este proyecto está bajo la Licencia MIT. Ver `LICENSE` para más detalles.
 
 Para problemas o preguntas:
 - Crear un issue en GitHub
-- Revisar logs: `docker-compose logs`
+- Revisar logs: `docker compose logs`
 - Ejecutar monitoreo: `./scripts/monitor.sh`
 
 ---

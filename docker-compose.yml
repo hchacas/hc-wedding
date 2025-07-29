@@ -13,9 +13,9 @@ services:
       - SESSION_SECRET=${SESSION_SECRET}
       - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
       - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+      - SECURE_COOKIES=${SECURE_COOKIES:-false}
     volumes:
-      - ./data:/app/data
-      - ./api/wedding.db:/app/wedding.db
+      - wedding-data:/app/data
     ports:
       - "3001:3001"
     networks:

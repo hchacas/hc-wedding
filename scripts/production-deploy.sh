@@ -27,7 +27,7 @@ error() {
 
 # Verificar que Docker y Docker Compose están instalados
 command -v docker >/dev/null 2>&1 || error "Docker no está instalado"
-command -v docker-compose >/dev/null 2>&1 || error "Docker Compose no está instalado"
+command -v docker >/dev/null 2>&1 && docker compose version >/dev/null 2>&1 || error "Docker Compose no está instalado"
 
 # Verificar que existe el archivo .env
 if [ ! -f .env ]; then
@@ -44,16 +44,16 @@ mkdir -p logs
 
 # Detener servicios existentes
 log "Deteniendo servicios existentes..."
-docker-compose down --remove-orphans
+docker compose down --remove-orphans
 
 # Limpiar imágenes antiguas (opcional)
 if [ "$1" = "--clean" ]; then
     log "Limpiando imágenes antiguas..."
     docker system prune -f
-    docker-compose build --no-cache
+    docker compose build --no-cache
 else
     log "Construyendo imágenes..."
-    docker-compose build
+    docker compose build
 fi
 
 # Inicializar base de datos si no existe
@@ -67,7 +67,7 @@ fi
 
 # Iniciar servicios
 log "Iniciando servicios..."
-docker-compose up -d
+docker compose up -d
 
 # Esperar a que los servicios estén listos
 log "Esperando a que los servicios estén listos..."
@@ -75,7 +75,7 @@ sleep 10
 
 # Verificar estado de los servicios
 log "Verificando estado de los servicios..."
-docker-compose ps
+docker compose ps
 
 # Health checks
 log "Ejecutando health checks..."
@@ -104,15 +104,15 @@ done
 log "🎉 ¡Despliegue completado exitosamente!"
 log "📱 Frontend: http://localhost"
 log "🔧 API: http://localhost:3001"
-log "📊 Logs: docker-compose logs -f"
-log "🛑 Detener: docker-compose down"
+log "📊 Logs: docker compose logs -f"
+log "🛑 Detener: docker compose down"
 
 echo ""
 echo "Para monitorear los logs en tiempo real:"
-echo "docker-compose logs -f"
+echo "docker compose logs -f"
 echo ""
 echo "Para acceder al contenedor de la API:"
-echo "docker-compose exec api sh"
+echo "docker compose exec api sh"
 echo ""
 echo "Para hacer backup de la base de datos:"
 echo "./scripts/backup.sh"

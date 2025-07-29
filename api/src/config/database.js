@@ -5,7 +5,8 @@ let db;
 
 export function initDatabase() {
   return new Promise((resolve, reject) => {
-    db = new sqlite3.Database('./wedding.db', (err) => {
+    const dbPath = process.env.NODE_ENV === 'production' ? '/app/data/wedding.db' : './wedding.db';
+    db = new sqlite3.Database(dbPath, (err) => {
       if (err) {
         console.error('Error opening database:', err);
         reject(err);

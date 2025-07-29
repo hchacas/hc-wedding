@@ -32,5 +32,9 @@ EXPOSE 3001
 ENV NODE_ENV=production
 ENV PORT=3001
 
+# Copiar script de inicio
+COPY docker-entrypoint.sh ./
+RUN chmod +x docker-entrypoint.sh
+
 # Comando de inicio
-CMD ["npm", "start"]
+CMD ["./docker-entrypoint.sh"]

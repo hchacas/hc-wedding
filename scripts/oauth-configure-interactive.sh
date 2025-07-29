@@ -104,9 +104,9 @@ echo "Client ID: ${CLIENT_ID:0:20}...${CLIENT_ID: -20}"
 echo "Client Secret: ${CLIENT_SECRET:0:10}...***"
 
 # Reiniciar contenedores si están ejecutándose
-if docker-compose ps | grep -q "wedding-api.*Up"; then
+if docker compose ps | grep -q "wedding-api.*Up"; then
     log "Reiniciando contenedores para aplicar cambios..."
-    docker-compose restart api
+    docker compose restart api
     sleep 5
     
     # Verificar que el API esté funcionando
@@ -127,7 +127,7 @@ echo "3. Deberías ser redirigido a Google para autenticarte"
 echo ""
 echo "Si hay problemas:"
 echo "- Verifica que las URLs de redirección estén correctas en Google Cloud Console"
-echo "- Revisa los logs: docker-compose logs api"
+echo "- Revisa los logs: docker compose logs api"
 echo "- Asegúrate de que el dominio coincida exactamente"
 echo ""
 

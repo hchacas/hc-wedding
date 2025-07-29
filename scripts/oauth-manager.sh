@@ -166,7 +166,7 @@ test_oauth() {
     # Verificar API
     if ! curl -s http://localhost:3001/health > /dev/null 2>&1; then
         log_error "API no está corriendo en puerto 3001"
-        log_info "Ejecuta: docker-compose -f docker-compose.dev.yml up"
+        log_info "Ejecuta: docker compose -f docker-compose.dev.yml up"
         exit 1
     fi
     

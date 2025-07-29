@@ -61,5 +61,5 @@ Los scripts específicos del backend están en `api/scripts/`:
 
 - Todos los scripts deben ejecutarse desde la raíz del proyecto
 - Asegúrate de tener permisos de ejecución: `chmod +x scripts/*.sh`
-- Para desarrollo, usa `docker-compose -f docker-compose.dev.yml up`
+- Para desarrollo, usa `docker compose -f docker-compose.dev.yml up`
 - Para producción, usa `./scripts/deploy.sh`

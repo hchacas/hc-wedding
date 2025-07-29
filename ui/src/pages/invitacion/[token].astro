@@ -108,7 +108,8 @@ const { token } = Astro.params;
     // Cargar datos de la invitación dinámicamente
     async function loadInvitation() {
       try {
-        const response = await fetch(`http://localhost:3001/api/invitacion/${token}`);
+        const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
+        const response = await fetch(`${apiUrl}/api/invitacion/${token}`);
         
         if (response.ok) {
           const data = await response.json();

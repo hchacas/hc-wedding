@@ -567,7 +567,8 @@ Modal para crear invitación -->
     }
     
     // Asegurar que la URL use el puerto correcto del API
-    const apiUrl = url.startsWith('/api/') ? `http://localhost:3001${url}` : url;
+    const baseApiUrl = import.meta.env.API_URL || 'http://localhost:3001';
+    const apiUrl = url.startsWith('/api/') ? `${baseApiUrl}${url}` : url;
     
     return fetch(apiUrl, {
       ...options,

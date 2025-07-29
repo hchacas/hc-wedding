@@ -463,7 +463,8 @@
     
     try {
       // Verificar autenticación y cargar datos
-      const authResponse = await fetch('http://localhost:3001/auth/me', {
+      const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
+      const authResponse = await fetch(`${apiUrl}/auth/me`, {
         credentials: 'include'
       });
       
@@ -479,7 +480,7 @@
       }
       
       // Cargar datos del RSVP
-      const rsvpResponse = await fetch('http://localhost:3001/api/rsvp/form', {
+      const rsvpResponse = await fetch(`${apiUrl}/api/rsvp/form`, {
         credentials: 'include'
       });
       
@@ -630,7 +631,7 @@
       data.attending = data.attending === 'true';
       data.plus_one = document.getElementById('plus_one')?.checked || false;
       
-      const response = await fetch('http://localhost:3001/api/rsvp/form', {
+      const response = await fetch(`${apiUrl}/api/rsvp/form`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -658,7 +659,7 @@
   // Logout
   document.getElementById('logout-btn')?.addEventListener('click', async () => {
     try {
-      await fetch('http://localhost:3001/auth/logout', {
+      await fetch(`${apiUrl}/auth/logout`, {
         method: 'POST',
         credentials: 'include'
       });

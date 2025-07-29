@@ -75,7 +75,7 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
   document.getElementById('admin-login-form')?.addEventListener('submit', async (e) => {
     e.preventDefault();
     
-    const loginBtn = document.getElementById('login-btn') as HTMLButtonElement;
+    const loginBtn = document.getElementById('login-btn');
     const errorDiv = document.getElementById('error-message');
     const errorText = errorDiv?.querySelector('p');
     
@@ -87,7 +87,7 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
     loginBtn.textContent = 'Iniciando sesión...';
     
     try {
-      const formData = new FormData(e.target as HTMLFormElement);
+      const formData = new FormData(e.target);
       const credentials = {
         username: formData.get('username'),
         password: formData.get('password')

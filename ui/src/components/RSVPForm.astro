@@ -459,7 +459,7 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
 <script define:vars={{ apiUrl }}>
   document.addEventListener('DOMContentLoaded', async () => {
     const loadingState = document.getElementById('loading-state');
-    const rsvpForm = document.getElementById('rsvp-form') as HTMLFormElement;
+    const rsvpForm = document.getElementById('rsvp-form');
     const successMessage = document.getElementById('success-message');
     
     try {
@@ -501,15 +501,15 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
     }
   });
 
-  function populateForm(data: any) {
+  function populateForm(data) {
     // Llenar campos básicos
-    (document.getElementById('name') as HTMLInputElement).value = data.name || '';
-    (document.getElementById('email') as HTMLInputElement).value = data.email || '';
-    (document.getElementById('phone') as HTMLInputElement).value = data.phone || '';
+    document.getElementById('name').value = data.name || '';
+    document.getElementById('email').value = data.email || '';
+    document.getElementById('phone').value = data.phone || '';
     
     // Asistencia
     if (data.attending !== null) {
-      const attendingRadio = document.querySelector(`input[name="attending"][value="${data.attending}"]`) as HTMLInputElement;
+      const attendingRadio = document.querySelector(`input[name="attending"][value="${data.attending}"]`);
       if (attendingRadio) {
         attendingRadio.checked = true;
         toggleSections(data.attending);
@@ -518,11 +518,11 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
     
     // Acompañante
     if (data.plus_one) {
-      (document.getElementById('plus_one') as HTMLInputElement).checked = true;
-      (document.getElementById('plus_one_name') as HTMLInputElement).value = data.plus_one_name || '';
-      (document.getElementById('plus_one_gender') as HTMLSelectElement).value = data.plus_one_gender || '';
-      (document.getElementById('plus_one_menu_choice') as HTMLSelectElement).value = data.plus_one_menu_choice || '';
-      (document.getElementById('plus_one_dietary_restrictions') as HTMLTextAreaElement).value = data.plus_one_dietary_restrictions || '';
+      document.getElementById('plus_one').checked = true;
+      document.getElementById('plus_one_name').value = data.plus_one_name || '';
+      document.getElementById('plus_one_gender').value = data.plus_one_gender || '';
+      document.getElementById('plus_one_menu_choice').value = data.plus_one_menu_choice || '';
+      document.getElementById('plus_one_dietary_restrictions').value = data.plus_one_dietary_restrictions || '';
       
       // Mostrar secciones del acompañante
       document.getElementById('plus-one-details')?.classList.remove('hidden');
@@ -530,10 +530,10 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
     }
     
     // Preferencias
-    (document.getElementById('menu_choice') as HTMLSelectElement).value = data.menu_choice || '';
-    (document.getElementById('dietary_restrictions') as HTMLTextAreaElement).value = data.dietary_restrictions || '';
-    (document.getElementById('allergies') as HTMLInputElement).value = data.allergies || '';
-    (document.getElementById('notes') as HTMLTextAreaElement).value = data.notes || '';
+    document.getElementById('menu_choice').value = data.menu_choice || '';
+    document.getElementById('dietary_restrictions').value = data.dietary_restrictions || '';
+    document.getElementById('allergies').value = data.allergies || '';
+    document.getElementById('notes').value = data.notes || '';
     
     // Actualizar visibilidad de todas las secciones después de cargar los datos
     updateFormVisibility();
@@ -542,13 +542,13 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
   // Función para actualizar la visibilidad de todas las secciones del formulario
   function updateFormVisibility() {
     // Verificar estado de asistencia
-    const attendingRadio = document.querySelector('input[name="attending"]:checked') as HTMLInputElement;
+    const attendingRadio = document.querySelector('input[name="attending"]:checked');
     if (attendingRadio) {
       toggleSections(attendingRadio.value === 'true');
     }
     
     // Verificar estado del acompañante
-    const plusOneCheckbox = document.getElementById('plus_one') as HTMLInputElement;
+    const plusOneCheckbox = document.getElementById('plus_one');
     if (plusOneCheckbox) {
       const detailsField = document.getElementById('plus-one-details');
       const menuField = document.getElementById('plus-one-menu');
@@ -576,7 +576,7 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
 
   // Event listeners
   document.addEventListener('change', (e) => {
-    const target = e.target as HTMLInputElement;
+    const target = e.target;
     
     if (target.name === 'attending') {
       toggleSections(target.value === 'true');
@@ -591,10 +591,10 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
       } else {
         detailsField?.classList.add('hidden');
         menuField?.classList.add('hidden');
-        (document.getElementById('plus_one_name') as HTMLInputElement).value = '';
-        (document.getElementById('plus_one_gender') as HTMLSelectElement).value = '';
-        (document.getElementById('plus_one_menu_choice') as HTMLSelectElement).value = '';
-        (document.getElementById('plus_one_dietary_restrictions') as HTMLTextAreaElement).value = '';
+        document.getElementById('plus_one_name').value = '';
+        document.getElementById('plus_one_gender').value = '';
+        document.getElementById('plus_one_menu_choice').value = '';
+        document.getElementById('plus_one_dietary_restrictions').value = '';
       }
     }
     
@@ -607,10 +607,10 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
       } else {
         childrenDetails?.classList.add('hidden');
         childrenMenu?.classList.add('hidden');
-        (document.getElementById('children_count') as HTMLSelectElement).value = '';
-        (document.getElementById('children_names') as HTMLTextAreaElement).value = '';
-        (document.getElementById('children_menu_choice') as HTMLSelectElement).value = '';
-        (document.getElementById('children_dietary_restrictions') as HTMLTextAreaElement).value = '';
+        document.getElementById('children_count').value = '';
+        document.getElementById('children_names').value = '';
+        document.getElementById('children_menu_choice').value = '';
+        document.getElementById('children_dietary_restrictions').value = '';
       }
     }
   });
@@ -619,12 +619,12 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
   document.getElementById('rsvp-form')?.addEventListener('submit', async (e) => {
     e.preventDefault();
     
-    const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+    const submitBtn = document.getElementById('submit-btn');
     submitBtn.disabled = true;
     submitBtn.textContent = 'Guardando...';
     
     try {
-      const formData = new FormData(e.target as HTMLFormElement);
+      const formData = new FormData(e.target);
       const data = Object.fromEntries(formData.entries());
       
       // Convertir valores

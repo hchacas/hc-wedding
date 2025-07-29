@@ -12,17 +12,14 @@ SSL_DIR="./nginx/ssl"
 echo "🔒 SSL Setup for $DOMAIN"
 echo "================================"
 
-# Check if running as root
-if [[ $EUID -eq 0 ]]; then
-   echo "❌ Don't run this script as root"
-   exit 1
-fi
+# Create SSL directory if it doesn't exist
+mkdir -p $SSL_DIR
 
 # Check if certbot is installed
 if ! command -v certbot &> /dev/null; then
     echo "📦 Installing certbot..."
-    sudo apt update
-    sudo apt install -y certbot
+    apt update
+    apt install -y certbot
 fi
 
 # Stop any running containers
@@ -32,7 +29,7 @@ docker compose down 2>/dev/null || true
 
 # Generate certificate
 echo "🔐 Generating SSL certificate..."
-sudo certbot certonly --standalone \
+certbot certonly --standalone \
     -d $DOMAIN \
     -d $WWW_DOMAIN \
     --agree-tos \
@@ -41,12 +38,12 @@ sudo certbot certonly --standalone \
 
 # Copy certificates
 echo "📋 Copying certificates..."
-sudo cp /etc/letsencrypt/live/$DOMAIN/fullchain.pem $SSL_DIR/cert.pem
-sudo cp /etc/letsencrypt/live/$DOMAIN/privkey.pem $SSL_DIR/key.pem
+cp /etc/letsencrypt/live/$DOMAIN/fullchain.pem $SSL_DIR/cert.pem
+cp /etc/letsencrypt/live/$DOMAIN/privkey.pem $SSL_DIR/key.pem
 
 # Fix permissions
 echo "🔧 Setting permissions..."
-sudo chown $USER:$USER $SSL_DIR/cert.pem $SSL_DIR/key.pem
+chown root:root $SSL_DIR/cert.pem $SSL_DIR/key.pem
 chmod 644 $SSL_DIR/cert.pem
 chmod 600 $SSL_DIR/key.pem
 
@@ -61,7 +58,7 @@ fi
 
 # Set up auto-renewal
 echo "🔄 Setting up auto-renewal..."
-(sudo crontab -l 2>/dev/null; echo "0 */12 * * * certbot renew --quiet && docker compose --profile production restart nginx-proxy") | sudo crontab -
+(crontab -l 2>/dev/null; echo "0 */12 * * * certbot renew --quiet && docker compose --profile production restart nginx-proxy") | crontab -
 
 echo ""
 echo "🎉 SSL setup complete!"

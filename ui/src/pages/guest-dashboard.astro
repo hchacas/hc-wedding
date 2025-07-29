@@ -1,5 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
 ---
 
 <BaseLayout title="Mi Confirmación - Sheila & Habib">
@@ -197,11 +199,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   </main>
 </BaseLayout>
 
-<script>
+<script define:vars={{ apiUrl }}>
   document.addEventListener("DOMContentLoaded", async () => {
     try {
       // Verificar autenticación
-      const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
       const authResponse = await fetch(`${apiUrl}/auth/me`, {
         credentials: "include",
       });

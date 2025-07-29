@@ -1,5 +1,6 @@
 ---
 // Componente del formulario RSVP
+const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
 ---
 
 <div id="rsvp-form-container">
@@ -455,7 +456,7 @@
   </div>
 </div>
 
-<script>
+<script define:vars={{ apiUrl }}>
   document.addEventListener('DOMContentLoaded', async () => {
     const loadingState = document.getElementById('loading-state');
     const rsvpForm = document.getElementById('rsvp-form') as HTMLFormElement;
@@ -463,7 +464,6 @@
     
     try {
       // Verificar autenticación y cargar datos
-      const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
       const authResponse = await fetch(`${apiUrl}/auth/me`, {
         credentials: 'include'
       });

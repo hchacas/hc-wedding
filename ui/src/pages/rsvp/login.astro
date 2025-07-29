@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
 ---
 
 <BaseLayout title="Confirmar Asistencia - Sheila & Habib">
@@ -47,10 +49,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   </main>
 </BaseLayout>
 
-<script>
+<script define:vars={{ apiUrl }}>
   document.getElementById('google-login')?.addEventListener('click', () => {
     // Redirigir a la autenticación OAuth
-    const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
     window.location.href = `${apiUrl}/auth/google`;
   });
 </script>

@@ -4,6 +4,7 @@ export const prerender = false;
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const { token } = Astro.params;
+const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
 ---
 
 <BaseLayout title="Invitación - Sheila & Habib">
@@ -104,11 +105,10 @@ const { token } = Astro.params;
     </div>
   </main>
 
-  <script define:vars={{ token }}>
+  <script define:vars={{ token, apiUrl }}>
     // Cargar datos de la invitación dinámicamente
     async function loadInvitation() {
       try {
-        const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
         const response = await fetch(`${apiUrl}/api/invitacion/${token}`);
         
         if (response.ok) {

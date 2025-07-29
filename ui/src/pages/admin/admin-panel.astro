@@ -1,5 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
 ---
 
 <BaseLayout title="Dashboard Admin - Sheila & Habib">
@@ -497,7 +499,7 @@ Modal para crear invitación -->
   .tab-content.hidden {
     display: none;
   }
-</style><script>
+</style><script define:vars={{ apiUrl }}>
 
   // Variables globales
   let currentAnalytics = null;
@@ -567,10 +569,9 @@ Modal para crear invitación -->
     }
     
     // Asegurar que la URL use el puerto correcto del API
-    const baseApiUrl = import.meta.env.API_URL || 'http://localhost:3001';
-    const apiUrl = url.startsWith('/api/') ? `${baseApiUrl}${url}` : url;
+    const fullApiUrl = url.startsWith('/api/') ? `${apiUrl}${url}` : url;
     
-    return fetch(apiUrl, {
+    return fetch(fullApiUrl, {
       ...options,
       headers: {
         ...options.headers,

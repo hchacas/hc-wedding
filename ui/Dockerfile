@@ -1,5 +1,5 @@
-# Dockerfile para el frontend UI
-FROM --platform=linux/amd64 node:18-alpine AS builder
+# Dockerfile para el frontend UI (Server-side rendering)
+FROM --platform=linux/amd64 node:18-alpine
 
 # Crear directorio de trabajo
 WORKDIR /app
@@ -18,17 +18,8 @@ COPY . .
 # Build de la aplicación
 RUN npm run build
 
-# Etapa de producción con nginx
-FROM nginx:alpine
+# Exponer puerto (Astro server runs on 4321 by default)
+EXPOSE 4321
 
-# Copiar configuración personalizada de nginx
-COPY nginx.conf /etc/nginx/nginx.conf
-
-# Copiar archivos build desde la etapa anterior
-COPY --from=builder /app/dist /usr/share/nginx/html
-
-# Exponer puerto
-EXPOSE 80
-
-# Comando de inicio
-CMD ["nginx", "-g", "daemon off;"]
+# Comando de inicio - ejecutar el servidor Astro
+CMD ["node", "./dist/server/entry.mjs"]

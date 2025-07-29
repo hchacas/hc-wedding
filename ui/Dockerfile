@@ -15,6 +15,12 @@ RUN npm cache clean --force && \
 # Copiar código fuente
 COPY . .
 
+# Set build-time environment variables
+ARG API_URL=http://localhost:3001
+ARG FRONTEND_URL=http://localhost:4321
+ENV API_URL=$API_URL
+ENV FRONTEND_URL=$FRONTEND_URL
+
 # Build de la aplicación
 RUN npm run build
 

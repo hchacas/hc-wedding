@@ -34,6 +34,9 @@ services:
     build:
       context: ./ui
       dockerfile: Dockerfile
+      args:
+        - API_URL=${API_URL:-http://localhost:3001}
+        - FRONTEND_URL=${FRONTEND_URL:-http://localhost:4321}
     container_name: wedding-ui-server
     restart: unless-stopped
     environment:

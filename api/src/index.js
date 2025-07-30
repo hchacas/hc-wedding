@@ -37,11 +37,13 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    secure: process.env.NODE_ENV === 'production' && process.env.SECURE_COOKIES === 'true',
+    secure: false, // Always false in development, true only in production with HTTPS
     httpOnly: true,
     maxAge: 24 * 60 * 60 * 1000, // 24 horas
     sameSite: 'lax'
-  }
+    // No domain restriction in development
+  },
+  proxy: process.env.NODE_ENV === 'production' // Trust proxy in production
 }));
 
 // Configuración de Passport

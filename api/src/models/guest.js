@@ -30,54 +30,80 @@ export class Guest {
   static async updateRSVP(guestId, rsvpData) {
     const {
       attending,
+      gender,
       plus_one,
       plus_one_name,
       plus_one_gender,
-      plus_one_is_child,
-      gender,
-      is_child,
-      dietary_restrictions,
+      plus_one_menu_choice,
+      plus_one_dietary_restrictions,
+      children,
+      children_count,
+      children_names,
+      children_menu_choice,
+      children_dietary_restrictions,
       menu_choice,
-      needs_transport,
-      transport_location,
-      accommodation_needed,
-      special_requests,
+      dietary_restrictions,
+      shuttle_bus,
       notes
     } = rsvpData;
+
+    // Convertir valores del formulario a tipos correctos (SQLite usa 1/0 para boolean)
+    const normalizedData = {
+      attending: (attending === true || attending === 1 || attending === "true") ? 1 : 0,
+      gender: gender || null,
+      plus_one: (plus_one === true || plus_one === 1 || plus_one === "on") ? 1 : 0,
+      plus_one_name: plus_one_name || null,
+      plus_one_gender: plus_one_gender || null,
+      plus_one_menu_choice: plus_one_menu_choice || null,
+      plus_one_dietary_restrictions: plus_one_dietary_restrictions || null,
+      children: (children === true || children === 1 || children === "on") ? 1 : 0,
+      children_count: parseInt(children_count) || 0,
+      children_names: children_names || null,
+      children_menu_choice: children_menu_choice || null,
+      children_dietary_restrictions: children_dietary_restrictions || null,
+      menu_choice: menu_choice || null,
+      dietary_restrictions: dietary_restrictions || null,
+      needs_transport: (shuttle_bus === "on" || shuttle_bus === true || shuttle_bus === 1) ? 1 : 0,
+      notes: notes || null
+    };
 
     await dbRun(`
       UPDATE guests SET
         attending = ?,
+        gender = ?,
         plus_one = ?,
         plus_one_name = ?,
         plus_one_gender = ?,
-        plus_one_is_child = ?,
-        gender = ?,
-        is_child = ?,
-        dietary_restrictions = ?,
+        plus_one_menu_choice = ?,
+        plus_one_dietary_restrictions = ?,
+        children = ?,
+        children_count = ?,
+        children_names = ?,
+        children_menu_choice = ?,
+        children_dietary_restrictions = ?,
         menu_choice = ?,
+        dietary_restrictions = ?,
         needs_transport = ?,
-        transport_location = ?,
-        accommodation_needed = ?,
-        special_requests = ?,
         notes = ?,
         updated_at = CURRENT_TIMESTAMP
       WHERE id = ?
     `, [
-      attending,
-      plus_one,
-      plus_one_name,
-      plus_one_gender,
-      plus_one_is_child,
-      gender,
-      is_child,
-      dietary_restrictions,
-      menu_choice,
-      needs_transport,
-      transport_location,
-      accommodation_needed,
-      special_requests,
-      notes,
+      normalizedData.attending,
+      normalizedData.gender,
+      normalizedData.plus_one,
+      normalizedData.plus_one_name,
+      normalizedData.plus_one_gender,
+      normalizedData.plus_one_menu_choice,
+      normalizedData.plus_one_dietary_restrictions,
+      normalizedData.children,
+      normalizedData.children_count,
+      normalizedData.children_names,
+      normalizedData.children_menu_choice,
+      normalizedData.children_dietary_restrictions,
+      normalizedData.menu_choice,
+      normalizedData.dietary_restrictions,
+      normalizedData.needs_transport,
+      normalizedData.notes,
       guestId
     ]);
 
@@ -93,20 +119,34 @@ export class Guest {
   }
 
   static async getSummary() {
-    // Estadísticas básicas
+    // Estadísticas básicas de asistencia
     const total = await dbGet('SELECT COUNT(*) as count FROM guests');
     const attending = await dbGet('SELECT COUNT(*) as count FROM guests WHERE attending = 1');
     const notAttending = await dbGet('SELECT COUNT(*) as count FROM guests WHERE attending = 0');
     const pending = await dbGet('SELECT COUNT(*) as count FROM guests WHERE attending IS NULL');
-    const plusOnes = await dbGet('SELECT COUNT(*) as count FROM guests WHERE plus_one = 1');
+    
+    // Estadísticas de acompañantes y niños
+    const plusOnes = await dbGet('SELECT COUNT(*) as count FROM guests WHERE attending = 1 AND plus_one = 1');
+    const withChildren = await dbGet('SELECT COUNT(*) as count FROM guests WHERE attending = 1 AND children = 1');
+    const totalChildren = await dbGet(`
+      SELECT COALESCE(SUM(children_count), 0) as total
+      FROM guests WHERE attending = 1 AND children = 1
+    `);
 
-    // Estadísticas por género (incluyendo acompañantes)
+    // Total de personas (invitados + acompañantes + niños)
+    const totalPeople = await dbGet(`
+      SELECT 
+        (SELECT COUNT(*) FROM guests WHERE attending = 1) + 
+        (SELECT COUNT(*) FROM guests WHERE attending = 1 AND plus_one = 1) +
+        (SELECT COALESCE(SUM(children_count), 0) FROM guests WHERE attending = 1 AND children = 1) as total
+    `);
+
+    // Estadísticas por género (útil para organización)
     const genderStats = await dbAll(`
       SELECT 
         COALESCE(gender, 'No especificado') as gender,
         COUNT(*) as count
-      FROM guests 
-      WHERE attending = 1
+      FROM guests WHERE attending = 1
       GROUP BY gender
     `);
 
@@ -114,110 +154,97 @@ export class Guest {
       SELECT 
         COALESCE(plus_one_gender, 'No especificado') as gender,
         COUNT(*) as count
-      FROM guests 
-      WHERE attending = 1 AND plus_one = 1
+      FROM guests WHERE attending = 1 AND plus_one = 1
       GROUP BY plus_one_gender
     `);
 
-    // Estadísticas por grupo de edad
-    const ageStats = await dbAll(`
-      SELECT 
-        COALESCE(age_group, 'No especificado') as age_group,
-        COUNT(*) as count
-      FROM guests 
-      WHERE attending = 1
-      GROUP BY age_group
+    // Estadísticas de menú consolidadas (para catering)
+    const allMenuChoices = await dbAll(`
+      SELECT menu_type, menu_choice, COUNT(*) as count FROM (
+        SELECT 'Principal' as menu_type, menu_choice 
+        FROM guests WHERE attending = 1 AND menu_choice IS NOT NULL AND menu_choice != ''
+        UNION ALL
+        SELECT 'Acompañante' as menu_type, plus_one_menu_choice as menu_choice
+        FROM guests WHERE attending = 1 AND plus_one = 1 AND plus_one_menu_choice IS NOT NULL AND plus_one_menu_choice != ''
+        UNION ALL
+        SELECT 'Niños' as menu_type, children_menu_choice as menu_choice
+        FROM guests WHERE attending = 1 AND children = 1 AND children_menu_choice IS NOT NULL AND children_menu_choice != ''
+      ) GROUP BY menu_choice ORDER BY count DESC
     `);
 
-    const plusOneAgeStats = await dbAll(`
-      SELECT 
-        COALESCE(plus_one_age_group, 'No especificado') as age_group,
-        COUNT(*) as count
-      FROM guests 
-      WHERE attending = 1 AND plus_one = 1
-      GROUP BY plus_one_age_group
+    // Restricciones dietéticas consolidadas (crítico para catering)
+    const allDietaryRestrictions = await dbAll(`
+      SELECT restriction, COUNT(*) as count FROM (
+        SELECT dietary_restrictions as restriction
+        FROM guests WHERE attending = 1 AND dietary_restrictions IS NOT NULL AND dietary_restrictions != ''
+        UNION ALL
+        SELECT plus_one_dietary_restrictions as restriction
+        FROM guests WHERE attending = 1 AND plus_one = 1 AND plus_one_dietary_restrictions IS NOT NULL AND plus_one_dietary_restrictions != ''
+        UNION ALL
+        SELECT children_dietary_restrictions as restriction
+        FROM guests WHERE attending = 1 AND children = 1 AND children_dietary_restrictions IS NOT NULL AND children_dietary_restrictions != ''
+      ) GROUP BY restriction ORDER BY count DESC
     `);
 
-    // Estadísticas de menú
-    const menuStats = await dbAll(`
-      SELECT 
-        COALESCE(menu_choice, 'No especificado') as menu,
-        COUNT(*) as count
-      FROM guests 
-      WHERE attending = 1 AND menu_choice IS NOT NULL AND menu_choice != ''
-      GROUP BY menu_choice
-    `);
-
-    // Estadísticas de restricciones dietéticas
-    const dietaryStats = await dbAll(`
-      SELECT 
-        COALESCE(dietary_restrictions, 'Ninguna') as restriction,
-        COUNT(*) as count
-      FROM guests 
-      WHERE attending = 1 AND dietary_restrictions IS NOT NULL AND dietary_restrictions != ''
-      GROUP BY dietary_restrictions
-    `);
-
-    // Estadísticas de alergias
-    const allergyStats = await dbAll(`
-      SELECT 
-        COALESCE(allergies, 'Ninguna') as allergy,
-        COUNT(*) as count
-      FROM guests 
-      WHERE attending = 1 AND allergies IS NOT NULL AND allergies != ''
-      GROUP BY allergies
-    `);
-
-    // Estadísticas de transporte
+    // Estadísticas de transporte (crítico para logística)
     const transportNeeded = await dbGet('SELECT COUNT(*) as count FROM guests WHERE attending = 1 AND needs_transport = 1');
-    const transportStats = await dbAll(`
+    
+    // Desglose detallado de niños por familia
+    const childrenBreakdown = await dbAll(`
       SELECT 
-        COALESCE(transport_location, 'No especificado') as location,
-        COUNT(*) as count
+        children_count as count,
+        COUNT(*) as families
       FROM guests 
-      WHERE attending = 1 AND needs_transport = 1 AND transport_location IS NOT NULL AND transport_location != ''
-      GROUP BY transport_location
+      WHERE attending = 1 AND children = 1 AND children_count > 0
+      GROUP BY children_count
+      ORDER BY children_count
     `);
 
-    // Estadísticas de alojamiento
-    const accommodationNeeded = await dbGet('SELECT COUNT(*) as count FROM guests WHERE attending = 1 AND accommodation_needed = 1');
-
-    // Calcular totales de personas (incluyendo acompañantes)
-    const totalPeople = await dbGet(`
-      SELECT 
-        (SELECT COUNT(*) FROM guests WHERE attending = 1) + 
-        (SELECT COUNT(*) FROM guests WHERE attending = 1 AND plus_one = 1) as total
+    // Lista de teléfonos para contacto
+    const phoneNumbers = await dbAll(`
+      SELECT name, phone 
+      FROM guests 
+      WHERE attending = 1 AND phone IS NOT NULL AND phone != ""
+      ORDER BY name
     `);
 
     return {
       // Estadísticas básicas
-      total: total.count,
-      attending: attending.count,
-      notAttending: notAttending.count,
-      pending: pending.count,
-      plusOnes: plusOnes.count,
-      totalPeople: totalPeople.total,
+      basic: {
+        total: total.count,
+        attending: attending.count,
+        notAttending: notAttending.count,
+        pending: pending.count,
+        totalPeople: totalPeople.total
+      },
 
-      // Estadísticas demográficas
+      // Composición de invitados
+      composition: {
+        soloGuests: attending.count - plusOnes.count - withChildren.count,
+        withPlusOne: plusOnes.count,
+        withChildren: withChildren.count,
+        totalChildren: totalChildren.total,
+        childrenBreakdown: childrenBreakdown
+      },
+
+      // Demografía (útil para organización)
       demographics: {
-        gender: genderStats,
-        plusOneGender: plusOneGenderStats,
-        age: ageStats,
-        plusOneAge: plusOneAgeStats
+        mainGuests: genderStats,
+        plusOnes: plusOneGenderStats
       },
 
-      // Estadísticas de catering
+      // Catering (crítico para planificación)
       catering: {
-        menu: menuStats,
-        dietary: dietaryStats,
-        allergies: allergyStats
+        menuChoices: allMenuChoices,
+        dietaryRestrictions: allDietaryRestrictions,
+        totalMealsNeeded: totalPeople.total
       },
 
-      // Estadísticas de logística
+      // Logística (crítico para organización)
       logistics: {
-        transportNeeded: transportNeeded.count,
-        transportLocations: transportStats,
-        accommodationNeeded: accommodationNeeded.count
+        needsTransport: transportNeeded.count > 0,
+        transportCount: transportNeeded.count,
+        phoneNumbers: phoneNumbers
       }
     };
   }

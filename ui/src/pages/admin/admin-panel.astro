@@ -615,7 +615,7 @@ Modal para crear invitación -->
       const data = await response.json();
       
       if (data.success) {
-        currentAnalytics = data.analytics;
+        currentAnalytics = data.analytics.guests; // Extract the guests data
         updateAnalyticsDisplay(currentAnalytics);
       }
     } catch (error) {
@@ -653,10 +653,31 @@ Modal para crear invitación -->
   } 
  // Actualizar estadísticas básicas
   function updateStatistics(stats) {
-    document.getElementById('confirmed-count').textContent = stats.attending || '0';
-    document.getElementById('declined-count').textContent = stats.notAttending || '0';
-    document.getElementById('pending-count').textContent = stats.pending || '0';
-    document.getElementById('total-people-overview').textContent = stats.totalPeople || '0';
+    // Use the new nested structure
+    const basic = stats.basic || {};
+    const composition = stats.composition || {};
+    const logistics = stats.logistics || {};
+    
+    document.getElementById('confirmed-count').textContent = basic.attending || '0';
+    document.getElementById('declined-count').textContent = basic.notAttending || '0';
+    document.getElementById('pending-count').textContent = basic.pending || '0';
+    document.getElementById('total-people-overview').textContent = basic.totalPeople || '0';
+    
+    // Update additional stats if elements exist
+    const plusOneElement = document.getElementById('plus-one-count');
+    if (plusOneElement) {
+      plusOneElement.textContent = composition.withPlusOne || '0';
+    }
+    
+    const childrenElement = document.getElementById('children-count');
+    if (childrenElement) {
+      childrenElement.textContent = composition.totalChildren || '0';
+    }
+    
+    const transportElement = document.getElementById('transport-count');
+    if (transportElement) {
+      transportElement.textContent = logistics.transportCount || '0';
+    }
   }
 
   // Actualizar tabla de invitados recientes
@@ -684,34 +705,56 @@ Modal para crear invitación -->
 
   // Actualizar display de estadísticas avanzadas
   function updateAnalyticsDisplay(analytics) {
-    const { guests } = analytics;
+    // Use the new structure directly (analytics is the stats object)
+    const basic = analytics.basic || {};
+    const composition = analytics.composition || {};
+    const demographics = analytics.demographics || {};
+    const catering = analytics.catering || {};
+    const logistics = analytics.logistics || {};
     
     // Actualizar contadores principales
-    document.getElementById('total-people').textContent = guests.totalPeople || '0';
-    document.getElementById('main-guests').textContent = guests.attending || '0';
-    document.getElementById('plus-ones').textContent = guests.plusOnes || '0';
+    document.getElementById('total-people').textContent = basic.totalPeople || '0';
+    document.getElementById('main-guests').textContent = basic.attending || '0';
+    document.getElementById('plus-ones').textContent = composition.withPlusOne || '0';
     
-    // Estadísticas de transporte y alojamiento
-    document.getElementById('transport-needed').textContent = guests.logistics?.transportNeeded || '0';
-    document.getElementById('accommodation-needed').textContent = guests.logistics?.accommodationNeeded || '0';
+    // Estadísticas de transporte
+    document.getElementById('transport-needed').textContent = logistics.transportCount || '0';
     
-    // Estadísticas de género
-    updateStatsSection('gender-stats', guests.demographics?.gender || []);
+    // Estadísticas de género (invitados principales)
+    updateStatsSection('gender-stats', demographics.mainGuests || []);
     
-    // Estadísticas de edad
-    updateStatsSection('age-stats', guests.demographics?.age || []);
+    // Estadísticas de menú consolidadas
+    updateStatsSection('menu-stats', catering.menuChoices || []);
     
-    // Estadísticas de menú
-    updateStatsSection('menu-stats', guests.catering?.menu || []);
+    // Estadísticas dietéticas consolidadas
+    updateStatsSection('dietary-stats', catering.dietaryRestrictions || []);
     
-    // Estadísticas dietéticas
-    updateStatsSection('dietary-stats', guests.catering?.dietary || []);
+    // Estadísticas de niños
+    const childrenElement = document.getElementById('children-stats');
+    if (childrenElement) {
+      const childrenBreakdown = composition.childrenBreakdown || [];
+      if (childrenBreakdown.length === 0) {
+        childrenElement.innerHTML = '<p class="text-gray-500 text-sm">Sin niños registrados</p>';
+      } else {
+        childrenElement.innerHTML = childrenBreakdown.map(item => 
+          `<div class="flex justify-between py-1">
+            <span>${item.count} niño${item.count > 1 ? 's' : ''}</span>
+            <span class="font-medium">${item.families} familia${item.families > 1 ? 's' : ''}</span>
+          </div>`
+        ).join('');
+      }
+    }
     
-    // Estadísticas de alergias
-    updateStatsSection('allergy-stats', guests.catering?.allergies || []);
-    
-    // Ubicaciones de transporte
-    updateStatsSection('transport-locations', guests.logistics?.transportLocations || []);
+    // Información de contacto
+    const contactElement = document.getElementById('contact-stats');
+    if (contactElement && logistics.phoneNumbers) {
+      contactElement.innerHTML = logistics.phoneNumbers.map(contact => 
+        `<div class="flex justify-between py-1">
+          <span>${contact.name}</span>
+          <span class="font-medium">${contact.phone}</span>
+        </div>`
+      ).join('') || '<p class="text-gray-500 text-sm">Sin teléfonos disponibles</p>';
+    }
   }
 
   // Función auxiliar para actualizar secciones de estadísticas
@@ -725,11 +768,14 @@ Modal para crear invitación -->
     }
     
     element.innerHTML = data.map(item => {
-      const label = item.gender || item.age_group || item.menu || item.restriction || item.allergy || item.location || 'Sin especificar';
+      // Handle different data structures
+      const label = item.gender || item.menu_choice || item.restriction || item.menu_type || 'Sin especificar';
+      const count = item.count || 0;
+      
       return `
         <div class="flex justify-between items-center">
           <span class="text-gray-700">${label}:</span>
-          <span class="font-medium text-gray-900">${item.count}</span>
+          <span class="font-medium text-gray-900">${count}</span>
         </div>
       `;
     }).join('');

@@ -34,21 +34,31 @@ export function initDatabase() {
           name TEXT NOT NULL,
           email TEXT NOT NULL,
           phone TEXT,
+          gender TEXT,
           attending BOOLEAN,
+          
+          -- Acompañante adulto
           plus_one BOOLEAN DEFAULT 0,
           plus_one_name TEXT,
           plus_one_gender TEXT,
-          plus_one_age_group TEXT,
-          gender TEXT,
-          age_group TEXT,
-          dietary_restrictions TEXT,
+          plus_one_menu_choice TEXT,
+          plus_one_dietary_restrictions TEXT,
+          
+          -- Niños
+          children BOOLEAN DEFAULT 0,
+          children_count INTEGER DEFAULT 0,
+          children_names TEXT,
+          children_menu_choice TEXT,
+          children_dietary_restrictions TEXT,
+          
+          -- Menú y restricciones del invitado principal
           menu_choice TEXT,
-          allergies TEXT,
+          dietary_restrictions TEXT,
+          
+          -- Transporte y comentarios
           needs_transport BOOLEAN DEFAULT 0,
-          transport_location TEXT,
-          accommodation_needed BOOLEAN DEFAULT 0,
-          special_requests TEXT,
           notes TEXT,
+          
           created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
           updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
         )`,

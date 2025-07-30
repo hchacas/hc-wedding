@@ -486,9 +486,13 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
       
       if (rsvpResponse.ok) {
         const rsvpData = await rsvpResponse.json();
+        console.log('RSVP Data received:', rsvpData);
         if (rsvpData.success) {
+          console.log('Populating form with data:', rsvpData.form);
           populateForm(rsvpData.form);
         }
+      } else {
+        console.error('Failed to load RSVP data:', rsvpResponse.status);
       }
       
       // Mostrar formulario
@@ -502,41 +506,91 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
   });
 
   function populateForm(data) {
+    console.log('=== POPULATE FORM DEBUG ===');
+    console.log('Data received:', data);
+    
     // Llenar campos básicos
     document.getElementById('name').value = data.name || '';
     document.getElementById('email').value = data.email || '';
     document.getElementById('phone').value = data.phone || '';
     
+    console.log('Basic fields populated');
+    
+    // Información personal
+    if (data.gender) {
+      console.log('Setting gender:', data.gender);
+      document.getElementById('gender').value = data.gender;
+    }
+    
     // Asistencia
     if (data.attending !== null) {
-      const attendingRadio = document.querySelector(`input[name="attending"][value="${data.attending}"]`);
+      console.log('Setting attending:', data.attending);
+      // Convertir número a string boolean
+      const attendingValue = data.attending === 1 || data.attending === true ? "true" : "false";
+      const attendingRadio = document.querySelector(`input[name="attending"][value="${attendingValue}"]`);
       if (attendingRadio) {
         attendingRadio.checked = true;
-        toggleSections(data.attending);
+        toggleSections(attendingValue === "true");
+        console.log('Attending radio set and sections toggled');
       }
     }
     
     // Acompañante
     if (data.plus_one) {
+      console.log('Setting plus_one data:', data.plus_one_name, data.plus_one_gender);
       document.getElementById('plus_one').checked = true;
       document.getElementById('plus_one_name').value = data.plus_one_name || '';
-      document.getElementById('plus_one_gender').value = data.plus_one_gender || '';
-      document.getElementById('plus_one_menu_choice').value = data.plus_one_menu_choice || '';
+      if (data.plus_one_gender) {
+        document.getElementById('plus_one_gender').value = data.plus_one_gender;
+      }
+      if (data.plus_one_menu_choice) {
+        document.getElementById('plus_one_menu_choice').value = data.plus_one_menu_choice;
+      }
       document.getElementById('plus_one_dietary_restrictions').value = data.plus_one_dietary_restrictions || '';
       
       // Mostrar secciones del acompañante
       document.getElementById('plus-one-details')?.classList.remove('hidden');
-      document.getElementById('plus-one-menu')?.classList.remove('hidden');
     }
     
-    // Preferencias
-    document.getElementById('menu_choice').value = data.menu_choice || '';
+    // Niños
+    if (data.children) {
+      console.log('Setting children data:', data.children_count, data.children_names);
+      document.getElementById('children').checked = true;
+      if (data.children_count) {
+        document.getElementById('children_count').value = data.children_count;
+      }
+      document.getElementById('children_names').value = data.children_names || '';
+      if (data.children_menu_choice) {
+        document.getElementById('children_menu_choice').value = data.children_menu_choice;
+      }
+      document.getElementById('children_dietary_restrictions').value = data.children_dietary_restrictions || '';
+      
+      // Mostrar secciones de niños
+      document.getElementById('children-details')?.classList.remove('hidden');
+    }
+    
+    // Menú y restricciones dietéticas del invitado principal
+    console.log('Menu choice:', data.menu_choice);
+    if (data.menu_choice) {
+      document.getElementById('menu_choice').value = data.menu_choice;
+    }
+    console.log('Dietary restrictions:', data.dietary_restrictions);
     document.getElementById('dietary_restrictions').value = data.dietary_restrictions || '';
-    document.getElementById('allergies').value = data.allergies || '';
+    
+    // Transporte
+    console.log('Transport data:', data.needs_transport);
+    if (data.needs_transport === "on" || data.needs_transport === true || data.needs_transport === 1) {
+      console.log('Setting shuttle_bus checked');
+      document.getElementById('shuttle_bus').checked = true;
+    }
+    
+    // Notas adicionales
     document.getElementById('notes').value = data.notes || '';
     
     // Actualizar visibilidad de todas las secciones después de cargar los datos
     updateFormVisibility();
+    
+    console.log('=== POPULATE FORM COMPLETE ===');
   }
 
   // Función para actualizar la visibilidad de todas las secciones del formulario

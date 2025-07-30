@@ -54,23 +54,37 @@ wedding-app/
 ├── .env                        # ⚙️ Variables de entorno (NO commitear)
 ├── .env.example                # 📋 Plantilla de configuración
 ├── .env.production             # 🏭 Configuración de producción
-├── docker-compose.yml          # 🐳 Docker para producción
-├── docker-compose.dev.yml      # 🐳 Docker para desarrollo
+├── docker-compose.yml          # 🐳 Docker unificado (dev y prod)
 └── README.md                   # 📖 Este archivo
 ```
 
 ## 🏗️ Arquitectura
 
+**Arquitectura Unificada con Nginx Proxy:**
 ```
-┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   Frontend UI   │    │   Backend API   │    │   Database      │
-│   (Astro)       │◄──►│   (Node.js)     │◄──►│   (SQLite)      │
-│   Port: 4321    │    │   Port: 3001    │    │   wedding.db    │
-└─────────────────┘    └─────────────────┘    └─────────────────┘
-         │                       │
-         └───────────────────────┘
-              Docker Network
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   Nginx Proxy   │    │   Frontend UI   │    │   Backend API   │    │   Database      │
+│   Port: 80/443  │◄──►│   (Astro)       │    │   (Node.js)     │◄──►│   (SQLite)      │
+│   (Dev & Prod)  │    │   Port: 4321    │    │   Port: 3001    │    │   wedding.db    │
+└─────────────────┘    └─────────────────┘    └─────────────────┘    └─────────────────┘
+         │                       │                       │
+         └───────────────────────┼───────────────────────┘
+                            Docker Network
 ```
+
+**Diferencias entre Entornos:**
+- **Desarrollo**: `docker compose up --build`
+  - Nginx proxy en puerto 80 (HTTP)
+  - URL: http://localhost
+- **Producción**: `docker compose --profile production up -d --build`
+  - Nginx proxy en puerto 80 (HTTP) + puerto 443 (HTTPS con SSL)
+  - URL: https://www.sheilayhabib.com
+- **API**: Siempre accesible a través de `/api` y `/auth` routes
+
+**Arquitectura Unificada:**
+- ✅ Un solo `docker-compose.yml` para dev y prod
+- ✅ Misma configuración, solo cambia el profile
+- ✅ Nginx proxy en ambos entornos para consistencia
 
 ## ⚡ Comandos Rápidos
 
@@ -86,7 +100,7 @@ node api/scripts/init-db.js
 node api/scripts/create-admin.js
 
 # 4. Iniciar aplicación
-docker compose -f docker-compose.dev.yml up --build
+docker compose up --build
 ```
 
 ### 🔧 Comandos Útiles
@@ -149,15 +163,10 @@ nano .env
 
 **Desarrollo:**
 ```bash
-docker compose -f docker-compose.dev.yml up --build
+docker compose up --build
 ```
 
-**Producción básica:**
-```bash
-docker compose up -d --build
-```
-
-**Producción avanzada (con SSL proxy):**
+**Producción:**
 ```bash
 docker compose --profile production up -d --build
 ```
@@ -206,11 +215,9 @@ docker-compose logs -f
 
 | Archivo | Descripción | Uso |
 |---------|-------------|-----|
-| `docker-compose.yml` | 🏭 Configuración producción | `docker compose up -d` |
-| `docker-compose.dev.yml` | 🛠️ Configuración desarrollo | `docker compose -f docker-compose.dev.yml up` |
-| `api/Dockerfile` | 🐳 Imagen API producción | Usado por docker-compose |
-| `ui/Dockerfile` | 🐳 Imagen UI producción | Usado por docker-compose |
-| `ui/Dockerfile.dev` | 🐳 Imagen UI desarrollo | Usado por docker-compose.dev.yml |
+| `docker-compose.yml` | 🐳 Configuración unificada | `docker compose up --build` |
+| `api/Dockerfile` | 🐳 Imagen API | Usado por docker-compose |
+| `ui/Dockerfile` | 🐳 Imagen UI | Usado por docker-compose |
 
 ### ⚙️ Archivos de Configuración
 
@@ -262,9 +269,9 @@ docker-compose logs -f
 ### Opción 1: Docker Compose (Recomendado)
 ```bash
 # Desarrollo con Docker
-docker compose -f docker-compose.dev.yml up --build
+docker compose up --build
 
-# Frontend: http://localhost:4321
+# Frontend: http://localhost (puerto 80 - nginx proxy)
 # Backend: http://localhost:3001
 # Admin: http://localhost:4321/admin/login
 ```
@@ -308,7 +315,54 @@ npm run dev
 
 ## 📊 Base de Datos
 
-### Tabla `invitations`
+### Persistencia y Migraciones
+- ✅ **Datos persistentes**: Los datos NO se pierden al reiniciar contenedores
+- ✅ **Volumen Docker**: `wedding-data:/app/data` (producción)
+- ✅ **Migraciones automáticas**: Con backup y rollback
+- ✅ **Backups programados**: Durante cada migración
+
+### Estructura Actual
+
+#### Tabla `guests` (RSVP Completo)
+```sql
+CREATE TABLE guests (
+  -- Información básica del invitado
+  id INTEGER PRIMARY KEY,
+  auth_id TEXT UNIQUE NOT NULL,
+  name TEXT NOT NULL,
+  email TEXT NOT NULL,
+  phone TEXT,
+  gender TEXT,
+  attending BOOLEAN,
+  
+  -- Acompañante adulto
+  plus_one BOOLEAN DEFAULT 0,
+  plus_one_name TEXT,
+  plus_one_gender TEXT,
+  plus_one_menu_choice TEXT,
+  plus_one_dietary_restrictions TEXT,
+  
+  -- Niños
+  children BOOLEAN DEFAULT 0,
+  children_count INTEGER DEFAULT 0,
+  children_names TEXT,
+  children_menu_choice TEXT,
+  children_dietary_restrictions TEXT,
+  
+  -- Preferencias del invitado principal
+  menu_choice TEXT,
+  dietary_restrictions TEXT,
+  
+  -- Logística y comentarios
+  needs_transport BOOLEAN DEFAULT 0,
+  notes TEXT,
+  
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+#### Tabla `invitations`
 ```sql
 CREATE TABLE invitations (
   id INTEGER PRIMARY KEY,
@@ -319,25 +373,7 @@ CREATE TABLE invitations (
 );
 ```
 
-### Tabla `guests`
-```sql
-CREATE TABLE guests (
-  id INTEGER PRIMARY KEY,
-  auth_id TEXT UNIQUE NOT NULL,
-  name TEXT NOT NULL,
-  email TEXT NOT NULL,
-  attending BOOLEAN,
-  plus_one BOOLEAN DEFAULT 0,
-  plus_one_name TEXT,
-  dietary_restrictions TEXT,
-  menu_choice TEXT,
-  allergies TEXT,
-  notes TEXT,
-  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-);
-```
-
-### Tabla `admins`
+#### Tabla `admins`
 ```sql
 CREATE TABLE admins (
   id INTEGER PRIMARY KEY,
@@ -346,6 +382,31 @@ CREATE TABLE admins (
   name TEXT NOT NULL,
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
+```
+
+### Sistema de Migraciones
+```bash
+# Ejecutar migraciones pendientes (con backup automático)
+docker-compose exec api node scripts/migrate-database.js
+
+# Despliegue completo con migraciones
+./scripts/deploy-with-migration.sh
+
+# Producción con SSL
+./scripts/deploy-with-migration.sh --production
+
+# Ver migraciones aplicadas
+docker-compose exec api sqlite3 /app/data/wedding.db "SELECT * FROM migrations;"
+```
+
+### Crear Nueva Migración
+```bash
+# 1. Copiar template
+cp api/migrations/TEMPLATE_migration.js api/migrations/002_nueva_funcionalidad.js
+
+# 2. Editar el archivo con los cambios necesarios
+# 3. Probar en desarrollo
+# 4. Aplicar en producción con deploy-with-migration.sh
 ```
 
 ## 🔧 Gestión y Mantenimiento

@@ -33,12 +33,21 @@ router.get('/form', requireAuth, async (req, res) => {
         name: guest.name,
         email: guest.email,
         phone: guest.phone,
+        gender: guest.gender,
         attending: guest.attending,
         plus_one: guest.plus_one,
         plus_one_name: guest.plus_one_name,
-        dietary_restrictions: guest.dietary_restrictions,
+        plus_one_gender: guest.plus_one_gender,
+        plus_one_menu_choice: guest.plus_one_menu_choice,
+        plus_one_dietary_restrictions: guest.plus_one_dietary_restrictions,
+        children: guest.children,
+        children_count: guest.children_count,
+        children_names: guest.children_names,
+        children_menu_choice: guest.children_menu_choice,
+        children_dietary_restrictions: guest.children_dietary_restrictions,
         menu_choice: guest.menu_choice,
-        allergies: guest.allergies,
+        dietary_restrictions: guest.dietary_restrictions,
+        needs_transport: guest.needs_transport,
         notes: guest.notes
       }
     });
@@ -63,12 +72,21 @@ router.post('/form', requireAuth, async (req, res) => {
       form: {
         id: updatedGuest.id,
         name: updatedGuest.name,
+        gender: updatedGuest.gender,
         attending: updatedGuest.attending,
         plus_one: updatedGuest.plus_one,
         plus_one_name: updatedGuest.plus_one_name,
-        dietary_restrictions: updatedGuest.dietary_restrictions,
+        plus_one_gender: updatedGuest.plus_one_gender,
+        plus_one_menu_choice: updatedGuest.plus_one_menu_choice,
+        plus_one_dietary_restrictions: updatedGuest.plus_one_dietary_restrictions,
+        children: updatedGuest.children,
+        children_count: updatedGuest.children_count,
+        children_names: updatedGuest.children_names,
+        children_menu_choice: updatedGuest.children_menu_choice,
+        children_dietary_restrictions: updatedGuest.children_dietary_restrictions,
         menu_choice: updatedGuest.menu_choice,
-        allergies: updatedGuest.allergies,
+        dietary_restrictions: updatedGuest.dietary_restrictions,
+        needs_transport: updatedGuest.needs_transport,
         notes: updatedGuest.notes
       }
     });

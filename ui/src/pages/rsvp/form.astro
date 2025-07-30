@@ -2,13 +2,14 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import RSVPForm from '../../components/RSVPForm.astro';
 
+// Configuración de API
+const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
+
 // Verificar autenticación del lado del servidor
 let user = null;
 let error = null;
 
 try {
-  const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
-  
   // En un entorno real, necesitarías pasar las cookies de sesión
   // Por ahora, manejamos la autenticación del lado del cliente
   
@@ -60,8 +61,6 @@ try {
 </BaseLayout>
 
 <script define:vars={{ apiUrl }}>
-import { todo } from "node:test";
-
   // Verificar autenticación al cargar la página
   document.addEventListener('DOMContentLoaded', async () => {
     try {

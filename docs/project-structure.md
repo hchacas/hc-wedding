@@ -45,8 +45,7 @@ wedding-app/
 ├── .env                        # Variables de entorno (NO commitear)
 ├── .env.example                # Plantilla de configuración
 ├── .env.production             # Configuración de producción
-├── docker-compose.yml          # Configuración Docker producción
-├── docker-compose.dev.yml      # Configuración Docker desarrollo
+├── docker-compose.yml          # Configuración Docker unificada
 ├── .gitignore                  # Archivos ignorados por Git
 └── README.md                   # Documentación principal
 ```
@@ -97,8 +96,7 @@ node api/scripts/init-db.js
 - `.env.production` - Referencia para producción
 
 ### Docker
-- `docker-compose.yml` - Configuración para producción
-- `docker-compose.dev.yml` - Configuración para desarrollo
+- `docker-compose.yml` - Configuración unificada para desarrollo y producción
 
 ## 📚 Documentación
 

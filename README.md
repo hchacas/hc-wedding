@@ -78,7 +78,7 @@ wedding-app/
   - URL: http://localhost
 - **Producción**: `docker compose --profile production up -d --build`
   - Nginx proxy en puerto 80 (HTTP) + puerto 443 (HTTPS con SSL)
-  - URL: https://www.sheilayhabib.com
+  - URL: https://sheilayhabib.com
 - **API**: Siempre accesible a través de `/api` y `/auth` routes
 
 **Arquitectura Unificada:**
@@ -389,14 +389,14 @@ CREATE TABLE admins (
 # Ejecutar migraciones pendientes (con backup automático)
 docker compose exec api node scripts/migrate-database.js
 
-# Despliegue completo con migraciones
+# Despliegue completo con migraciones (desarrollo)
 ./scripts/deploy-with-migration.sh
 
-# Producción con SSL
-./scripts/deploy-with-migration.sh --production
+# Despliegue en producción
+./scripts/deploy-with-migration.sh production
 
 # Ver migraciones aplicadas
-docker-compose exec api sqlite3 /app/data/wedding.db "SELECT * FROM migrations;"
+docker compose exec api sqlite3 /app/data/wedding.db "SELECT * FROM migrations;"
 ```
 
 ### Crear Nueva Migración

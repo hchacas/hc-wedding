@@ -1,12 +1,10 @@
 #!/bin/bash
 
 # Script de despliegue con migración de base de datos
-# Uso: ./scripts/deploy-with-migration.sh
+# Uso: ./scripts/deploy-with-migration.sh [environment]
+# Ejemplo: ./scripts/deploy-with-migration.sh production
 
 set -e
-
-echo "🚀 Starting deployment with database migration..."
-echo "📅 $(date)"
 
 # Colores para output
 RED='\033[0;31m'
@@ -30,6 +28,20 @@ log_warning() {
 log_error() {
     echo -e "${RED}❌ $1${NC}"
 }
+
+# Detectar entorno
+ENVIRONMENT=${1:-development}
+if [ -f ".env.${ENVIRONMENT}" ]; then
+    log_info "Loading environment: $ENVIRONMENT"
+    export $(grep -v '^#' .env.${ENVIRONMENT} | xargs)
+elif [ -f ".env" ]; then
+    log_info "Loading default environment"
+    export $(grep -v '^#' .env | xargs)
+fi
+
+echo "🚀 Starting deployment with database migration..."
+echo "📅 $(date)"
+echo "🌍 Environment: $ENVIRONMENT"
 
 # Verificar que estamos en el directorio correcto
 if [ ! -f "docker-compose.yml" ]; then
@@ -81,8 +93,22 @@ sleep 10
 # Verificar que la API esté funcionando
 max_attempts=30
 attempt=1
+
+# Determinar la URL de la API basada en el entorno
+if [ "$ENVIRONMENT" = "production" ]; then
+    # En producción, usar el nombre del servicio interno de Docker
+    API_URL="http://api:3001/health"
+    HEALTH_CHECK_CMD="docker compose exec -T api curl -s http://localhost:3001/health"
+else
+    # En desarrollo, usar localhost
+    API_URL="http://localhost:3001/health"
+    HEALTH_CHECK_CMD="curl -s $API_URL"
+fi
+
+log_info "Checking API health at: $API_URL"
+
 while [ $attempt -le $max_attempts ]; do
-    if curl -s http://localhost:3001/health > /dev/null 2>&1; then
+    if eval $HEALTH_CHECK_CMD > /dev/null 2>&1; then
         log_success "API is ready"
         break
     fi

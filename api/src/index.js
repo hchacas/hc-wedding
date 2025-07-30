@@ -19,10 +19,9 @@ const PORT = process.env.PORT || 3001;
 // Middleware básico
 app.use(cors({
   origin: [
-    process.env.FRONTEND_URL || 'http://localhost',
-    'http://localhost:4321',
-    'http://localhost:80',
-    'http://localhost'
+    'http://localhost',
+    'https://sheilayhabib.com',
+    'https://www.sheilayhabib.com'
   ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],

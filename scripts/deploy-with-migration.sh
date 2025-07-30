@@ -47,8 +47,8 @@ fi
 
 # Paso 1: Backup de la base de datos actual (si existe)
 log_info "Step 1: Creating database backup..."
-if docker-compose ps | grep -q "wedding-api.*Up"; then
-    docker-compose exec -T api node scripts/migrate-database.js || true
+if docker compose ps | grep -q "wedding-api.*Up"; then
+    docker compose exec -T api node scripts/migrate-database.js || true
     log_success "Database backup created"
 else
     log_warning "API container not running, skipping backup"
@@ -56,22 +56,22 @@ fi
 
 # Paso 2: Construir nuevas imágenes
 log_info "Step 2: Building new images..."
-docker-compose build --no-cache
+docker compose build --no-cache
 log_success "Images built successfully"
 
 # Paso 3: Detener servicios actuales
 log_info "Step 3: Stopping current services..."
-docker-compose down
+docker compose down
 log_success "Services stopped"
 
 # Paso 4: Iniciar servicios con perfil de producción
 log_info "Step 4: Starting services..."
 if [ "$1" = "--production" ]; then
     log_info "Starting with production profile (SSL enabled)"
-    docker-compose --profile production up -d
+    docker compose --profile production up -d
 else
     log_info "Starting in standard mode"
-    docker-compose up -d
+    docker compose up -d
 fi
 
 # Paso 5: Esperar a que la API esté lista
@@ -89,7 +89,7 @@ while [ $attempt -le $max_attempts ]; do
     
     if [ $attempt -eq $max_attempts ]; then
         log_error "API failed to start after $max_attempts attempts"
-        docker-compose logs api
+        docker compose logs api
         exit 1
     fi
     
@@ -100,12 +100,12 @@ done
 
 # Paso 6: Ejecutar migración de base de datos
 log_info "Step 6: Running database migration system..."
-docker-compose exec -T api node scripts/migrate-database.js
+docker compose exec -T api node scripts/migrate-database.js
 log_success "Database migration system completed"
 
 # Paso 7: Verificar estado final
 log_info "Step 7: Verifying deployment..."
-docker-compose ps
+docker compose ps
 
 echo ""
 log_success "🎉 Deployment completed successfully!"
@@ -115,6 +115,6 @@ echo "  - Frontend: http://localhost"
 echo "  - API: http://localhost:3001"
 echo "  - Health check: http://localhost:3001/health"
 echo ""
-log_info "To view logs: docker-compose logs -f"
-log_info "To stop services: docker-compose down"
+log_info "To view logs: docker compose logs -f"
+log_info "To stop services: docker compose down"
 echo ""

@@ -387,7 +387,7 @@ CREATE TABLE admins (
 ### Sistema de Migraciones
 ```bash
 # Ejecutar migraciones pendientes (con backup automático)
-docker-compose exec api node scripts/migrate-database.js
+docker compose exec api node scripts/migrate-database.js
 
 # Despliegue completo con migraciones
 ./scripts/deploy-with-migration.sh

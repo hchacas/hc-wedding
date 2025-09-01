@@ -61,29 +61,6 @@ app.get('/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
-// Debug endpoints (temporal)
-app.get('/debug/oauth', (req, res) => {
-  res.json({
-    hasClientId: !!process.env.GOOGLE_CLIENT_ID,
-    hasClientSecret: !!process.env.GOOGLE_CLIENT_SECRET,
-    clientIdPrefix: process.env.GOOGLE_CLIENT_ID?.substring(0, 10) + '...',
-    secretPrefix: process.env.GOOGLE_CLIENT_SECRET?.substring(0, 10) + '...'
-  });
-});
-
-app.get('/debug/session', (req, res) => {
-  res.json({
-    isAuthenticated: req.isAuthenticated(),
-    sessionID: req.sessionID,
-    user: req.user ? {
-      id: req.user.id,
-      name: req.user.name,
-      email: req.user.email
-    } : null,
-    cookies: req.headers.cookie,
-    session: req.session
-  });
-});
 
 // Inicializar base de datos y servidor
 async function startServer() {

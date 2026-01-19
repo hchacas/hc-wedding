@@ -56,6 +56,7 @@ jobs:
     needs: build-and-push
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - name: Copy docker-compose.prod.yml to server
         uses: appleboy/scp-action@v0.1.7
         with:
@@ -65,6 +66,7 @@ jobs:
           port: ${{ secrets.DO_SSH_PORT || 22 }}
           source: "docker-compose.prod.yml"
           target: "/opt/hc-wedding/"
+          overwrite: true
 
       - name: Deploy via SSH (pull & up)
         uses: appleboy/ssh-action@v1.0.3

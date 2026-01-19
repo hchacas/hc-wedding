@@ -1,46 +1,42 @@
 ---
 // Componente Hero con información principal de la boda
+const carouselImages = [
+  {
+    src: 'src/assets/photo_2025-11-25 18.15.14.jpeg',
+    alt: 'Sheila y Habib - Momento especial 1',
+  },
+  {
+    src: 'src/assets/photo_2025-11-25 18.15.34.jpeg',
+    alt: 'Sheila y Habib - Momento especial 2',
+  },
+  {
+    src: 'src/assets/photo_2025-11-25 18.15.30.jpeg',
+    alt: 'Sheila y Habib - Momento especial 3',
+  },
+  {
+    src: 'src/assets/photo_2025-11-25 18.15.39.jpeg',
+    alt: 'Sheila y Habib - Momento especial 4',
+  },
+  {
+    src: 'src/assets/photo_2025-11-25 18.15.43.jpeg',
+    alt: 'Sheila y Habib - Momento especial 5',
+  },
+];
 ---
 
 <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
   <!-- Background con carrusel de imágenes -->
   <div class="absolute inset-0">
     <div id="hero-carousel" class="w-full h-full relative overflow-hidden">
-      <!-- Imagen 1 -->
-      <div class="carousel-slide absolute inset-0 opacity-100 transition-opacity duration-1000">
-        <img 
-          src="https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
-          alt="Sheila y Habib - Momento especial 1"
-          class="w-full h-full object-cover"
-        />
-      </div>
-      
-      <!-- Imagen 2 -->
-      <div class="carousel-slide absolute inset-0 opacity-0 transition-opacity duration-1000">
-        <img 
-          src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
-          alt="Sheila y Habib - Momento especial 2"
-          class="w-full h-full object-cover"
-        />
-      </div>
-      
-      <!-- Imagen 3 -->
-      <div class="carousel-slide absolute inset-0 opacity-0 transition-opacity duration-1000">
-        <img 
-          src="https://images.unsplash.com/photo-1537633552985-df8429e8048b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
-          alt="Sheila y Habib - Momento especial 3"
-          class="w-full h-full object-cover"
-        />
-      </div>
-      
-      <!-- Imagen 4 -->
-      <div class="carousel-slide absolute inset-0 opacity-0 transition-opacity duration-1000">
-        <img 
-          src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
-          alt="Sheila y Habib - Momento especial 4"
-          class="w-full h-full object-cover"
-        />
-      </div>
+      {carouselImages.map((image, index) => (
+        <div
+          class={`carousel-slide absolute inset-0 transition-opacity duration-1000 ${
+            index === 0 ? 'opacity-100' : 'opacity-0'
+          }`}
+        >
+          <img src={image.src} alt={image.alt} class="w-full h-full object-cover" />
+        </div>
+      ))}
     </div>
     
     <!-- Overlay oscuro -->
@@ -48,10 +44,14 @@
     
     <!-- Indicadores del carrusel -->
     <div class="absolute bottom-20 left-1/2 transform -translate-x-1/2 z-10 flex space-x-2">
-      <button class="carousel-indicator w-2 h-2 rounded-full bg-white/50 hover:bg-white/80 transition-colors active" data-slide="0"></button>
-      <button class="carousel-indicator w-2 h-2 rounded-full bg-white/50 hover:bg-white/80 transition-colors" data-slide="1"></button>
-      <button class="carousel-indicator w-2 h-2 rounded-full bg-white/50 hover:bg-white/80 transition-colors" data-slide="2"></button>
-      <button class="carousel-indicator w-2 h-2 rounded-full bg-white/50 hover:bg-white/80 transition-colors" data-slide="3"></button>
+      {carouselImages.map((_, index) => (
+        <button
+          class={`carousel-indicator w-2 h-2 rounded-full bg-white/50 hover:bg-white/80 transition-colors ${
+            index === 0 ? 'active bg-white/80' : ''
+          }`}
+          data-slide={index}
+        ></button>
+      ))}
     </div>
   </div>
   
@@ -78,7 +78,7 @@
 
     <!-- Mensaje de bienvenida -->
     <p class="text-xl md:text-2xl font-light mb-8 max-w-2xl mx-auto leading-relaxed">
-      Nos complace invitarte a celebrar nuestro matrimonio
+      Acompáñanos a celebrar nuestro día especial
     </p>
 
     <!-- Fecha del evento -->
@@ -97,13 +97,6 @@
       </a>
     </div>
   </div>
-
-  <!-- Scroll indicator -->
-  <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10">
-    <div class="w-6 h-10 border-2 border-white rounded-full flex justify-center">
-      <div class="w-1 h-3 bg-white rounded-full mt-2 animate-bounce"></div>
-    </div>
-  </div>
 </section>
 
 <script>
@@ -113,7 +106,7 @@
     let currentSlide = 0;
     
     // Función para cambiar slide
-    function changeSlide(newSlide) {
+    function changeSlide(newSlide: number) {
       // Ocultar slide actual
       slides[currentSlide]?.classList.remove('opacity-100');
       slides[currentSlide]?.classList.add('opacity-0');

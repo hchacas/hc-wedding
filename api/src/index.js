@@ -20,6 +20,7 @@ const PORT = process.env.PORT || 3001;
 app.use(cors({
   origin: [
     'http://localhost',
+    "http://localhost:4321",
     'https://sheilayhabib.com',
     'https://www.sheilayhabib.com'
   ],

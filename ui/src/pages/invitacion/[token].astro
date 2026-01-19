@@ -2,14 +2,16 @@
 export const prerender = false;
 
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import olivoBottomLeft from '../../assets/olive/olivo-bottom-left.png';
+
 
 const { token } = Astro.params;
 const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
 ---
 
 <BaseLayout title="Invitación - Sheila & Habib">
-  <main class="min-h-screen bg-warm-beige py-12">
-    <div class="container mx-auto px-4 max-w-4xl">
+  <main class="min-h-screen bg-[#F3ECE1] py-12">
+    <div class="container mx-auto px-4 flex justify-center">
       <!-- Loading State -->
       <div id="loading-state" class="text-center">
         <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-gold mx-auto mb-4"></div>
@@ -17,88 +19,167 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
       </div>
 
       <!-- Error State -->
-      <div id="error-state" class="hidden text-center">
-        <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-8 max-w-md mx-auto">
+      <div id="error-state" class="hidden w-full max-w-[680px]">
+        <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-8 max-w-md mx-auto text-center">
           <h1 class="text-2xl font-bold text-gray-800 mb-2">Invitación no encontrada</h1>
           <p id="error-message" class="text-gray-600 mb-4">No pudimos cargar esta invitación</p>
-          <a href="/" class="inline-block bg-gold text-white px-6 py-2 rounded-lg hover:bg-yellow-600 transition-colors">
+          <a
+            href="/"
+            class="inline-block bg-gold text-white px-6 py-2 rounded-lg hover:bg-yellow-600 transition-colors"
+          >
             Ir a la página principal
           </a>
         </div>
       </div>
 
       <!-- Invitation Content -->
-      <div id="invitation-content" class="hidden">
-        <!-- Header -->
-        <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-8 mb-8 text-center">
-          <h1 class="font-serif text-4xl text-gray-800 mb-4">
-            Querido/a <span id="guest-name" class="text-gold">Invitado</span>
-          </h1>
-          <div class="w-16 h-0.5 bg-gold mx-auto mb-4"></div>
-          <p class="text-gray-600 text-lg">
-            Sheila & Habib
-          </p>
-        </div>
+      <div id="invitation-content" class="hidden w-full max-w-[680px]">
+        <!-- Hoja de invitación tipo papel (estilo Lovable) -->
+        <section
+          class="relative w-full mx-auto bg-[#FBF7EF] shadow-[0_18px_45px_rgba(0,0,0,0.06)] rounded-sm overflow-hidden border border-[#E7DAC7]"
+        >
+          {/* Ramas de olivo */}
+          <div class="absolute top-10 -right-8 h-52">
+            <img
+              src={olivoBottomLeft.src}
+              alt=""
+              aria-hidden="true"
+              class="w-full h-full object-contain mix-blend-multiply rotate-180 filter grayscale opacity-70"
+            />
+          </div>
 
-        <!-- Mensaje personalizado -->
-        <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-8 mb-8">
-          <p id="personal-message" class="text-lg text-gray-700 leading-relaxed text-center mb-6">
-            Nos complace invitarte a celebrar nuestro día especial.
-          </p>
-          
-          <div class="bg-warm-beige rounded-lg p-6 border-l-4 border-gold">
-            <p class="text-gray-700 italic text-center">
-              "Queremos que seas parte de este momento único en nuestras vidas. 
-              Tu presencia haría nuestro día aún más especial."
+          <div class="absolute -bottom-7 -left-8 w-56 h-48">
+            <img
+              src={olivoBottomLeft.src}
+              alt=""
+              aria-hidden="true"
+              class="w-full h-full object-contain mix-blend-multiply filter grayscale opacity-70"
+            />
+          </div>
+
+          {/* Contenido de la invitación */}
+          <div class="relative z-10 px-8 py-20 md:px-16 md:py-20 text-center space-y-10">
+            {/* Cabecera: nombres y tagline */}
+            <header class="space-y-5">
+              <p class="text-[11px] tracking-[0.35em] uppercase text-gray-400">
+                ¡Nos casamos!
+              </p>
+
+              <div class="space-y-2  text-gray-900">
+                <h1 class="font-display text-4xl md:text-5xl leading-tight tracking-wide">
+                  Sheila
+                </h1>
+                <p class="font-serif text-2xl my-1">&amp;</p>
+                <h1 class="font-display text-4xl md:text-5xl leading-tight tracking-wide">
+                  Habib
+                </h1>
+              </div>
+
+              <p class="text-sm md:text-[15px] text-gray-600 max-w-xl mx-auto">
+                Nos encantaría poder contar con tu compañía en un día tan especial para nosotros.
+              </p>
+            </header>
+
+            {/* Texto principal de invitación */}
+            <section class="space-y-4 max-w-xl mx-auto text-left text-[15px] leading-relaxed text-gray-800">
+              <p>
+                Querido/a
+                <span id="guest-name" class="font-semibold"> Invitado</span>,
+              </p>
+
+              <p id="personal-message">
+                Nos encantaría que nos acompañaras en un día tan especial para nosotros. Tu presencia
+                hará que nuestra boda sea aún más inolvidable.
+              </p>
+
+              <p>
+                Tenemos el gusto de invitarte a la ceremonia civil que se celebrará el
+                <span class="font-semibold">
+                  {' '}sábado, 4 de julio de 2026, a las 19:00h
+                </span>, en
+                <span class="font-semibold"> Los Jardines Palacio de La Dehesa</span>, en Lucena
+                (Córdoba).
+              </p>
+              <p class="pt-3 text-right">
+                Con cariño,<br />
+                <span class="font-medium">Sheila &amp; Habib</span>
+              </p>
+            </section>
+
+            {/* Borde interior sutil */}
+            <div class="pointer-events-none absolute inset-4 border border-[#E7DAC7]/40 rounded-sm" />
+          </div>
+        </section>
+
+        {/* Detalles y acciones fuera de la tarjeta principal */}
+        <section class="mt-10 md:mt-12 max-w-[780px] mx-auto bg-white/80 border border-[#E7DAC7] rounded-lg shadow-sm backdrop-blur px-6 py-8 md:px-10 space-y-8">
+          <div class="space-y-4">
+            <h2 class="font-display text-2xl text-center text-gray-900">
+              Detalles del evento
+            </h2>
+
+            <ol class="space-y-6 text-sm text-left text-gray-800">
+              <li class="flex gap-4">
+                <div class="mt-1 h-3 w-3 rounded-full bg-gold flex-shrink-0"></div>
+                <div class="space-y-1">
+                  <h3 class="font-medium text-gray-900">Ceremonia civil</h3>
+                  <p>
+                    <span class="font-medium">Sábado, 4 de julio de 2026 · 19:00h</span>
+                  </p>
+                  <p>Los Jardines Palacio de La Dehesa · Lucena, Córdoba</p>
+                </div>
+              </li>
+
+              <li class="flex gap-4">
+                <div class="mt-1 h-3 w-3 rounded-full bg-gold flex-shrink-0"></div>
+                <div class="space-y-1">
+                  <h3 class="font-medium text-gray-900">Cóctel, cena y fiesta</h3>
+                  <p>
+                    A partir de las <span class="font-medium">20:30h</span> · Mismo lugar
+                  </p>
+                  <p>
+                    Código de vestimenta:
+                    <span class="font-medium"> ¡ponte lo que quieras!</span>
+                  </p>
+                </div>
+              </li>
+            </ol>
+          </div>
+
+          <div class="pt-2 border-t border-[#E7DAC7]/70 space-y-4">
+            <p class="text-center text-gray-700 text-sm">
+              Para ayudarnos con la organización, te agradeceríamos que confirmaras tu asistencia.
             </p>
-            <p class="text-right text-gold font-medium mt-4">- Sheila & Habib</p>
-          </div>
-        </div>
 
-        <!-- Detalles del evento -->
-        <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-8 mb-8">
-          <h2 class="font-serif text-2xl text-gray-800 mb-6 text-center">Detalles del Evento</h2>
-          
-          <div class="grid md:grid-cols-2 gap-8">
-            <div class="border-l-4 border-gold pl-6">
-              <h3 class="font-medium text-gray-800 mb-2">Ceremonia Civil</h3>
-              <p class="text-gray-600 mb-1">Sábado, 4 de Julio 2026</p>
-              <p class="text-gray-600 mb-1">19:00h</p>
-              <p class="text-gray-600">Los Jardines Palacio de La Dehesa</p>
-            </div>
-            
-            <div class="border-l-4 border-gold pl-6">
-              <h3 class="font-medium text-gray-800 mb-2">Cóctel, Cena y Fiesta</h3>
-              <p class="text-gray-600 mb-1">20:30h - Mismo lugar</p>
-              <p class="text-gray-600 mb-1">Lucena, Córdoba</p>
-              <p class="text-gray-600">Código de vestimenta: ¡Ponte lo que quieras!</p>
-            </div>
-          </div>
-        </div>
+            <div class="grid md:grid-cols-3 gap-4">
+              <a
+                href="/rsvp/login"
+                class="block w-full bg-gold text-white py-3 px-6 rounded-lg text-center font-medium hover:bg-yellow-600 transition-colors"
+              >
+                Confirmar mi asistencia
+              </a>
 
-        <!-- Botones de acción -->
-        <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-8">
-          <div class="grid md:grid-cols-2 gap-4">
-            <a href="/rsvp/login" class="block w-full bg-gold text-white py-3 px-6 rounded-lg text-center font-medium hover:bg-yellow-600 transition-colors">
-              Confirmar mi Asistencia
-            </a>
-            
-            <button id="download-summary" class="w-full bg-gray-800 text-white py-3 px-6 rounded-lg font-medium hover:bg-gray-700 transition-colors">
-              Descargar Resumen
-            </button>
+              <button
+                id="download-summary"
+                class="w-full bg-gray-900 text-white py-3 px-6 rounded-lg font-medium hover:bg-gray-800 transition-colors"
+              >
+                Descargar resumen
+              </button>
+
+              <a
+                href="/"
+                class="block w-full bg-[#F3ECE1] text-gray-900 py-3 px-6 rounded-lg text-center font-medium hover:bg-[#E9DFD1] transition-colors"
+              >
+                Más información del evento
+              </a>
+            </div>
           </div>
-          
-          <div class="mt-4">
-            <a href="/" class="block w-full bg-warm-beige text-gray-800 py-3 px-6 rounded-lg text-center font-medium hover:bg-gray-100 transition-colors">
-              Ver más información del evento
-            </a>
-          </div>
-        </div>
+        </section>
 
         <!-- Token info -->
-        <div class="mt-8 text-center">
+        <div class="mt-4 text-center">
           <p class="text-xs text-gray-400">
-            Invitación personalizada • <span id="token-display"></span>
+            Invitación personalizada · <span id="token-display"></span>
           </p>
         </div>
       </div>
@@ -106,21 +187,21 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
   </main>
 
   <script define:vars={{ token, apiUrl }}>
-    // Cargar datos de la invitación dinámicamente
     async function loadInvitation() {
       try {
         const response = await fetch(`${apiUrl}/api/invitacion/${token}`);
-        
+
         if (response.ok) {
           const data = await response.json();
-          
+
           if (data.success) {
-            // Actualizar contenido
             document.getElementById('guest-name').textContent = data.invitation.guest_name;
-            document.getElementById('personal-message').textContent = data.invitation.message || 'Nos complace invitarte a celebrar nuestro día especial.';
-            document.getElementById('token-display').textContent = token.slice(0, 8) + '...';
-            
-            // Mostrar invitación
+            document.getElementById('personal-message').textContent =
+              data.invitation.message ||
+              'Nos encantaría que nos acompañaras en un día tan especial para nosotros. Tu presencia hará que nuestra boda sea aún más inolvidable.';
+            document.getElementById('token-display').textContent =
+              token.slice(0, 8) + '...';
+
             document.getElementById('loading-state').classList.add('hidden');
             document.getElementById('invitation-content').classList.remove('hidden');
           } else {
@@ -131,15 +212,12 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
         }
       } catch (error) {
         console.error('Error loading invitation:', error);
-        
-        // Mostrar error
         document.getElementById('error-message').textContent = error.message;
         document.getElementById('loading-state').classList.add('hidden');
         document.getElementById('error-state').classList.remove('hidden');
       }
     }
 
-    // Función para descargar el resumen del evento
     function downloadSummary() {
       const link = document.createElement('a');
       link.href = '/images/summary/resumenBodaSheilaYHabib.png';
@@ -149,12 +227,11 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
       document.body.removeChild(link);
     }
 
-    // Event listeners
     document.addEventListener('DOMContentLoaded', () => {
       loadInvitation();
-      
-      // Botón de descarga del resumen
-      document.getElementById('download-summary')?.addEventListener('click', downloadSummary);
+      document
+        .getElementById('download-summary')
+        ?.addEventListener('click', downloadSummary);
     });
   </script>
 </BaseLayout>

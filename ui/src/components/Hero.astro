@@ -1,74 +1,80 @@
 ---
+ import photo1 from "../assets/photo_2025-11-25 18.15.14.jpeg";
+import photo2 from "../assets/photo_2025-11-25 18.15.34.jpeg";
+import photo3 from "../assets/photo_2025-11-25 18.15.30.jpeg";
+import photo4 from "../assets/photo_2025-11-25 18.15.39.jpeg";
+import photo5 from "../assets/photo_2025-11-25 18.15.43.jpeg";
+
 // Componente Hero con información principal de la boda
 const carouselImages = [
-  {
-    src: 'src/assets/photo_2025-11-25 18.15.14.jpeg',
-    alt: 'Sheila y Habib - Momento especial 1',
-  },
-  {
-    src: 'src/assets/photo_2025-11-25 18.15.34.jpeg',
-    alt: 'Sheila y Habib - Momento especial 2',
-  },
-  {
-    src: 'src/assets/photo_2025-11-25 18.15.30.jpeg',
-    alt: 'Sheila y Habib - Momento especial 3',
-  },
-  {
-    src: 'src/assets/photo_2025-11-25 18.15.39.jpeg',
-    alt: 'Sheila y Habib - Momento especial 4',
-  },
-  {
-    src: 'src/assets/photo_2025-11-25 18.15.43.jpeg',
-    alt: 'Sheila y Habib - Momento especial 5',
-  },
+  { src: photo1, alt: "Sheila y Habib – Momento especial 1" },
+  { src: photo2, alt: "Sheila y Habib – Momento especial 2" },
+  { src: photo3, alt: "Sheila y Habib – Momento especial 3" },
+  { src: photo4, alt: "Sheila y Habib – Momento especial 4" },
+  { src: photo5, alt: "Sheila y Habib – Momento especial 5" },
 ];
 ---
 
-<section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+<section
+  class="relative min-h-screen flex items-center justify-center overflow-hidden"
+>
   <!-- Background con carrusel de imágenes -->
   <div class="absolute inset-0">
     <div id="hero-carousel" class="w-full h-full relative overflow-hidden">
-      {carouselImages.map((image, index) => (
-        <div
-          class={`carousel-slide absolute inset-0 transition-opacity duration-1000 ${
-            index === 0 ? 'opacity-100' : 'opacity-0'
-          }`}
-        >
-          <img src={image.src} alt={image.alt} class="w-full h-full object-cover" />
-        </div>
-      ))}
+      {
+        carouselImages.map((image, index) => (
+          <div
+            class={`carousel-slide absolute inset-0 transition-opacity duration-1000 ${
+              index === 0 ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            <img
+              src={image.src.src ?? image.src}
+              alt={image.alt}
+              class="w-full h-full object-cover"
+            />
+          </div>
+        ))
+      }
     </div>
-    
+
     <!-- Overlay oscuro -->
     <div class="absolute inset-0 bg-black/40"></div>
-    
+
     <!-- Indicadores del carrusel -->
-    <div class="absolute bottom-20 left-1/2 transform -translate-x-1/2 z-10 flex space-x-2">
-      {carouselImages.map((_, index) => (
-        <button
-          class={`carousel-indicator w-2 h-2 rounded-full bg-white/50 hover:bg-white/80 transition-colors ${
-            index === 0 ? 'active bg-white/80' : ''
-          }`}
-          data-slide={index}
-        ></button>
-      ))}
+    <div
+      class="absolute bottom-20 left-1/2 transform -translate-x-1/2 z-10 flex space-x-2"
+    >
+      {
+        carouselImages.map((_, index) => (
+          <button
+            class={`carousel-indicator w-2 h-2 rounded-full bg-white/50 hover:bg-white/80 transition-colors ${
+              index === 0 ? "active bg-white/80" : ""
+            }`}
+            data-slide={index}
+          />
+        ))
+      }
     </div>
   </div>
-  
+
   <!-- Navegación superior -->
   <nav class="absolute top-0 left-0 right-0 z-20 p-6">
     <div class="max-w-6xl mx-auto flex justify-between items-center">
       <div class="text-white font-serif text-xl">S & H</div>
       <div class="hidden md:flex space-x-8 text-white text-sm font-medium">
         <a href="#inicio" class="hover:text-gold transition-colors">Inicio</a>
-        <a href="#historia" class="hover:text-gold transition-colors">Nuestra Historia</a>
-        <a href="#evento" class="hover:text-gold transition-colors">El Evento</a>
+        <a href="#historia" class="hover:text-gold transition-colors"
+          >Nuestra Historia</a
+        >
+        <a href="#evento" class="hover:text-gold transition-colors">El Evento</a
+        >
         <a href="#viaje" class="hover:text-gold transition-colors">Viaje</a>
         <a href="#rsvp" class="hover:text-gold transition-colors">RSVP</a>
       </div>
     </div>
   </nav>
-  
+
   <!-- Contenido principal -->
   <div class="relative z-10 text-center px-4 max-w-4xl mx-auto text-white">
     <!-- Nombres de los novios -->
@@ -77,7 +83,9 @@ const carouselImages = [
     </h1>
 
     <!-- Mensaje de bienvenida -->
-    <p class="text-xl md:text-2xl font-light mb-8 max-w-2xl mx-auto leading-relaxed">
+    <p
+      class="text-xl md:text-2xl font-light mb-8 max-w-2xl mx-auto leading-relaxed"
+    >
       Acompáñanos a celebrar nuestro día especial
     </p>
 
@@ -89,8 +97,8 @@ const carouselImages = [
 
     <!-- Botón RSVP destacado -->
     <div class="mt-8">
-      <a 
-        href="/rsvp/login" 
+      <a
+        href="/rsvp/login"
         class="inline-block bg-gold text-white px-12 py-4 text-lg font-medium hover:bg-yellow-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 rounded-lg"
       >
         Confirmar Asistencia
@@ -100,53 +108,53 @@ const carouselImages = [
 </section>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const slides = document.querySelectorAll('.carousel-slide');
-    const indicators = document.querySelectorAll('.carousel-indicator');
+  document.addEventListener("DOMContentLoaded", () => {
+    const slides = document.querySelectorAll(".carousel-slide");
+    const indicators = document.querySelectorAll(".carousel-indicator");
     let currentSlide = 0;
-    
+
     // Función para cambiar slide
     function changeSlide(newSlide: number) {
       // Ocultar slide actual
-      slides[currentSlide]?.classList.remove('opacity-100');
-      slides[currentSlide]?.classList.add('opacity-0');
-      indicators[currentSlide]?.classList.remove('active', 'bg-white/80');
-      indicators[currentSlide]?.classList.add('bg-white/50');
-      
+      slides[currentSlide]?.classList.remove("opacity-100");
+      slides[currentSlide]?.classList.add("opacity-0");
+      indicators[currentSlide]?.classList.remove("active", "bg-white/80");
+      indicators[currentSlide]?.classList.add("bg-white/50");
+
       // Mostrar nuevo slide
       currentSlide = newSlide;
-      slides[currentSlide]?.classList.remove('opacity-0');
-      slides[currentSlide]?.classList.add('opacity-100');
-      indicators[currentSlide]?.classList.remove('bg-white/50');
-      indicators[currentSlide]?.classList.add('active', 'bg-white/80');
+      slides[currentSlide]?.classList.remove("opacity-0");
+      slides[currentSlide]?.classList.add("opacity-100");
+      indicators[currentSlide]?.classList.remove("bg-white/50");
+      indicators[currentSlide]?.classList.add("active", "bg-white/80");
     }
-    
+
     // Auto-play del carrusel
     function nextSlide() {
       const next = (currentSlide + 1) % slides.length;
       changeSlide(next);
     }
-    
+
     // Iniciar auto-play
     let autoPlay = setInterval(nextSlide, 5000);
-    
+
     // Event listeners para los indicadores
     indicators.forEach((indicator, index) => {
-      indicator.addEventListener('click', () => {
+      indicator.addEventListener("click", () => {
         clearInterval(autoPlay);
         changeSlide(index);
         // Reiniciar auto-play después de interacción
         autoPlay = setInterval(nextSlide, 5000);
       });
     });
-    
+
     // Pausar auto-play cuando el mouse está sobre el carrusel
-    const carousel = document.getElementById('hero-carousel');
-    carousel?.addEventListener('mouseenter', () => {
+    const carousel = document.getElementById("hero-carousel");
+    carousel?.addEventListener("mouseenter", () => {
       clearInterval(autoPlay);
     });
-    
-    carousel?.addEventListener('mouseleave', () => {
+
+    carousel?.addEventListener("mouseleave", () => {
       autoPlay = setInterval(nextSlide, 5000);
     });
   });

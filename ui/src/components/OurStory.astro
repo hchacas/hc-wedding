@@ -1,11 +1,14 @@
 ---
+import storyImg from "../assets/Screenshot 2025-11-25 at 17.55.39.png";
 // Componente Nuestra Historia
 ---
 
 <section class="py-20 bg-white" id="historia">
   <div class="container mx-auto px-4 max-w-6xl">
     <div class="text-center mb-16">
-      <h2 class="font-serif text-4xl md:text-5xl text-gray-800 mb-4">Nuestra Historia</h2>
+      <h2 class="font-serif text-4xl md:text-5xl text-gray-800 mb-4">
+        Nuestra Historia
+      </h2>
       <div class="w-24 h-0.5 bg-gold mx-auto"></div>
     </div>
 
@@ -13,12 +16,14 @@
       <!-- Imagen de la pareja -->
       <div class="order-2 md:order-1">
         <div class="relative">
-          <img 
-            src="src/assets/Screenshot 2025-11-25 at 17.55.39.png" 
+          <img
+            src={storyImg.src}
             alt="Sheila y Habib - Nuestra historia de amor"
             class="w-full rounded-lg shadow-lg"
           />
-          <div class="absolute -bottom-6 -right-6 w-24 h-24 bg-gold rounded-full flex items-center justify-center">
+          <div
+            class="absolute -bottom-6 -right-6 w-24 h-24 bg-gold rounded-full flex items-center justify-center"
+          >
             <div class="w-12 h-12 border-2 border-white rounded-full"></div>
           </div>
         </div>
@@ -28,21 +33,23 @@
       <div class="order-1 md:order-2">
         <div class="space-y-6">
           <p class="text-lg text-gray-700 leading-relaxed">
-            Hola! Somos Sheila y Habib, y nos conocemos desde hace más de 9 años. Todo empezó 
-            con el KIN-BALL: ella jugaba en un equipo de Andalucía y él en uno de Madrid. 
-            Quién iba a decir que una pelota gigante rosa nos iba a unir para siempre.
-          </p>
-          
-          <p class="text-lg text-gray-700 leading-relaxed">
-            Hace algo más de 6 años esa conexión especial se convirtió en algo mucho más grande. 
-            Después de años compartiendo aventuras, risas, algún que otro enfado (que no muchos) 
-            y construyendo juntos nuestro futuro, hemos decidido dar el paso más importante.
+            Hola! Somos Sheila y Habib, y nos conocemos desde hace más de 9
+            años. Todo empezó con el KIN-BALL: ella jugaba en un equipo de
+            Andalucía y él en uno de Madrid. Quién iba a decir que una pelota
+            gigante rosa nos iba a unir para siempre.
           </p>
 
           <p class="text-lg text-gray-700 leading-relaxed">
-            Ahora queremos celebrar nuestro amor con todos vosotros: familia, amigos y esa gente 
-            especial que forma parte de nuestras vidas. Os esperamos para compartir con nosotros 
-            este día tan especial!
+            Hace algo más de 6 años esa conexión especial se convirtió en algo
+            mucho más grande. Después de años compartiendo aventuras, risas,
+            algún que otro enfado (que no muchos) y construyendo juntos nuestro
+            futuro, hemos decidido dar el paso más importante.
+          </p>
+
+          <p class="text-lg text-gray-700 leading-relaxed">
+            Ahora queremos celebrar nuestro amor con todos vosotros: familia,
+            amigos y esa gente especial que forma parte de nuestras vidas. Os
+            esperamos para compartir con nosotros este día tan especial!
           </p>
 
           <div class="pt-4">

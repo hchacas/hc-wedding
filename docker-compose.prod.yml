@@ -1,0 +1,89 @@
+services:
+  api:
+    image: ghcr.io/hchacas/hc-wedding-api:latest
+    container_name: wedding-api
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+      - FRONTEND_URL=${FRONTEND_URL:-http://localhost}
+      - API_URL=${API_URL:-http://localhost}
+      - CORS_ORIGIN=${CORS_ORIGIN:-http://localhost}
+      - SESSION_SECRET=${SESSION_SECRET}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+      - SECURE_COOKIES=${SECURE_COOKIES:-false}
+    volumes:
+      - wedding-data:/app/data
+    ports:
+      - "3001:3001"
+    networks:
+      - wedding-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  ui-server:
+    image: ghcr.io/hchacas/hc-wedding-ui-server:latest
+    container_name: wedding-ui-server
+    restart: unless-stopped
+    environment:
+      - HOST=0.0.0.0
+      - PORT=4321
+      - API_URL=${API_URL:-http://localhost:3001}
+      - FRONTEND_URL=${FRONTEND_URL:-http://localhost:4321}
+    networks:
+      - wedding-network
+    depends_on:
+      - api
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:4321"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  ui:
+    image: ghcr.io/hchacas/hc-wedding-ui-proxy:latest
+    container_name: wedding-ui-proxy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    networks:
+      - wedding-network
+    depends_on:
+      - ui-server
+      - api
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  nginx-proxy:
+    image: ghcr.io/hchacas/hc-wedding-nginx-proxy:latest
+    container_name: wedding-proxy
+    restart: unless-stopped
+    ports:
+      - "443:443"
+    volumes:
+      - /opt/hc-wedding/nginx/ssl:/etc/nginx/ssl:ro
+    networks:
+      - wedding-network
+    depends_on:
+      - ui
+      - api
+    profiles:
+      - production
+
+networks:
+  wedding-network:
+    driver: bridge
+
+volumes:
+  wedding-data:
+    driver: local

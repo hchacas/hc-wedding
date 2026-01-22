@@ -5,16 +5,16 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
 ---
 
 <BaseLayout title="Mi Confirmación - Sheila & Habib">
-  <main class="min-h-screen bg-warm-beige py-12">
+  <main class="min-h-screen bg-surface-1 py-12">
     <div class="container mx-auto px-4 max-w-5xl">
       <!-- Header -->
       <div
-        class="bg-white rounded-lg shadow-sm border border-gray-100 p-8 mb-8"
+        class="bg-bg-panel rounded-lg shadow-sm border border-border-soft/60 p-8 mb-8"
       >
         <div class="text-center">
-          <h1 class="font-serif text-4xl text-gray-800 mb-4">Bienvenido</h1>
-          <div class="w-16 h-0.5 bg-gold mx-auto mb-4"></div>
-          <p class="text-gray-600" id="welcome-message">
+          <h1 class="font-serif text-4xl text-text-secondary mb-4">Bienvenido</h1>
+          <div class="w-16 h-0.5 bg-accent mx-auto mb-4"></div>
+          <p class="text-text-muted" id="welcome-message">
             Cargando tu información...
           </p>
         </div>
@@ -23,13 +23,13 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
       <!-- Estado del RSVP -->
       <div class="grid md:grid-cols-2 gap-8">
         <!-- Mi RSVP -->
-        <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-8">
+        <div class="bg-bg-panel rounded-lg shadow-sm border border-border-soft/60 p-8">
           <div class="flex items-center mb-6">
             <div
-              class="w-12 h-12 bg-gold rounded-full flex items-center justify-center mr-4"
+              class="w-12 h-12 bg-accent rounded-full flex items-center justify-center mr-4"
             >
               <svg
-                class="w-6 h-6 text-white"
+                class="w-6 h-6 text-accent-contrast"
                 fill="currentColor"
                 viewBox="0 0 20 20"
               >
@@ -39,27 +39,27 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
                   clip-rule="evenodd"></path>
               </svg>
             </div>
-            <h2 class="font-serif text-2xl text-gray-800">Mi Confirmación</h2>
+            <h2 class="font-serif text-2xl text-text-secondary">Mi Confirmación</h2>
           </div>
 
           <div id="rsvp-status" class="space-y-4 mb-8">
             <div class="animate-pulse">
-              <div class="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
-              <div class="h-4 bg-gray-200 rounded w-1/2"></div>
+              <div class="h-4 bg-surface-2 rounded w-3/4 mb-2"></div>
+              <div class="h-4 bg-surface-2 rounded w-1/2"></div>
             </div>
           </div>
 
           <div class="space-y-4">
             <a
               href="/rsvp/form"
-              class="block w-full bg-gold text-white py-3 px-6 rounded-lg text-center font-medium hover:bg-yellow-600 transition-colors"
+              class="block w-full bg-accent text-accent-contrast py-3 px-6 rounded-lg text-center font-medium hover:bg-accent-hover transition-colors"
             >
               Editar mi Confirmación
             </a>
 
             <button
               id="download-summary"
-              class="w-full bg-gray-800 text-white py-3 px-6 rounded-lg font-medium hover:bg-gray-700 transition-colors"
+              class="w-full bg-text-primary text-text-inverse py-3 px-6 rounded-lg font-medium hover:bg-text-secondary transition-colors"
             >
               Descargar Resumen
             </button>
@@ -67,13 +67,13 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
         </div>
 
         <!-- Información del evento -->
-        <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-8">
+        <div class="bg-bg-panel rounded-lg shadow-sm border border-border-soft/60 p-8">
           <div class="flex items-center mb-6">
             <div
-              class="w-12 h-12 bg-gold rounded-full flex items-center justify-center mr-4"
+              class="w-12 h-12 bg-accent rounded-full flex items-center justify-center mr-4"
             >
               <svg
-                class="w-6 h-6 text-white"
+                class="w-6 h-6 text-accent-contrast"
                 fill="currentColor"
                 viewBox="0 0 20 20"
               >
@@ -83,34 +83,34 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
                   clip-rule="evenodd"></path>
               </svg>
             </div>
-            <h2 class="font-serif text-2xl text-gray-800">
+            <h2 class="font-serif text-2xl text-text-secondary">
               Información del Evento
             </h2>
           </div>
 
           <div class="space-y-6">
-            <div class="border-l-4 border-gold pl-4">
-              <h3 class="font-medium text-gray-800 mb-2">Ceremonia Civil</h3>
-              <p class="text-sm text-gray-600">Sábado, 4 de Julio 2026</p>
-              <p class="text-sm text-gray-600">
+            <div class="border-l-4 border-accent pl-4">
+              <h3 class="font-medium text-text-secondary mb-2">Ceremonia Civil</h3>
+              <p class="text-sm text-text-muted">Sábado, 4 de Julio 2026</p>
+              <p class="text-sm text-text-muted">
                 19:00h - Los Jardines Palacio de La Dehesa
               </p>
             </div>
 
-            <div class="border-l-4 border-gold pl-4">
-              <h3 class="font-medium text-gray-800 mb-2">
+            <div class="border-l-4 border-accent pl-4">
+              <h3 class="font-medium text-text-secondary mb-2">
                 Cóctel, Cena y Fiesta
               </h3>
-              <p class="text-sm text-gray-600">20:30h - Mismo lugar</p>
-              <p class="text-sm text-gray-600">Lucena, Córdoba</p>
+              <p class="text-sm text-text-muted">20:30h - Mismo lugar</p>
+              <p class="text-sm text-text-muted">Lucena, Córdoba</p>
             </div>
 
-            <div class="border-l-4 border-gold pl-4">
-              <h3 class="font-medium text-gray-800 mb-2">Recordatorio</h3>
-              <p class="text-sm text-gray-600">
+            <div class="border-l-4 border-accent pl-4">
+              <h3 class="font-medium text-text-secondary mb-2">Recordatorio</h3>
+              <p class="text-sm text-text-muted">
                 Confirma antes del 1 de Junio 2026
               </p>
-              <p class="text-sm text-gray-600">
+              <p class="text-sm text-text-muted">
                 Código de vestimenta: Elegante
               </p>
             </div>
@@ -120,22 +120,22 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
 
       <!-- Acciones adicionales -->
       <div
-        class="mt-8 bg-white rounded-lg shadow-sm border border-gray-100 p-8"
+        class="mt-8 bg-bg-panel rounded-lg shadow-sm border border-border-soft/60 p-8"
       >
-        <h2 class="font-serif text-2xl text-gray-800 mb-8 text-center">
+        <h2 class="font-serif text-2xl text-text-secondary mb-8 text-center">
           Enlaces Útiles
         </h2>
 
         <div class="grid md:grid-cols-3 gap-6">
           <a
             href="/"
-            class="bg-warm-beige hover:bg-gray-100 rounded-lg p-6 text-center transition-colors group"
+            class="bg-surface-1 hover:bg-surface-2 rounded-lg p-6 text-center transition-colors group"
           >
             <div
-              class="w-12 h-12 bg-gold rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-yellow-600 transition-colors"
+              class="w-12 h-12 bg-accent rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-accent-hover transition-colors"
             >
               <svg
-                class="w-6 h-6 text-white"
+                class="w-6 h-6 text-accent-contrast"
                 fill="currentColor"
                 viewBox="0 0 20 20"
               >
@@ -144,21 +144,21 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
                 ></path>
               </svg>
             </div>
-            <p class="font-medium text-gray-800 mb-2">Página Principal</p>
-            <p class="text-sm text-gray-600">
+            <p class="font-medium text-text-secondary mb-2">Página Principal</p>
+            <p class="text-sm text-text-muted">
               Ver toda la información del evento
             </p>
           </a>
 
           <a
             href="/#viaje"
-            class="bg-warm-beige hover:bg-gray-100 rounded-lg p-6 text-center transition-colors group"
+            class="bg-surface-1 hover:bg-surface-2 rounded-lg p-6 text-center transition-colors group"
           >
             <div
-              class="w-12 h-12 bg-gold rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-yellow-600 transition-colors"
+              class="w-12 h-12 bg-accent rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-accent-hover transition-colors"
             >
               <svg
-                class="w-6 h-6 text-white"
+                class="w-6 h-6 text-accent-contrast"
                 fill="currentColor"
                 viewBox="0 0 20 20"
               >
@@ -168,19 +168,19 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
                   clip-rule="evenodd"></path>
               </svg>
             </div>
-            <p class="font-medium text-gray-800 mb-2">Viaje y Alojamiento</p>
-            <p class="text-sm text-gray-600">Información sobre cómo llegar</p>
+            <p class="font-medium text-text-secondary mb-2">Viaje y Alojamiento</p>
+            <p class="text-sm text-text-muted">Información sobre cómo llegar</p>
           </a>
 
           <button
             id="logout-btn"
-            class="bg-warm-beige hover:bg-gray-100 rounded-lg p-6 text-center transition-colors group"
+            class="bg-surface-1 hover:bg-surface-2 rounded-lg p-6 text-center transition-colors group"
           >
             <div
-              class="w-12 h-12 bg-gold rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-yellow-600 transition-colors"
+              class="w-12 h-12 bg-accent rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-accent-hover transition-colors"
             >
               <svg
-                class="w-6 h-6 text-white"
+                class="w-6 h-6 text-accent-contrast"
                 fill="currentColor"
                 viewBox="0 0 20 20"
               >
@@ -190,8 +190,8 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
                   clip-rule="evenodd"></path>
               </svg>
             </div>
-            <p class="font-medium text-gray-800 mb-2">Cerrar Sesión</p>
-            <p class="text-sm text-gray-600">Salir de mi cuenta</p>
+            <p class="font-medium text-text-secondary mb-2">Cerrar Sesión</p>
+            <p class="text-sm text-text-muted">Salir de mi cuenta</p>
           </button>
         </div>
       </div>
@@ -249,29 +249,29 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
 
     if (rsvp.attending === null) {
       statusHtml = `
-        <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-          <p class="font-semibold text-yellow-800">Pendiente de confirmación</p>
-          <p class="text-sm text-yellow-600">Aún no has confirmado tu asistencia</p>
+        <div class="bg-status-warning/10 border border-status-warning/30 rounded-lg p-4">
+          <p class="font-semibold text-status-warning">Pendiente de confirmación</p>
+          <p class="text-sm text-status-warning">Aún no has confirmado tu asistencia</p>
         </div>
       `;
     } else if (rsvp.attending) {
       statusHtml = `
-        <div class="bg-green-50 border border-green-200 rounded-lg p-4">
-          <p class="font-semibold text-green-800">Confirmado</p>
-          <p class="text-sm text-green-600">Gracias por confirmar tu asistencia</p>
+        <div class="bg-status-success/10 border border-status-success/30 rounded-lg p-4">
+          <p class="font-semibold text-status-success">Confirmado</p>
+          <p class="text-sm text-status-success">Gracias por confirmar tu asistencia</p>
           ${rsvp.plus_one ? `
-            <div class="mt-2 pt-2 border-t border-green-300">
-              <p class="text-sm text-green-600"><strong>Acompañante:</strong> ${rsvp.plus_one_name || "Sin especificar"}</p>
-              ${rsvp.plus_one_gender ? `<p class="text-sm text-green-600"><strong>Género:</strong> ${rsvp.plus_one_gender}</p>` : ""}
+            <div class="mt-2 pt-2 border-t border-status-success/40">
+              <p class="text-sm text-status-success"><strong>Acompañante:</strong> ${rsvp.plus_one_name || "Sin especificar"}</p>
+              ${rsvp.plus_one_gender ? `<p class="text-sm text-status-success"><strong>Género:</strong> ${rsvp.plus_one_gender}</p>` : ""}
             </div>
           ` : ""}
         </div>
       `;
     } else {
       statusHtml = `
-        <div class="bg-red-50 border border-red-200 rounded-lg p-4">
-          <p class="font-semibold text-red-800">No podrás asistir</p>
-          <p class="text-sm text-red-600">Lamentamos que no puedas acompañarnos</p>
+        <div class="bg-status-danger/10 border border-status-danger/30 rounded-lg p-4">
+          <p class="font-semibold text-status-danger">No podrás asistir</p>
+          <p class="text-sm text-status-danger">Lamentamos que no puedas acompañarnos</p>
         </div>
       `;
     }
@@ -283,22 +283,22 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
     
     if (hasAdditionalDetails) {
       statusHtml += `
-        <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-4">
-          <p class="font-semibold text-blue-800 mb-2">Detalles adicionales</p>
+        <div class="bg-status-info/10 border border-status-info/30 rounded-lg p-4 mt-4">
+          <p class="font-semibold text-status-info mb-2">Detalles adicionales</p>
           
-          ${rsvp.gender ? `<p class="text-sm text-blue-600"><strong>Género:</strong> ${rsvp.gender}</p>` : ""}
-          ${rsvp.menu_choice ? `<p class="text-sm text-blue-600"><strong>Menú:</strong> ${rsvp.menu_choice}</p>` : ""}
-          ${rsvp.dietary_restrictions ? `<p class="text-sm text-blue-600"><strong>Restricciones dietéticas:</strong> ${rsvp.dietary_restrictions}</p>` : ""}
+          ${rsvp.gender ? `<p class="text-sm text-status-info"><strong>Género:</strong> ${rsvp.gender}</p>` : ""}
+          ${rsvp.menu_choice ? `<p class="text-sm text-status-info"><strong>Menú:</strong> ${rsvp.menu_choice}</p>` : ""}
+          ${rsvp.dietary_restrictions ? `<p class="text-sm text-status-info"><strong>Restricciones dietéticas:</strong> ${rsvp.dietary_restrictions}</p>` : ""}
           
-          ${rsvp.plus_one_menu_choice ? `<p class="text-sm text-blue-600"><strong>Menú acompañante:</strong> ${rsvp.plus_one_menu_choice}</p>` : ""}
-          ${rsvp.plus_one_dietary_restrictions ? `<p class="text-sm text-blue-600"><strong>Restricciones acompañante:</strong> ${rsvp.plus_one_dietary_restrictions}</p>` : ""}
+          ${rsvp.plus_one_menu_choice ? `<p class="text-sm text-status-info"><strong>Menú acompañante:</strong> ${rsvp.plus_one_menu_choice}</p>` : ""}
+          ${rsvp.plus_one_dietary_restrictions ? `<p class="text-sm text-status-info"><strong>Restricciones acompañante:</strong> ${rsvp.plus_one_dietary_restrictions}</p>` : ""}
           
-          ${rsvp.children ? `<p class="text-sm text-blue-600"><strong>Niños:</strong> ${rsvp.children_count || 'Sí'} ${rsvp.children_names ? `(${rsvp.children_names})` : ''}</p>` : ""}
-          ${rsvp.children_menu_choice ? `<p class="text-sm text-blue-600"><strong>Menú niños:</strong> ${rsvp.children_menu_choice}</p>` : ""}
-          ${rsvp.children_dietary_restrictions ? `<p class="text-sm text-blue-600"><strong>Restricciones niños:</strong> ${rsvp.children_dietary_restrictions}</p>` : ""}
+          ${rsvp.children ? `<p class="text-sm text-status-info"><strong>Niños:</strong> ${rsvp.children_count || 'Sí'} ${rsvp.children_names ? `(${rsvp.children_names})` : ''}</p>` : ""}
+          ${rsvp.children_menu_choice ? `<p class="text-sm text-status-info"><strong>Menú niños:</strong> ${rsvp.children_menu_choice}</p>` : ""}
+          ${rsvp.children_dietary_restrictions ? `<p class="text-sm text-status-info"><strong>Restricciones niños:</strong> ${rsvp.children_dietary_restrictions}</p>` : ""}
           
-          ${rsvp.needs_transport ? `<p class="text-sm text-blue-600"><strong>Transporte:</strong> Necesita bus lanzadera</p>` : ""}
-          ${rsvp.notes ? `<p class="text-sm text-blue-600"><strong>Comentarios:</strong> ${rsvp.notes}</p>` : ""}
+          ${rsvp.needs_transport ? `<p class="text-sm text-status-info"><strong>Transporte:</strong> Necesita bus lanzadera</p>` : ""}
+          ${rsvp.notes ? `<p class="text-sm text-status-info"><strong>Comentarios:</strong> ${rsvp.notes}</p>` : ""}
         </div>
       `;
     }

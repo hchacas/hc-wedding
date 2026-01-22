@@ -5,18 +5,18 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
 ---
 
 <BaseLayout title="Dashboard Admin - Sheila & Habib">
-  <main class="min-h-screen bg-warm-beige">
+  <main class="min-h-screen bg-surface-1">
     <!-- Header -->
-    <header class="bg-white shadow-sm border-b border-gray-200">
+    <header class="bg-bg-panel shadow-sm border-b border-border-strong/60">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center py-6">
           <div>
-            <h1 class="font-serif text-2xl text-gray-800">Panel de Administración</h1>
-            <p class="text-gray-600">Boda Sheila & Habib - 4 de Julio, 2026</p>
+            <h1 class="font-serif text-2xl text-text-secondary">Panel de Administración</h1>
+            <p class="text-text-muted">Boda Sheila & Habib - 4 de Julio, 2026</p>
           </div>
           <div class="flex items-center space-x-4">
-            <span id="admin-name" class="text-gray-700"></span>
-            <button id="logout-btn" class="bg-gray-800 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-700 transition-colors">
+            <span id="admin-name" class="text-text-secondary"></span>
+            <button id="logout-btn" class="bg-text-primary text-text-inverse px-4 py-2 rounded-lg text-sm font-medium hover:bg-text-secondary transition-colors">
               Cerrar Sesión
             </button>
           </div>
@@ -27,8 +27,8 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <!-- Loading State -->
       <div id="loading-state" class="text-center py-12">
-        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-gold mx-auto mb-4"></div>
-        <p class="text-gray-600">Cargando datos...</p>
+        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-accent mx-auto mb-4"></div>
+        <p class="text-text-muted">Cargando datos...</p>
       </div>
 
       <!-- Dashboard Content -->
@@ -55,58 +55,58 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
         <div id="content-overview" class="tab-content">
           <!-- Statistics Cards -->
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-100">
+            <div class="bg-bg-panel rounded-lg p-6 shadow-sm border border-border-soft/60">
               <div class="flex items-center">
-                <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                  <svg class="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 24 24">
+                <div class="w-12 h-12 bg-status-success/15 rounded-lg flex items-center justify-center">
+                  <svg class="w-6 h-6 text-status-success" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
                   </svg>
                 </div>
                 <div class="ml-4">
-                  <p class="text-sm font-medium text-gray-600">Confirmados</p>
-                  <p id="confirmed-count" class="text-2xl font-bold text-gray-900">-</p>
+                  <p class="text-sm font-medium text-text-muted">Confirmados</p>
+                  <p id="confirmed-count" class="text-2xl font-bold text-text-primary">-</p>
                 </div>
               </div>
             </div>
 
-            <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-100">
+            <div class="bg-bg-panel rounded-lg p-6 shadow-sm border border-border-soft/60">
               <div class="flex items-center">
-                <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
-                  <svg class="w-6 h-6 text-red-600" fill="currentColor" viewBox="0 0 24 24">
+                <div class="w-12 h-12 bg-status-danger/15 rounded-lg flex items-center justify-center">
+                  <svg class="w-6 h-6 text-status-danger" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
                   </svg>
                 </div>
                 <div class="ml-4">
-                  <p class="text-sm font-medium text-gray-600">No Asisten</p>
-                  <p id="declined-count" class="text-2xl font-bold text-gray-900">-</p>
+                  <p class="text-sm font-medium text-text-muted">No Asisten</p>
+                  <p id="declined-count" class="text-2xl font-bold text-text-primary">-</p>
                 </div>
               </div>
             </div>
 
-            <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-100">
+            <div class="bg-bg-panel rounded-lg p-6 shadow-sm border border-border-soft/60">
               <div class="flex items-center">
-                <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
-                  <svg class="w-6 h-6 text-yellow-600" fill="currentColor" viewBox="0 0 24 24">
+                <div class="w-12 h-12 bg-status-warning/15 rounded-lg flex items-center justify-center">
+                  <svg class="w-6 h-6 text-status-warning" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                   </svg>
                 </div>
                 <div class="ml-4">
-                  <p class="text-sm font-medium text-gray-600">Pendientes</p>
-                  <p id="pending-count" class="text-2xl font-bold text-gray-900">-</p>
+                  <p class="text-sm font-medium text-text-muted">Pendientes</p>
+                  <p id="pending-count" class="text-2xl font-bold text-text-primary">-</p>
                 </div>
               </div>
             </div>
 
-            <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-100">
+            <div class="bg-bg-panel rounded-lg p-6 shadow-sm border border-border-soft/60">
               <div class="flex items-center">
-                <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                  <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                <div class="w-12 h-12 bg-status-info/15 rounded-lg flex items-center justify-center">
+                  <svg class="w-6 h-6 text-status-info" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M16 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2zM4 18v-4h3v4h2v-7.5c0-.83.67-1.5 1.5-1.5S12 9.67 12 10.5V11h2.5c.83 0 1.5.67 1.5 1.5V18h2v4H4v-4z"/>
                   </svg>
                 </div>
                 <div class="ml-4">
-                  <p class="text-sm font-medium text-gray-600">Total Personas</p>
-                  <p id="total-people-overview" class="text-2xl font-bold text-gray-900">-</p>
+                  <p class="text-sm font-medium text-text-muted">Total Personas</p>
+                  <p id="total-people-overview" class="text-2xl font-bold text-text-primary">-</p>
                 </div>
               </div>
             </div>
@@ -114,38 +114,38 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
 
           <!-- Action Buttons -->
           <div class="flex flex-wrap gap-4 mb-8">
-            <button id="create-invitation-btn" class="bg-gold text-white px-6 py-3 rounded-lg font-medium hover:bg-yellow-600 transition-colors">
+            <button id="create-invitation-btn" class="bg-accent text-accent-contrast px-6 py-3 rounded-lg font-medium hover:bg-accent-hover transition-colors">
               Crear Invitación
             </button>
-            <button id="export-json-btn" class="bg-gray-800 text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-700 transition-colors">
+            <button id="export-json-btn" class="bg-text-primary text-text-inverse px-6 py-3 rounded-lg font-medium hover:bg-text-secondary transition-colors">
               Exportar JSON
             </button>
-            <button id="export-csv-btn" class="bg-gray-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-500 transition-colors">
+            <button id="export-csv-btn" class="bg-text-secondary text-text-inverse px-6 py-3 rounded-lg font-medium hover:bg-text-muted transition-colors">
               Exportar CSV
             </button>
-            <button id="refresh-btn" class="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-500 transition-colors">
+            <button id="refresh-btn" class="bg-status-info text-text-inverse px-6 py-3 rounded-lg font-medium hover:bg-status-info/80 transition-colors">
               Actualizar Datos
             </button>
           </div>
 
           <!-- Recent Responses Table -->
-          <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
-            <div class="px-6 py-4 border-b border-gray-200">
-              <h3 class="font-serif text-lg text-gray-800">Respuestas Recientes</h3>
+          <div class="bg-bg-panel rounded-lg shadow-sm border border-border-soft/60 overflow-hidden">
+            <div class="px-6 py-4 border-b border-border-strong/60">
+              <h3 class="font-serif text-lg text-text-secondary">Respuestas Recientes</h3>
             </div>
             
             <div class="overflow-x-auto">
-              <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
+              <table class="min-w-full divide-y divide-border-strong/60">
+                <thead class="bg-surface-2">
                   <tr>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Estado</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acompañante</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fecha</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Nombre</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Email</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Estado</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Acompañante</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Fecha</th>
                   </tr>
                 </thead>
-                <tbody id="guests-table-body" class="bg-white divide-y divide-gray-200">
+                <tbody id="guests-table-body" class="bg-bg-panel divide-y divide-border-strong/60">
                   <!-- Contenido dinámico -->
                 </tbody>
               </table>
@@ -156,73 +156,73 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
         <div id="content-analytics" class="tab-content hidden">
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
             <!-- Demographics -->
-            <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-100">
-              <h3 class="font-serif text-lg text-gray-800 mb-4">👥 Demografía</h3>
+            <div class="bg-bg-panel rounded-lg p-6 shadow-sm border border-border-soft/60">
+              <h3 class="font-serif text-lg text-text-secondary mb-4">👥 Demografía</h3>
               <div class="space-y-4">
                 <div>
-                  <h4 class="font-medium text-gray-700 mb-2">Por Género</h4>
+                  <h4 class="font-medium text-text-secondary mb-2">Por Género</h4>
                   <div id="gender-stats" class="space-y-2"></div>
                 </div>
                 <div>
-                  <h4 class="font-medium text-gray-700 mb-2">Por Grupo de Edad</h4>
+                  <h4 class="font-medium text-text-secondary mb-2">Por Grupo de Edad</h4>
                   <div id="age-stats" class="space-y-2"></div>
                 </div>
               </div>
             </div>
 
             <!-- Catering -->
-            <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-100">
-              <h3 class="font-serif text-lg text-gray-800 mb-4">🍽️ Catering</h3>
+            <div class="bg-bg-panel rounded-lg p-6 shadow-sm border border-border-soft/60">
+              <h3 class="font-serif text-lg text-text-secondary mb-4">🍽️ Catering</h3>
               <div class="space-y-4">
                 <div>
-                  <h4 class="font-medium text-gray-700 mb-2">Opciones de Menú</h4>
+                  <h4 class="font-medium text-text-secondary mb-2">Opciones de Menú</h4>
                   <div id="menu-stats" class="space-y-2"></div>
                 </div>
                 <div>
-                  <h4 class="font-medium text-gray-700 mb-2">Restricciones Dietéticas</h4>
+                  <h4 class="font-medium text-text-secondary mb-2">Restricciones Dietéticas</h4>
                   <div id="dietary-stats" class="space-y-2"></div>
                 </div>
                 <div>
-                  <h4 class="font-medium text-gray-700 mb-2">Alergias</h4>
+                  <h4 class="font-medium text-text-secondary mb-2">Alergias</h4>
                   <div id="allergy-stats" class="space-y-2"></div>
                 </div>
               </div>
             </div>
 
             <!-- Logistics -->
-            <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-100">
-              <h3 class="font-serif text-lg text-gray-800 mb-4">🚌 Logística</h3>
+            <div class="bg-bg-panel rounded-lg p-6 shadow-sm border border-border-soft/60">
+              <h3 class="font-serif text-lg text-text-secondary mb-4">🚌 Logística</h3>
               <div class="space-y-4">
                 <div class="flex justify-between items-center">
-                  <span class="text-gray-700">Necesitan Transporte:</span>
-                  <span id="transport-needed" class="font-bold text-blue-600">-</span>
+                  <span class="text-text-secondary">Necesitan Transporte:</span>
+                  <span id="transport-needed" class="font-bold text-status-info">-</span>
                 </div>
                 <div>
-                  <h4 class="font-medium text-gray-700 mb-2">Ubicaciones de Recogida</h4>
+                  <h4 class="font-medium text-text-secondary mb-2">Ubicaciones de Recogida</h4>
                   <div id="transport-locations" class="space-y-2"></div>
                 </div>
                 <div class="flex justify-between items-center">
-                  <span class="text-gray-700">Necesitan Alojamiento:</span>
-                  <span id="accommodation-needed" class="font-bold text-purple-600">-</span>
+                  <span class="text-text-secondary">Necesitan Alojamiento:</span>
+                  <span id="accommodation-needed" class="font-bold text-status-info">-</span>
                 </div>
               </div>
             </div>
 
             <!-- People Count -->
-            <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-100">
-              <h3 class="font-serif text-lg text-gray-800 mb-4">📊 Conteo Total</h3>
+            <div class="bg-bg-panel rounded-lg p-6 shadow-sm border border-border-soft/60">
+              <h3 class="font-serif text-lg text-text-secondary mb-4">📊 Conteo Total</h3>
               <div class="space-y-4">
                 <div class="flex justify-between items-center">
-                  <span class="text-gray-700">Total Personas:</span>
-                  <span id="total-people" class="font-bold text-gold text-2xl">-</span>
+                  <span class="text-text-secondary">Total Personas:</span>
+                  <span id="total-people" class="font-bold text-accent text-2xl">-</span>
                 </div>
                 <div class="flex justify-between items-center">
-                  <span class="text-gray-700">Invitados Principales:</span>
-                  <span id="main-guests" class="font-bold text-gray-800">-</span>
+                  <span class="text-text-secondary">Invitados Principales:</span>
+                  <span id="main-guests" class="font-bold text-text-secondary">-</span>
                 </div>
                 <div class="flex justify-between items-center">
-                  <span class="text-gray-700">Acompañantes:</span>
-                  <span id="plus-ones" class="font-bold text-gray-800">-</span>
+                  <span class="text-text-secondary">Acompañantes:</span>
+                  <span id="plus-ones" class="font-bold text-text-secondary">-</span>
                 </div>
               </div>
             </div>
@@ -233,66 +233,66 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
         <div id="content-invitations" class="tab-content hidden">
           <div class="mb-6">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-100">
+              <div class="bg-bg-panel rounded-lg p-6 shadow-sm border border-border-soft/60">
                 <div class="flex items-center">
-                  <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                    <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                  <div class="w-12 h-12 bg-status-info/15 rounded-lg flex items-center justify-center">
+                    <svg class="w-6 h-6 text-status-info" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
                     </svg>
                   </div>
                   <div class="ml-4">
-                    <p class="text-sm font-medium text-gray-600">Total Enviadas</p>
-                    <p id="invitations-total" class="text-2xl font-bold text-gray-900">-</p>
+                    <p class="text-sm font-medium text-text-muted">Total Enviadas</p>
+                    <p id="invitations-total" class="text-2xl font-bold text-text-primary">-</p>
                   </div>
                 </div>
               </div>
 
-              <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-100">
+              <div class="bg-bg-panel rounded-lg p-6 shadow-sm border border-border-soft/60">
                 <div class="flex items-center">
-                  <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                    <svg class="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 24 24">
+                  <div class="w-12 h-12 bg-status-success/15 rounded-lg flex items-center justify-center">
+                    <svg class="w-6 h-6 text-status-success" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
                     </svg>
                   </div>
                   <div class="ml-4">
-                    <p class="text-sm font-medium text-gray-600">Con Respuesta</p>
-                    <p id="invitations-responded" class="text-2xl font-bold text-gray-900">-</p>
+                    <p class="text-sm font-medium text-text-muted">Con Respuesta</p>
+                    <p id="invitations-responded" class="text-2xl font-bold text-text-primary">-</p>
                   </div>
                 </div>
               </div>
 
-              <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-100">
+              <div class="bg-bg-panel rounded-lg p-6 shadow-sm border border-border-soft/60">
                 <div class="flex items-center">
-                  <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
-                    <svg class="w-6 h-6 text-yellow-600" fill="currentColor" viewBox="0 0 24 24">
+                  <div class="w-12 h-12 bg-status-warning/15 rounded-lg flex items-center justify-center">
+                    <svg class="w-6 h-6 text-status-warning" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                     </svg>
                   </div>
                   <div class="ml-4">
-                    <p class="text-sm font-medium text-gray-600">Pendientes</p>
-                    <p id="invitations-pending" class="text-2xl font-bold text-gray-900">-</p>
+                    <p class="text-sm font-medium text-text-muted">Pendientes</p>
+                    <p id="invitations-pending" class="text-2xl font-bold text-text-primary">-</p>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
-              <div class="px-6 py-4 border-b border-gray-200">
-                <h3 class="font-serif text-lg text-gray-800">Invitaciones Enviadas</h3>
+            <div class="bg-bg-panel rounded-lg shadow-sm border border-border-soft/60 overflow-hidden">
+              <div class="px-6 py-4 border-b border-border-strong/60">
+                <h3 class="font-serif text-lg text-text-secondary">Invitaciones Enviadas</h3>
               </div>
               
               <div class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-gray-200">
-                  <thead class="bg-gray-50">
+                <table class="min-w-full divide-y divide-border-strong/60">
+                  <thead class="bg-surface-2">
                     <tr>
-                      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Invitado</th>
-                      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Mensaje</th>
-                      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Estado</th>
-                      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fecha Creación</th>
-                      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
+                      <th class="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Invitado</th>
+                      <th class="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Mensaje</th>
+                      <th class="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Estado</th>
+                      <th class="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Fecha Creación</th>
+                      <th class="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Acciones</th>
                     </tr>
                   </thead>
-                  <tbody id="invitations-table-body" class="bg-white divide-y divide-gray-200">
+                  <tbody id="invitations-table-body" class="bg-bg-panel divide-y divide-border-strong/60">
                     <!-- Contenido dinámico -->
                   </tbody>
                 </table>
@@ -303,25 +303,25 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
 
         <!-- Tab Content: Guests List -->
         <div id="content-guests" class="tab-content hidden">
-          <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
-            <div class="px-6 py-4 border-b border-gray-200">
-              <h3 class="font-serif text-lg text-gray-800">Lista Completa de Invitados</h3>
+          <div class="bg-bg-panel rounded-lg shadow-sm border border-border-soft/60 overflow-hidden">
+            <div class="px-6 py-4 border-b border-border-strong/60">
+              <h3 class="font-serif text-lg text-text-secondary">Lista Completa de Invitados</h3>
             </div>
             
             <div class="overflow-x-auto">
-              <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
+              <table class="min-w-full divide-y divide-border-strong/60">
+                <thead class="bg-surface-2">
                   <tr>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Estado</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Género</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acompañante</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Menú</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Transporte</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Nombre</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Email</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Estado</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Género</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Acompañante</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Menú</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Transporte</th>
                   </tr>
                 </thead>
-                <tbody id="full-guests-table-body" class="bg-white divide-y divide-gray-200">
+                <tbody id="full-guests-table-body" class="bg-bg-panel divide-y divide-border-strong/60">
                   <!-- Contenido dinámico -->
                 </tbody>
               </table>
@@ -331,36 +331,36 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
       </div>
     </div>    <!-- 
 Modal para crear invitación -->
-    <div id="invitation-modal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-      <div class="relative top-10 mx-auto p-5 border max-w-4xl shadow-lg rounded-md bg-white">
+    <div id="invitation-modal" class="hidden fixed inset-0 bg-text-secondary bg-opacity-50 overflow-y-auto h-full w-full z-50">
+      <div class="relative top-10 mx-auto p-5 border max-w-4xl shadow-lg rounded-md bg-bg-panel">
         <div class="mt-3">
-          <h3 class="text-lg font-medium text-gray-900 mb-4">Crear Nueva Invitación</h3>
+          <h3 class="text-lg font-medium text-text-primary mb-4">Crear Nueva Invitación</h3>
           
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <!-- Formulario -->
             <div>
               <form id="invitation-form" class="space-y-4">
                 <div>
-                  <label for="guest_name" class="block text-sm font-medium text-gray-700 mb-2">Nombre del Invitado</label>
+                  <label for="guest_name" class="block text-sm font-medium text-text-secondary mb-2">Nombre del Invitado</label>
                   <input type="text" id="guest_name" name="guest_name" required
-                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-gold focus:border-gold"
+                    class="w-full px-3 py-2 border border-border-strong rounded-md focus:ring-accent focus:border-accent"
                     placeholder="Nombre completo" />
                 </div>
                 
                 <div>
-                  <label for="message" class="block text-sm font-medium text-gray-700 mb-2">Mensaje Personalizado (Opcional)</label>
+                  <label for="message" class="block text-sm font-medium text-text-secondary mb-2">Mensaje Personalizado (Opcional)</label>
                   <textarea id="message" name="message" rows="4"
-                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-gold focus:border-gold"
+                    class="w-full px-3 py-2 border border-border-strong rounded-md focus:ring-accent focus:border-accent"
                     placeholder="Mensaje especial para este invitado..."></textarea>
                 </div>
                 
                 <div class="flex justify-end space-x-3 pt-4">
                   <button type="button" id="cancel-invitation"
-                    class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition-colors">
+                    class="px-4 py-2 bg-border-strong text-text-secondary rounded-md hover:bg-border-strong/80 transition-colors">
                     Cancelar
                   </button>
                   <button type="submit" id="create-invitation-submit"
-                    class="px-4 py-2 bg-gold text-white rounded-md hover:bg-yellow-600 transition-colors">
+                    class="px-4 py-2 bg-accent text-accent-contrast rounded-md hover:bg-accent-hover transition-colors">
                     Crear Invitación
                   </button>
                 </div>
@@ -369,30 +369,30 @@ Modal para crear invitación -->
 
             <!-- Preview -->
             <div>
-              <h4 class="text-sm font-medium text-gray-700 mb-3">Vista Previa de la Invitación</h4>
-              <div class="border border-gray-200 rounded-lg p-4 bg-gradient-to-br from-warm-beige to-cream min-h-[300px]">
+              <h4 class="text-sm font-medium text-text-secondary mb-3">Vista Previa de la Invitación</h4>
+              <div class="border border-border-strong/60 rounded-lg p-4 bg-gradient-to-br from-bg-page to-bg-card min-h-[300px]">
                 <div class="text-center">
                   <div class="mb-4">
-                    <div class="w-12 h-12 bg-gold rounded-full flex items-center justify-center mx-auto mb-3">
-                      <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <div class="w-12 h-12 bg-accent rounded-full flex items-center justify-center mx-auto mb-3">
+                      <svg class="w-6 h-6 text-accent-contrast" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                       </svg>
                     </div>
-                    <h2 class="font-serif text-xl text-gray-800 mb-2">¡Estás Invitado!</h2>
-                    <p class="text-gray-600 text-sm mb-4">Sheila & Habib</p>
+                    <h2 class="font-serif text-xl text-text-secondary mb-2">¡Estás Invitado!</h2>
+                    <p class="text-text-muted text-sm mb-4">Sheila & Habib</p>
                   </div>
                   
-                  <div class="bg-white/50 rounded-lg p-4 mb-4">
-                    <p class="text-gray-700 mb-2">
+                  <div class="bg-bg-panel/50 rounded-lg p-4 mb-4">
+                    <p class="text-text-secondary mb-2">
                       <span class="font-medium">Querido/a</span> 
-                      <span id="preview-name" class="text-gold font-medium">Nombre del Invitado</span>
+                      <span id="preview-name" class="text-accent font-medium">Nombre del Invitado</span>
                     </p>
-                    <div id="preview-message" class="text-gray-600 text-sm italic">
+                    <div id="preview-message" class="text-text-muted text-sm italic">
                       Nos complace invitarte a celebrar nuestro día especial.
                     </div>
                   </div>
                   
-                  <div class="text-xs text-gray-500">
+                  <div class="text-xs text-text-muted">
                     <p class="mb-1">📅 4 de Julio, 2026</p>
                     <p>📍 Lugar de la celebración</p>
                   </div>
@@ -405,35 +405,35 @@ Modal para crear invitación -->
     </div>
 
     <!-- Modal de éxito -->
-    <div id="success-modal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-      <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+    <div id="success-modal" class="hidden fixed inset-0 bg-text-secondary bg-opacity-50 overflow-y-auto h-full w-full z-50">
+      <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-bg-panel">
         <div class="text-center">
-          <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg class="w-8 h-8 text-green-600" fill="currentColor" viewBox="0 0 24 24">
+          <div class="w-16 h-16 bg-status-success/15 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-status-success" fill="currentColor" viewBox="0 0 24 24">
               <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
             </svg>
           </div>
-          <h3 class="text-lg font-medium text-gray-900 mb-2">¡Invitación Creada!</h3>
-          <p class="text-gray-600 mb-4">La invitación se ha generado correctamente</p>
+          <h3 class="text-lg font-medium text-text-primary mb-2">¡Invitación Creada!</h3>
+          <p class="text-text-muted mb-4">La invitación se ha generado correctamente</p>
           
-          <div class="bg-gray-50 rounded-lg p-4 mb-4">
-            <p class="text-sm text-gray-700 mb-2">Enlace de la invitación:</p>
+          <div class="bg-surface-2 rounded-lg p-4 mb-4">
+            <p class="text-sm text-text-secondary mb-2">Enlace de la invitación:</p>
             <div class="flex items-center space-x-2">
               <input id="invitation-link" type="text" readonly 
-                class="flex-1 px-3 py-2 bg-white border border-gray-300 rounded text-sm" value="" />
+                class="flex-1 px-3 py-2 bg-bg-panel border border-border-strong rounded text-sm" value="" />
               <button id="copy-link-btn"
-                class="px-3 py-2 bg-gold text-white rounded text-sm hover:bg-yellow-600 transition-colors"
+                class="px-3 py-2 bg-accent text-accent-contrast rounded text-sm hover:bg-accent-hover transition-colors"
                 title="Copiar enlace">📋</button>
             </div>
           </div>
           
           <div class="flex space-x-3">
             <button id="view-invitation-btn"
-              class="flex-1 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
+              class="flex-1 px-4 py-2 bg-status-info text-text-inverse rounded-md hover:bg-status-info/80 transition-colors">
               Ver Invitación
             </button>
             <button id="close-success-modal"
-              class="flex-1 px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition-colors">
+              class="flex-1 px-4 py-2 bg-border-strong text-text-secondary rounded-md hover:bg-border-strong/80 transition-colors">
               Cerrar
             </button>
           </div>
@@ -442,28 +442,28 @@ Modal para crear invitación -->
     </div>
 
     <!-- Modal de confirmación de eliminación -->
-    <div id="delete-confirmation-modal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-      <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+    <div id="delete-confirmation-modal" class="hidden fixed inset-0 bg-text-secondary bg-opacity-50 overflow-y-auto h-full w-full z-50">
+      <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-bg-panel">
         <div class="text-center">
-          <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg class="w-8 h-8 text-red-600" fill="currentColor" viewBox="0 0 24 24">
+          <div class="w-16 h-16 bg-status-danger/15 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-status-danger" fill="currentColor" viewBox="0 0 24 24">
               <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
             </svg>
           </div>
-          <h3 class="text-lg font-medium text-gray-900 mb-2">Eliminar Invitación</h3>
-          <p class="text-gray-600 mb-4">
+          <h3 class="text-lg font-medium text-text-primary mb-2">Eliminar Invitación</h3>
+          <p class="text-text-muted mb-4">
             ¿Estás seguro de que quieres eliminar la invitación para 
             <span id="delete-guest-name" class="font-semibold"></span>?
           </p>
-          <p class="text-sm text-gray-500 mb-6">Esta acción no se puede deshacer.</p>
+          <p class="text-sm text-text-muted mb-6">Esta acción no se puede deshacer.</p>
           
           <div class="flex space-x-3">
             <button id="cancel-delete"
-              class="flex-1 px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition-colors">
+              class="flex-1 px-4 py-2 bg-border-strong text-text-secondary rounded-md hover:bg-border-strong/80 transition-colors">
               Cancelar
             </button>
             <button id="confirm-delete"
-              class="flex-1 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors">
+              class="flex-1 px-4 py-2 bg-status-danger text-text-inverse rounded-md hover:bg-status-danger/80 transition-colors">
               Eliminar
             </button>
           </div>
@@ -473,7 +473,7 @@ Modal para crear invitación -->
 
     <!-- Notificación Toast -->
     <div id="toast-notification" class="hidden fixed top-4 right-4 z-50">
-      <div class="bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg flex items-center space-x-3">
+      <div class="bg-status-success text-text-inverse px-6 py-3 rounded-lg shadow-lg flex items-center space-x-3">
         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
           <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
         </svg>
@@ -485,11 +485,11 @@ Modal para crear invitación -->
 
 <style>
   .tab-button {
-    @apply border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300;
+    @apply border-transparent text-text-muted hover:text-text-secondary hover:border-border-strong;
   }
   
   .tab-button.active {
-    @apply border-gold text-gold;
+    @apply border-accent text-accent;
   }
   
   .tab-content {
@@ -687,17 +687,17 @@ Modal para crear invitación -->
     
     tbody.innerHTML = guests.map(guest => {
       const status = guest.attending === 1 ? 'Confirmado' : guest.attending === 0 ? 'No asiste' : 'Pendiente';
-      const statusClass = guest.attending === 1 ? 'text-green-600' : guest.attending === 0 ? 'text-red-600' : 'text-yellow-600';
+      const statusClass = guest.attending === 1 ? 'text-status-success' : guest.attending === 0 ? 'text-status-danger' : 'text-status-warning';
       const plusOne = guest.plus_one ? (guest.plus_one_name || 'Sí') : 'No';
       const date = new Date(guest.created_at).toLocaleDateString('es-ES');
       
       return `
         <tr>
-          <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${guest.name}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-text-primary">${guest.name}</td>
           <td class="px-6 py-4 whitespace-nowrap text-sm">${guest.email || '-'}</td>
           <td class="px-6 py-4 whitespace-nowrap text-sm ${statusClass}">${status}</td>
-          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${plusOne}</td>
-          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${date}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-text-muted">${plusOne}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-text-muted">${date}</td>
         </tr>
       `;
     }).join('');
@@ -734,7 +734,7 @@ Modal para crear invitación -->
     if (childrenElement) {
       const childrenBreakdown = composition.childrenBreakdown || [];
       if (childrenBreakdown.length === 0) {
-        childrenElement.innerHTML = '<p class="text-gray-500 text-sm">Sin niños registrados</p>';
+        childrenElement.innerHTML = '<p class="text-text-muted text-sm">Sin niños registrados</p>';
       } else {
         childrenElement.innerHTML = childrenBreakdown.map(item => 
           `<div class="flex justify-between py-1">
@@ -753,7 +753,7 @@ Modal para crear invitación -->
           <span>${contact.name}</span>
           <span class="font-medium">${contact.phone}</span>
         </div>`
-      ).join('') || '<p class="text-gray-500 text-sm">Sin teléfonos disponibles</p>';
+      ).join('') || '<p class="text-text-muted text-sm">Sin teléfonos disponibles</p>';
     }
   }
 
@@ -763,7 +763,7 @@ Modal para crear invitación -->
     if (!element) return;
     
     if (data.length === 0) {
-      element.innerHTML = '<p class="text-gray-500 text-sm">Sin datos disponibles</p>';
+      element.innerHTML = '<p class="text-text-muted text-sm">Sin datos disponibles</p>';
       return;
     }
     
@@ -774,8 +774,8 @@ Modal para crear invitación -->
       
       return `
         <div class="flex justify-between items-center">
-          <span class="text-gray-700">${label}:</span>
-          <span class="font-medium text-gray-900">${count}</span>
+          <span class="text-text-secondary">${label}:</span>
+          <span class="font-medium text-text-primary">${count}</span>
         </div>
       `;
     }).join('');
@@ -799,14 +799,14 @@ Modal para crear invitación -->
       
       return `
         <tr>
-          <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${invitation.guest_name}</td>
-          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${message}</td>
-          <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600">${status}</td>
-          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${date}</td>
-          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-            <button onclick="viewInvitation('${invitation.token}')" class="text-blue-600 hover:text-blue-900 mr-2" title="Ver invitación">Ver</button>
-            <button onclick="copyInvitationLink('${invitation.token}')" class="text-green-600 hover:text-green-900 mr-2" title="Copiar enlace">Copiar</button>
-            <button onclick="deleteInvitation('${invitation.id}', '${invitation.guest_name}')" class="text-red-600 hover:text-red-900" title="Eliminar invitación">Eliminar</button>
+          <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-text-primary">${invitation.guest_name}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-text-muted">${message}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-status-info">${status}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-text-muted">${date}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-text-muted">
+            <button onclick="viewInvitation('${invitation.token}')" class="text-status-info hover:text-status-info/80 mr-2" title="Ver invitación">Ver</button>
+            <button onclick="copyInvitationLink('${invitation.token}')" class="text-status-success hover:text-status-success/80 mr-2" title="Copiar enlace">Copiar</button>
+            <button onclick="deleteInvitation('${invitation.id}', '${invitation.guest_name}')" class="text-status-danger hover:text-status-danger/80" title="Eliminar invitación">Eliminar</button>
           </td>
         </tr>
       `;
@@ -820,7 +820,7 @@ Modal para crear invitación -->
     
     tbody.innerHTML = guests.map(guest => {
       const status = guest.attending === 1 ? 'Confirmado' : guest.attending === 0 ? 'No asiste' : 'Pendiente';
-      const statusClass = guest.attending === 1 ? 'text-green-600' : guest.attending === 0 ? 'text-red-600' : 'text-yellow-600';
+      const statusClass = guest.attending === 1 ? 'text-status-success' : guest.attending === 0 ? 'text-status-danger' : 'text-status-warning';
       const gender = guest.gender || 'No especificado';
       const plusOne = guest.plus_one ? (guest.plus_one_name || 'Sí') : 'No';
       const menu = guest.menu_choice || 'No especificado';
@@ -828,13 +828,13 @@ Modal para crear invitación -->
       
       return `
         <tr>
-          <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${guest.name}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-text-primary">${guest.name}</td>
           <td class="px-6 py-4 whitespace-nowrap text-sm">${guest.email || '-'}</td>
           <td class="px-6 py-4 whitespace-nowrap text-sm ${statusClass}">${status}</td>
-          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${gender}</td>
-          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${plusOne}</td>
-          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${menu}</td>
-          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${transport}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-text-muted">${gender}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-text-muted">${plusOne}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-text-muted">${menu}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-text-muted">${transport}</td>
         </tr>
       `;
     }).join('');
@@ -908,8 +908,8 @@ Modal para crear invitación -->
       const toastDiv = toast.querySelector('div');
       if (toastDiv) {
         toastDiv.className = type === 'success' 
-          ? 'bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg flex items-center space-x-3'
-          : 'bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg flex items-center space-x-3';
+          ? 'bg-status-success text-text-inverse px-6 py-3 rounded-lg shadow-lg flex items-center space-x-3'
+          : 'bg-status-danger text-text-inverse px-6 py-3 rounded-lg shadow-lg flex items-center space-x-3';
       }
       
       toast.classList.remove('hidden');

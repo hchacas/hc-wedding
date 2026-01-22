@@ -4,6 +4,8 @@ export interface Props {
   description?: string;
 }
 
+import '../styles/tokens.css';
+
 const { title, description = "Invitación de boda interactiva" } = Astro.props;
 ---
 
@@ -13,13 +15,13 @@ const { title, description = "Invitación de boda interactiva" } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <title>{title}</title>
   </head>
-  <body class="min-h-screen bg-white">
+  <body class="min-h-screen bg-bg-page text-text-secondary">
     <slot />
   </body>
 </html>
@@ -34,29 +36,11 @@ const { title, description = "Invitación de boda interactiva" } = Astro.props;
     margin: 0;
     padding: 0;
     line-height: 1.6;
+    background-color: rgb(var(--bg-page));
+    color: rgb(var(--text-secondary));
   }
 
   .font-serif {
-    font-family: 'Playfair Display', serif;
-  }
-
-  .text-gold {
-    color: #d4af37;
-  }
-
-  .bg-gold {
-    background-color: #d4af37;
-  }
-
-  .border-gold {
-    border-color: #d4af37;
-  }
-
-  .text-warm-gray {
-    color: #8b7355;
-  }
-
-  .bg-warm-beige {
-    background-color: #f7f3f0;
+    font-family: 'Cormorant Garamond', serif;
   }
 </style>

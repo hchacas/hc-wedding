@@ -10,22 +10,22 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
 ---
 
 <BaseLayout title="Invitación - Sheila & Habib">
-  <main class="min-h-screen bg-[#F3ECE1] py-12">
+  <main class="min-h-screen bg-bg-page py-12">
     <div class="container mx-auto px-4 flex justify-center">
       <!-- Loading State -->
       <div id="loading-state" class="text-center">
-        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-gold mx-auto mb-4"></div>
-        <p class="text-gray-600">Cargando invitación...</p>
+        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-accent mx-auto mb-4"></div>
+        <p class="text-text-muted">Cargando invitación...</p>
       </div>
 
       <!-- Error State -->
       <div id="error-state" class="hidden w-full max-w-[680px]">
-        <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-8 max-w-md mx-auto text-center">
-          <h1 class="text-2xl font-bold text-gray-800 mb-2">Invitación no encontrada</h1>
-          <p id="error-message" class="text-gray-600 mb-4">No pudimos cargar esta invitación</p>
+        <div class="bg-bg-panel rounded-lg shadow-sm border border-border-soft/60 p-8 max-w-md mx-auto text-center">
+          <h1 class="text-2xl font-bold text-text-secondary mb-2">Invitación no encontrada</h1>
+          <p id="error-message" class="text-text-muted mb-4">No pudimos cargar esta invitación</p>
           <a
             href="/"
-            class="inline-block bg-gold text-white px-6 py-2 rounded-lg hover:bg-yellow-600 transition-colors"
+            class="inline-block bg-accent text-accent-contrast px-6 py-2 rounded-lg hover:bg-accent-hover transition-colors"
           >
             Ir a la página principal
           </a>
@@ -36,10 +36,10 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
       <div id="invitation-content" class="hidden w-full max-w-[680px]">
         <!-- Hoja de invitación tipo papel (estilo Lovable) -->
         <section
-          class="relative w-full mx-auto bg-[#FBF7EF] shadow-[0_18px_45px_rgba(0,0,0,0.06)] rounded-sm overflow-hidden border border-[#E7DAC7]"
+          class="relative w-full mx-auto bg-bg-card shadow-card rounded-sm overflow-hidden border border-border-soft"
         >
           {/* Ramas de olivo */}
-          <div class="absolute top-10 -right-8 h-52">
+          <div class="absolute -top-5 -right-8 h-52">
             <img
               src={olivoBottomLeft.src}
               alt=""
@@ -61,27 +61,31 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
           <div class="relative z-10 px-8 py-20 md:px-16 md:py-20 text-center space-y-10">
             {/* Cabecera: nombres y tagline */}
             <header class="space-y-5">
-              <p class="text-[11px] tracking-[0.35em] uppercase text-gray-400">
+              <p class="text-[11px] tracking-[0.4em] uppercase text-text-muted/70">
                 ¡Nos casamos!
               </p>
 
-              <div class="space-y-2  text-gray-900">
-                <h1 class="font-display text-4xl md:text-5xl leading-tight tracking-wide">
+              <div class="space-y-3 text-text-primary">
+                <h1 class="font-display text-5xl md:text-6xl leading-[0.95] tracking-[0.02em] font-medium">
                   Sheila
                 </h1>
-                <p class="font-serif text-2xl my-1">&amp;</p>
-                <h1 class="font-display text-4xl md:text-5xl leading-tight tracking-wide">
+
+                <p class="font-display text-3xl md:text-4xl leading-none opacity-80">
+                  &amp;
+                </p>
+
+                <h1 class="font-display text-5xl md:text-6xl leading-[0.95] tracking-[0.02em] font-medium">
                   Habib
                 </h1>
               </div>
 
-              <p class="text-sm md:text-[15px] text-gray-600 max-w-xl mx-auto">
+              <p class="text-sm md:text-[15px] text-text-secondary/80 max-w-xl mx-auto leading-relaxed">
                 Nos encantaría poder contar con tu compañía en un día tan especial para nosotros.
               </p>
             </header>
 
             {/* Texto principal de invitación */}
-            <section class="space-y-4 max-w-xl mx-auto text-left text-[15px] leading-relaxed text-gray-800">
+            <section class="space-y-4 max-w-xl mx-auto text-left text-[15px] leading-relaxed text-text-secondary">
               <p>
                 Querido/a
                 <span id="guest-name" class="font-semibold"> Invitado</span>,
@@ -102,27 +106,24 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
               </p>
               <p class="pt-3 text-right">
                 Con cariño,<br />
-                <span class="font-medium">Sheila &amp; Habib</span>
+                <span class="font-display text-[16px] md:text-[17px] opacity-90">Sheila &amp; Habib</span>
               </p>
             </section>
-
-            {/* Borde interior sutil */}
-            <div class="pointer-events-none absolute inset-4 border border-[#E7DAC7]/40 rounded-sm" />
           </div>
         </section>
 
         {/* Detalles y acciones fuera de la tarjeta principal */}
-        <section class="mt-10 md:mt-12 max-w-[780px] mx-auto bg-white/80 border border-[#E7DAC7] rounded-lg shadow-sm backdrop-blur px-6 py-8 md:px-10 space-y-8">
+        <section class="mt-10 md:mt-12 max-w-[780px] mx-auto bg-bg-panel/80 border border-border-soft rounded-lg shadow-sm backdrop-blur px-6 py-8 md:px-10 space-y-8">
           <div class="space-y-4">
-            <h2 class="font-display text-2xl text-center text-gray-900">
+            <h2 class="font-display text-2xl text-center text-text-primary">
               Detalles del evento
             </h2>
 
-            <ol class="space-y-6 text-sm text-left text-gray-800">
+            <ol class="space-y-6 text-sm text-left text-text-secondary">
               <li class="flex gap-4">
-                <div class="mt-1 h-3 w-3 rounded-full bg-gold flex-shrink-0"></div>
+                <div class="mt-1 h-3 w-3 rounded-full bg-accent flex-shrink-0"></div>
                 <div class="space-y-1">
-                  <h3 class="font-medium text-gray-900">Ceremonia civil</h3>
+                  <h3 class="font-medium text-text-primary">Ceremonia civil</h3>
                   <p>
                     <span class="font-medium">Sábado, 4 de julio de 2026 · 19:00h</span>
                   </p>
@@ -131,9 +132,9 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
               </li>
 
               <li class="flex gap-4">
-                <div class="mt-1 h-3 w-3 rounded-full bg-gold flex-shrink-0"></div>
+                <div class="mt-1 h-3 w-3 rounded-full bg-accent flex-shrink-0"></div>
                 <div class="space-y-1">
-                  <h3 class="font-medium text-gray-900">Cóctel, cena y fiesta</h3>
+                  <h3 class="font-medium text-text-primary">Cóctel, cena y fiesta</h3>
                   <p>
                     A partir de las <span class="font-medium">20:30h</span> · Mismo lugar
                   </p>
@@ -146,29 +147,29 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
             </ol>
           </div>
 
-          <div class="pt-2 border-t border-[#E7DAC7]/70 space-y-4">
-            <p class="text-center text-gray-700 text-sm">
+          <div class="pt-2 border-t border-border-soft/70 space-y-4">
+            <p class="text-center text-text-secondary text-sm">
               Para ayudarnos con la organización, te agradeceríamos que confirmaras tu asistencia.
             </p>
 
             <div class="grid md:grid-cols-3 gap-4">
               <a
                 href="/rsvp/login"
-                class="block w-full bg-gold text-white py-3 px-6 rounded-lg text-center font-medium hover:bg-yellow-600 transition-colors"
+                class="block w-full bg-accent text-accent-contrast py-3 px-6 rounded-lg text-center font-medium hover:bg-accent-hover transition-colors"
               >
                 Confirmar mi asistencia
               </a>
 
               <button
                 id="download-summary"
-                class="w-full bg-gray-900 text-white py-3 px-6 rounded-lg font-medium hover:bg-gray-800 transition-colors"
+                class="w-full bg-text-primary text-text-inverse py-3 px-6 rounded-lg font-medium hover:bg-text-secondary transition-colors"
               >
                 Descargar resumen
               </button>
 
               <a
                 href="/"
-                class="block w-full bg-[#F3ECE1] text-gray-900 py-3 px-6 rounded-lg text-center font-medium hover:bg-[#E9DFD1] transition-colors"
+                class="block w-full bg-bg-page text-text-primary py-3 px-6 rounded-lg text-center font-medium hover:bg-border-soft transition-colors"
               >
                 Más información del evento
               </a>
@@ -178,7 +179,7 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
 
         <!-- Token info -->
         <div class="mt-4 text-center">
-          <p class="text-xs text-gray-400">
+          <p class="text-xs text-text-muted">
             Invitación personalizada · <span id="token-display"></span>
           </p>
         </div>

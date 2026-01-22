@@ -38,8 +38,8 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
         <section
           class="relative w-full mx-auto bg-bg-card shadow-card rounded-sm overflow-hidden border border-border-soft"
         >
-          {/* Ramas de olivo */}
-          <div class="absolute -top-5 -right-8 h-52">
+          {/* Ramas de olivo SUPERIOR (Derecha) */}
+          <div class="absolute -top-8 -right-12 h-36 md:h-52 md:-top-10 md:-right-12 pointer-events-none z-0">
             <img
               src={olivoBottomLeft.src}
               alt=""
@@ -48,7 +48,8 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
             />
           </div>
 
-          <div class="absolute -bottom-7 -left-8 w-56 h-48">
+          {/* Ramas de olivo INFERIOR (Izquierda) */}
+          <div class="absolute -bottom-8 -left-12 h-36 md:h-52 md:-bottom-12 md:-left-20 pointer-events-none z-0">
             <img
               src={olivoBottomLeft.src}
               alt=""
@@ -99,9 +100,9 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
               <p>
                 Tenemos el gusto de invitarte a la ceremonia civil que se celebrará el
                 <span class="font-semibold">
-                  {' '}sábado, 4 de julio de 2026, a las 19:00h
-                </span>, en
-                <span class="font-semibold"> Los Jardines Palacio de La Dehesa</span>, en Lucena
+                  {' '}sábado, 4 de julio de 2026, a las 20:15h,
+                </span>en
+                <span class="font-semibold">Los Jardines Palacio de La Dehesa,</span> en Lucena
                 (Córdoba).
               </p>
               <p class="pt-3 text-right">
@@ -125,7 +126,7 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
                 <div class="space-y-1">
                   <h3 class="font-medium text-text-primary">Ceremonia civil</h3>
                   <p>
-                    <span class="font-medium">Sábado, 4 de julio de 2026 · 19:00h</span>
+                    <span class="font-medium">Sábado, 4 de julio de 2026 · 20:15h</span>
                   </p>
                   <p>Los Jardines Palacio de La Dehesa · Lucena, Córdoba</p>
                 </div>
@@ -136,11 +137,11 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
                 <div class="space-y-1">
                   <h3 class="font-medium text-text-primary">Cóctel, cena y fiesta</h3>
                   <p>
-                    A partir de las <span class="font-medium">20:30h</span> · Mismo lugar
+                    A partir de las <span class="font-medium">21:15h</span> · Mismo lugar
                   </p>
                   <p>
                     Código de vestimenta:
-                    <span class="font-medium"> ¡ponte lo que quieras!</span>
+                    <span class="font-medium">Boho chic - más información próximamente</span>
                   </p>
                 </div>
               </li>
@@ -152,12 +153,18 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
               Para ayudarnos con la organización, te agradeceríamos que confirmaras tu asistencia.
             </p>
 
-            <div class="grid md:grid-cols-3 gap-4">
+            <div class="grid md:grid-cols-3 gap-4 text-center">
               <a
                 href="/rsvp/login"
                 class="block w-full bg-accent text-accent-contrast py-3 px-6 rounded-lg text-center font-medium hover:bg-accent-hover transition-colors"
               >
                 Confirmar mi asistencia
+              </a>
+              <a
+                href="/"
+                class="w-full bg-text-primary text-text-inverse py-3 px-6 rounded-lg font-medium hover:bg-text-secondary transition-colors"
+              >
+                Más información del evento
               </a>
 
               <button
@@ -166,13 +173,6 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
               >
                 Descargar resumen
               </button>
-
-              <a
-                href="/"
-                class="block w-full bg-bg-page text-text-primary py-3 px-6 rounded-lg text-center font-medium hover:bg-border-soft transition-colors"
-              >
-                Más información del evento
-              </a>
             </div>
           </div>
         </section>

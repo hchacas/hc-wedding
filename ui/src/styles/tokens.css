@@ -1,0 +1,28 @@
+:root {
+  /* Backgrounds */
+  --bg-page: 248 245 239;   /* ivory */
+  --bg-card: 255 252 247;   /* paper */
+  --bg-panel: 252 248 242;  /* panel */
+
+  /* Neutral surfaces */
+  --surface-1: 255 252 247;
+  --surface-2: 249 244 236;
+
+  /* Text */
+  --text-primary: 28 25 23;
+  --text-secondary: 87 83 78;
+  --text-muted: 120 113 108;
+  --text-inverse: 255 255 255;
+
+  /* Borders */
+  --border-soft: 235 227 214;
+  --border-strong: 220 211 198;
+
+  /* Accent (arena suave, no oro) */
+  --accent: 205 171 115;
+  --accent-hover: 186 156 106; /* hover más suave que terracota */
+  --accent-contrast: 255 255 255;
+
+  /* Shadows */
+  --shadow-card: 0 22px 60px rgba(0,0,0,0.10);
+}

@@ -2,40 +2,81 @@
 // Componente de cuenta atrás hasta la boda
 ---
 
-<section class="py-20 bg-warm-beige" id="countdown-section">
-  <div class="container mx-auto px-4 text-center max-w-5xl">
-    <div class="mb-12">
-      <h2 class="font-serif text-3xl md:text-4xl text-gray-800 mb-4">Faltan</h2>
-      <div class="w-16 h-0.5 bg-gold mx-auto"></div>
+<section class="py-28 bg-surface-2 relative overflow-hidden" id="countdown-section">
+  <div class="container mx-auto px-4 text-center max-w-6xl">
+    <!-- Header editorial -->
+    <div class="mb-16">
+      <span class="text-accent uppercase tracking-[0.35em] text-xs font-medium block mb-3">
+        El gran día
+      </span>
+
+      <h2 class="font-serif text-4xl md:text-5xl italic text-text-secondary">
+        Solo faltan…
+      </h2>
+
+      <div class="mt-8 flex justify-center">
+          <span class="block w-28 h-[1px] bg-accent"></span>
+      </div>
+
     </div>
-    
-    <div id="countdown" class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
-      <div class="p-8">
-        <div id="days" class="text-5xl md:text-6xl font-serif text-gold font-light mb-3">--</div>
-        <div class="text-sm font-medium text-warm-gray uppercase tracking-wider">Días</div>
+
+    <!-- Units -->
+    <div id="countdown" class="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-6 max-w-4xl mx-auto">
+      <!-- Days -->
+      <div class="group relative">
+        <div
+          class="mx-auto flex flex-col items-center justify-center
+                 w-36 h-36 md:w-36 md:h-36
+                 rounded-full bg-bg-panel
+                 border border-border-soft
+                 shadow-[0_10px_30px_rgba(0,0,0,0.05)]
+                 transition-transform duration-300 group-hover:scale-[1.03]"
+        >
+          <div id="days" class="text-5xl md:text-6xl font-serif text-accent font-light mb-1">--</div>
+          <div class="text-[10px] md:text-xs uppercase tracking-[0.2em] font-medium text-text-muted">
+            Días
+          </div>
+        </div>
       </div>
-      
-      <div class="p-8">
-        <div id="hours" class="text-5xl md:text-6xl font-serif text-gold font-light mb-3">--</div>
-        <div class="text-sm font-medium text-warm-gray uppercase tracking-wider">Horas</div>
+
+      <!-- Hours -->
+      <div class="group relative">
+        <div class="mx-auto flex flex-col items-center justify-center w-36 h-36 md:w-36 md:h-36 rounded-full bg-bg-panel border border-border-soft shadow-[0_10px_30px_rgba(0,0,0,0.05)] transition-transform duration-300 group-hover:scale-[1.03]">
+          <div id="hours" class="text-5xl md:text-6xl font-serif text-accent font-light mb-1">--</div>
+          <div class="text-[10px] md:text-xs uppercase tracking-[0.2em] font-medium text-text-muted">Horas</div>
+        </div>
       </div>
-      
-      <div class="p-8">
-        <div id="minutes" class="text-5xl md:text-6xl font-serif text-gold font-light mb-3">--</div>
-        <div class="text-sm font-medium text-warm-gray uppercase tracking-wider">Minutos</div>
+
+      <!-- Minutes -->
+      <div class="group relative">
+        <div class="mx-auto flex flex-col items-center justify-center w-36 h-36 md:w-36 md:h-36 rounded-full bg-bg-panel border border-border-soft shadow-[0_10px_30px_rgba(0,0,0,0.05)] transition-transform duration-300 group-hover:scale-[1.03]">
+          <div id="minutes" class="text-5xl md:text-6xl font-serif text-accent font-light mb-1">--</div>
+          <div class="text-[10px] md:text-xs uppercase tracking-[0.2em] font-medium text-text-muted">Minutos</div>
+        </div>
       </div>
-      
-      <div class="p-8">
-        <div id="seconds" class="text-5xl md:text-6xl font-serif text-gold font-light mb-3">--</div>
-        <div class="text-sm font-medium text-warm-gray uppercase tracking-wider">Segundos</div>
+
+      <!-- Seconds -->
+      <div class="group relative">
+        <div class="mx-auto flex flex-col items-center justify-center w-36 h-36 md:w-36 md:h-36 rounded-full bg-bg-panel border border-border-soft shadow-[0_10px_30px_rgba(0,0,0,0.05)] transition-transform duration-300 group-hover:scale-[1.03]">
+          <div id="seconds" class="text-5xl md:text-6xl font-serif text-accent font-light mb-1">--</div>
+          <div class="text-[10px] md:text-xs uppercase tracking-[0.2em] font-medium text-text-muted">Segundos</div>
+        </div>
       </div>
+    </div>
+
+    <!-- Footer line -->
+    <div class="mt-16">
+      <p class="text-text-muted italic font-serif">
+        Contando cada segundo para celebrarlo con vosotros.
+      </p>
     </div>
   </div>
 </section>
 
+
 <script>
   // Fecha de la boda (4 de Julio, 2026 a las 17:00)
-  const weddingDate = new Date('2026-07-04T17:00:00').getTime();
+  const weddingDate = new Date('2026-07-04T19:30:00').getTime();
 
   function updateCountdown() {
     const now = new Date().getTime();
@@ -44,10 +85,9 @@
     if (distance < 0) {
       // La boda ya pasó
       document.getElementById('countdown')!.innerHTML = `
-        <div class="col-span-4 text-4xl font-serif text-gold">
+        <div class="col-span-4 text-4xl font-serif text-text-secondary italic">
           ¡Ya nos casamos!
-        </div>
-      `;
+        </div>`;
       return;
     }
 

@@ -2,13 +2,13 @@
 // Sección RSVP en la página principal
 ---
 
-<section class="py-20 bg-gray-800" id="rsvp">
+<section class="py-20 bg-text-secondary" id="rsvp">
   <div class="container mx-auto px-4 text-center max-w-4xl">
     <div class="mb-16">
-      <h2 class="font-serif text-4xl md:text-5xl text-white mb-6">RSVP</h2>
-      <div class="w-24 h-0.5 bg-gold mx-auto mb-8"></div>
-      <p class="text-xl text-gray-300 leading-relaxed">
-        ¡Necesitamos saber si vienes! Confirma antes del <strong class="text-gold">1 de Junio de 2026</strong>
+      <h2 class="font-serif text-4xl md:text-5xl text-text-inverse mb-6">RSVP</h2>
+      <div class="w-24 h-0.5 bg-accent mx-auto mb-8"></div>
+      <p class="text-xl text-text-inverse/80 leading-relaxed">
+        ¡Necesitamos saber si vienes! Confirma antes del <strong class="text-accent">1 de Junio de 2026</strong>
       </p>
     </div>
 
@@ -17,7 +17,7 @@
       <div>
         <a 
           href="/rsvp/login" 
-          class="inline-block bg-gold text-white px-12 py-4 text-lg font-medium hover:bg-yellow-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+          class="inline-block bg-accent text-accent-contrast px-12 py-4 text-lg font-medium hover:bg-accent-hover transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
         >
           Confirmar Asistencia
         </a>
@@ -26,7 +26,7 @@
       <div>
         <button 
           id="download-summary-main"
-          class="bg-gray-800 text-white px-8 py-3 text-base font-medium hover:bg-gray-700 transition-colors shadow-sm"
+          class="bg-text-primary text-text-inverse px-8 py-3 text-base font-medium hover:bg-text-secondary transition-colors shadow-sm"
         >
           Descargar Resumen del Evento
         </button>
@@ -34,15 +34,15 @@
     </div>
 
     <!-- Sección de preguntas -->
-    <div class="bg-gray-900 rounded-lg p-8">
-      <h3 class="font-serif text-2xl text-white mb-8">¿Dudas? ¡Pregúntanos!</h3>
-      <div class="space-y-4 text-gray-300">
+    <div class="bg-text-primary rounded-lg p-8">
+      <h3 class="font-serif text-2xl text-text-inverse mb-8">¿Dudas? ¡Pregúntanos!</h3>
+      <div class="space-y-4 text-text-inverse/80">
         <p>Para cualquier cosa que necesites, ¡escríbenos!</p>
         <div class="flex flex-col md:flex-row justify-center items-center space-y-2 md:space-y-0 md:space-x-8">
-          <a href="mailto:sheila.habib.boda@email.com" class="text-gold hover:text-yellow-400 transition-colors">
+          <a href="mailto:sheila.habib.boda@email.com" class="text-accent hover:text-accent-hover transition-colors">
             sheila.habib.boda@email.com
           </a>
-          <span class="hidden md:inline text-gray-500">|</span>
+          <span class="hidden md:inline text-text-inverse/60">|</span>
           <span>Sheila: 600 123 456 | Habib: 600 654 321</span>
         </div>
       </div>

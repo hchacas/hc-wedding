@@ -16,7 +16,7 @@ const carouselImages = [
 ---
 
 <section
-  class="relative min-h-screen flex items-center justify-center overflow-hidden"
+  class="relative min-h-[60vh] flex items-center justify-center overflow-hidden"
 >
   <!-- Background con carrusel de imágenes -->
   <div class="absolute inset-0">
@@ -43,7 +43,7 @@ const carouselImages = [
 
     <!-- Indicadores del carrusel -->
     <div
-      class="absolute bottom-20 left-1/2 transform -translate-x-1/2 z-10 flex space-x-2"
+      class="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-10 flex space-x-2"
     >
       {
         carouselImages.map((_, index) => (
@@ -96,13 +96,26 @@ const carouselImages = [
     </div>
 
     <!-- Botón RSVP destacado -->
-    <div class="mt-8">
-      <a
-        href="/rsvp/login"
-        class="inline-block bg-gold text-white px-12 py-4 text-lg font-medium hover:bg-yellow-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 rounded-lg"
-      >
-        Confirmar Asistencia
-      </a>
+    <a
+      href="/rsvp/login"
+      class="
+        inline-flex items-center justify-center
+        text-text-inverse bg-accent
+        px-10 py-2
+        text-[12px] font-medium
+        border border-white/20
+        shadow-[0_12px_30px_rgba(0,0,0,0.18)]
+        transition-all duration-300
+        hover:brightness-95 hover:shadow-[0_16px_38px_rgba(0,0,0,0.22)]
+        hover:-translate-y-0.5
+        focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-0
+        uppercase
+        tracking-[0.25em]
+      "
+    >
+      Confirmar Asistencia
+    </a>
+
     </div>
   </div>
 </section>

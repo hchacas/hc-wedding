@@ -6,40 +6,40 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
 <div id="rsvp-form-container">
   <!-- Loading state -->
   <div id="loading-state" class="text-center py-8">
-    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-gold mx-auto mb-4"></div>
-    <p class="text-gray-600">Cargando tu información...</p>
+    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-accent mx-auto mb-4"></div>
+    <p class="text-text-muted">Cargando tu información...</p>
   </div>
 
   <!-- Formulario principal -->
   <form id="rsvp-form" class="hidden space-y-8">
     <!-- Información personal -->
-    <div class="bg-warm-beige rounded-lg p-6">
+    <div class="bg-surface-1 rounded-lg p-6">
       <div class="flex items-center mb-6">
-        <div class="w-10 h-10 bg-gold rounded-full flex items-center justify-center mr-4">
-          <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+        <div class="w-10 h-10 bg-accent rounded-full flex items-center justify-center mr-4">
+          <svg class="w-5 h-5 text-accent-contrast" fill="currentColor" viewBox="0 0 20 20">
             <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
           </svg>
         </div>
-        <h3 class="font-serif text-xl text-gray-800">Tu Información</h3>
+        <h3 class="font-serif text-xl text-text-secondary">Tu Información</h3>
       </div>
       
       <div class="grid md:grid-cols-2 gap-6">
         <div>
-          <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
+          <label for="name" class="block text-sm font-medium text-text-secondary mb-2">
             Nombre completo (como quieres que aparezca en la boda)
           </label>
           <input 
             type="text" 
             id="name" 
             name="name" 
-            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-gold"
+            class="w-full px-4 py-3 border border-border-strong rounded-lg focus:ring-2 focus:ring-accent focus:border-accent"
             placeholder="Tu nombre completo"
           />
-          <p class="text-xs text-gray-500 mt-1">Puedes editarlo si es diferente al de tu cuenta de Google</p>
+          <p class="text-xs text-text-muted mt-1">Puedes editarlo si es diferente al de tu cuenta de Google</p>
         </div>
         
         <div>
-          <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+          <label for="email" class="block text-sm font-medium text-text-secondary mb-2">
             Email
           </label>
           <input 
@@ -47,31 +47,31 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
             id="email" 
             name="email" 
             readonly
-            class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-600"
+            class="w-full px-4 py-3 border border-border-strong rounded-lg bg-surface-2 text-text-muted"
           />
         </div>
         
         <div>
-          <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">
+          <label for="phone" class="block text-sm font-medium text-text-secondary mb-2">
             Teléfono (opcional)
           </label>
           <input 
             type="tel" 
             id="phone" 
             name="phone" 
-            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-gold"
+            class="w-full px-4 py-3 border border-border-strong rounded-lg focus:ring-2 focus:ring-accent focus:border-accent"
             placeholder="+34 600 000 000"
           />
         </div>
 
         <div>
-          <label for="gender" class="block text-sm font-medium text-gray-700 mb-2">
+          <label for="gender" class="block text-sm font-medium text-text-secondary mb-2">
             Sexo
           </label>
           <select 
             id="gender" 
             name="gender" 
-            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-gold"
+            class="w-full px-4 py-3 border border-border-strong rounded-lg focus:ring-2 focus:ring-accent focus:border-accent"
           >
             <option value="">Seleccionar</option>
             <option value="masculino">Masculino</option>
@@ -83,86 +83,86 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
     </div>
 
     <!-- Confirmación de asistencia -->
-    <div class="bg-white border border-gray-200 rounded-lg p-6">
+    <div class="bg-bg-panel border border-border-strong/60 rounded-lg p-6">
       <div class="flex items-center mb-6">
-        <div class="w-10 h-10 bg-gold rounded-full flex items-center justify-center mr-4">
-          <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+        <div class="w-10 h-10 bg-accent rounded-full flex items-center justify-center mr-4">
+          <svg class="w-5 h-5 text-accent-contrast" fill="currentColor" viewBox="0 0 20 20">
             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
           </svg>
         </div>
-        <h3 class="font-serif text-xl text-gray-800">¿Vienes a la fiesta?</h3>
+        <h3 class="font-serif text-xl text-text-secondary">¿Vienes a la fiesta?</h3>
       </div>
       
       <div class="space-y-4">
-        <label class="flex items-center space-x-4 cursor-pointer p-4 border border-gray-200 rounded-lg hover:bg-green-50 transition-colors">
+        <label class="flex items-center space-x-4 cursor-pointer p-4 border border-border-strong/60 rounded-lg hover:bg-status-success/10 transition-colors">
           <input 
             type="radio" 
             name="attending" 
             value="true" 
-            class="w-5 h-5 text-gold focus:ring-gold"
+            class="w-5 h-5 text-accent focus:ring-accent"
           />
-          <span class="text-lg font-medium text-gray-800">Sí, estaré presente</span>
+          <span class="text-lg font-medium text-text-secondary">Sí, estaré presente</span>
         </label>
         
-        <label class="flex items-center space-x-4 cursor-pointer p-4 border border-gray-200 rounded-lg hover:bg-red-50 transition-colors">
+        <label class="flex items-center space-x-4 cursor-pointer p-4 border border-border-strong/60 rounded-lg hover:bg-status-danger/10 transition-colors">
           <input 
             type="radio" 
             name="attending" 
             value="false" 
-            class="w-5 h-5 text-gold focus:ring-gold"
+            class="w-5 h-5 text-accent focus:ring-accent"
           />
-          <span class="text-lg font-medium text-gray-800">No podré asistir</span>
+          <span class="text-lg font-medium text-text-secondary">No podré asistir</span>
         </label>
       </div>
     </div>
 
     <!-- Acompañantes y Niños -->
-    <div id="plus-one-section" class="bg-white border border-gray-200 rounded-lg p-6 hidden">
+    <div id="plus-one-section" class="bg-bg-panel border border-border-strong/60 rounded-lg p-6 hidden">
       <div class="flex items-center mb-6">
-        <div class="w-10 h-10 bg-gold rounded-full flex items-center justify-center mr-4">
-          <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+        <div class="w-10 h-10 bg-accent rounded-full flex items-center justify-center mr-4">
+          <svg class="w-5 h-5 text-accent-contrast" fill="currentColor" viewBox="0 0 20 20">
             <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"/>
           </svg>
         </div>
-        <h3 class="font-serif text-xl text-gray-800">Acompañantes</h3>
+        <h3 class="font-serif text-xl text-text-secondary">Acompañantes</h3>
       </div>
       
       <div class="space-y-6">
         <!-- Acompañante adulto -->
         <div>
-          <label class="flex items-center space-x-4 cursor-pointer p-4 border border-gray-200 rounded-lg hover:bg-warm-beige transition-colors">
+          <label class="flex items-center space-x-4 cursor-pointer p-4 border border-border-strong/60 rounded-lg hover:bg-surface-1 transition-colors">
             <input 
               type="checkbox" 
               id="plus_one" 
               name="plus_one" 
-              class="w-5 h-5 text-gold focus:ring-gold rounded"
+              class="w-5 h-5 text-accent focus:ring-accent rounded"
             />
-            <span class="font-medium text-gray-800">Vendré con acompañante adulto</span>
+            <span class="font-medium text-text-secondary">Vendré con acompañante adulto</span>
           </label>
           
           <div id="plus-one-details" class="hidden mt-4 space-y-4">
             <div class="grid md:grid-cols-2 gap-4">
               <div>
-                <label for="plus_one_name" class="block text-sm font-medium text-gray-700 mb-2">
+                <label for="plus_one_name" class="block text-sm font-medium text-text-secondary mb-2">
                   Nombre completo del acompañante
                 </label>
                 <input 
                   type="text" 
                   id="plus_one_name" 
                   name="plus_one_name" 
-                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-gold"
+                  class="w-full px-4 py-3 border border-border-strong rounded-lg focus:ring-2 focus:ring-accent focus:border-accent"
                   placeholder="Nombre completo"
                 />
               </div>
               
               <div>
-                <label for="plus_one_gender" class="block text-sm font-medium text-gray-700 mb-2">
+                <label for="plus_one_gender" class="block text-sm font-medium text-text-secondary mb-2">
                   Sexo
                 </label>
                 <select 
                   id="plus_one_gender" 
                   name="plus_one_gender" 
-                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-gold"
+                  class="w-full px-4 py-3 border border-border-strong rounded-lg focus:ring-2 focus:ring-accent focus:border-accent"
                 >
                   <option value="">Seleccionar</option>
                   <option value="masculino">Masculino</option>
@@ -176,25 +176,25 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
 
         <!-- Niños -->
         <div>
-          <label class="flex items-center space-x-4 cursor-pointer p-4 border border-gray-200 rounded-lg hover:bg-warm-beige transition-colors">
+          <label class="flex items-center space-x-4 cursor-pointer p-4 border border-border-strong/60 rounded-lg hover:bg-surface-1 transition-colors">
             <input 
               type="checkbox" 
               id="children" 
               name="children" 
-              class="w-5 h-5 text-gold focus:ring-gold rounded"
+              class="w-5 h-5 text-accent focus:ring-accent rounded"
             />
-            <span class="font-medium text-gray-800">Vendré con niños</span>
+            <span class="font-medium text-text-secondary">Vendré con niños</span>
           </label>
           
           <div id="children-details" class="hidden mt-4 space-y-4">
             <div>
-              <label for="children_count" class="block text-sm font-medium text-gray-700 mb-2">
+              <label for="children_count" class="block text-sm font-medium text-text-secondary mb-2">
                 Número de niños
               </label>
               <select 
                 id="children_count" 
                 name="children_count" 
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-gold"
+                class="w-full px-4 py-3 border border-border-strong rounded-lg focus:ring-2 focus:ring-accent focus:border-accent"
               >
                 <option value="">Seleccionar</option>
                 <option value="1">1 niño</option>
@@ -205,14 +205,14 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
             </div>
             
             <div>
-              <label for="children_names" class="block text-sm font-medium text-gray-700 mb-2">
+              <label for="children_names" class="block text-sm font-medium text-text-secondary mb-2">
                 Nombres de los niños
               </label>
               <textarea 
                 id="children_names" 
                 name="children_names" 
                 rows="3" 
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-gold"
+                class="w-full px-4 py-3 border border-border-strong rounded-lg focus:ring-2 focus:ring-accent focus:border-accent"
                 placeholder="Nombres y edades de los niños (ej: Ana 5 años, Carlos 8 años)"
               ></textarea>
             </div>
@@ -222,29 +222,29 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
     </div>
 
     <!-- Preferencias alimentarias -->
-    <div id="dietary-section" class="bg-white border border-gray-200 rounded-lg p-6 hidden">
+    <div id="dietary-section" class="bg-bg-panel border border-border-strong/60 rounded-lg p-6 hidden">
       <div class="flex items-center mb-6">
-        <div class="w-10 h-10 bg-gold rounded-full flex items-center justify-center mr-4">
-          <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+        <div class="w-10 h-10 bg-accent rounded-full flex items-center justify-center mr-4">
+          <svg class="w-5 h-5 text-accent-contrast" fill="currentColor" viewBox="0 0 20 20">
             <path fill-rule="evenodd" d="M3 5a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2h-2.22l.123.489.804.804A1 1 0 0113 18H7a1 1 0 01-.707-1.707l.804-.804L7.22 15H5a2 2 0 01-2-2V5zm5.771 7H5V5h10v7H8.771z" clip-rule="evenodd"/>
           </svg>
         </div>
-        <h3 class="font-serif text-xl text-gray-800">Preferencias Alimentarias</h3>
+        <h3 class="font-serif text-xl text-text-secondary">Preferencias Alimentarias</h3>
       </div>
       
       <div class="space-y-8">
         <!-- Menú del invitado principal -->
-        <div class="border-l-4 border-gold pl-4">
-          <h4 class="font-medium text-gray-800 mb-4">Tu menú</h4>
+        <div class="border-l-4 border-accent pl-4">
+          <h4 class="font-medium text-text-secondary mb-4">Tu menú</h4>
           <div class="space-y-4">
             <div>
-              <label for="menu_choice" class="block text-sm font-medium text-gray-700 mb-2">
+              <label for="menu_choice" class="block text-sm font-medium text-text-secondary mb-2">
                 Menú preferido
               </label>
               <select 
                 id="menu_choice" 
                 name="menu_choice" 
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-gold"
+                class="w-full px-4 py-3 border border-border-strong rounded-lg focus:ring-2 focus:ring-accent focus:border-accent"
               >
                 <option value="">Selecciona una opción</option>
                 <option value="carne">Menú con carne</option>
@@ -255,14 +255,14 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
             </div>
             
             <div>
-              <label for="dietary_restrictions" class="block text-sm font-medium text-gray-700 mb-2">
+              <label for="dietary_restrictions" class="block text-sm font-medium text-text-secondary mb-2">
                 Restricciones alimentarias
               </label>
               <textarea 
                 id="dietary_restrictions" 
                 name="dietary_restrictions" 
                 rows="2" 
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-gold"
+                class="w-full px-4 py-3 border border-border-strong rounded-lg focus:ring-2 focus:ring-accent focus:border-accent"
                 placeholder="Ej: Sin gluten, sin lactosa, alergia a frutos secos..."
               ></textarea>
             </div>
@@ -270,17 +270,17 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
         </div>
 
         <!-- Menú del acompañante -->
-        <div id="plus-one-menu" class="border-l-4 border-gray-300 pl-4 hidden">
-          <h4 class="font-medium text-gray-800 mb-4">Menú del acompañante</h4>
+        <div id="plus-one-menu" class="border-l-4 border-border-strong pl-4 hidden">
+          <h4 class="font-medium text-text-secondary mb-4">Menú del acompañante</h4>
           <div class="space-y-4">
             <div>
-              <label for="plus_one_menu_choice" class="block text-sm font-medium text-gray-700 mb-2">
+              <label for="plus_one_menu_choice" class="block text-sm font-medium text-text-secondary mb-2">
                 Menú preferido del acompañante
               </label>
               <select 
                 id="plus_one_menu_choice" 
                 name="plus_one_menu_choice" 
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-gold"
+                class="w-full px-4 py-3 border border-border-strong rounded-lg focus:ring-2 focus:ring-accent focus:border-accent"
               >
                 <option value="">Selecciona una opción</option>
                 <option value="carne">Menú con carne</option>
@@ -291,14 +291,14 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
             </div>
             
             <div>
-              <label for="plus_one_dietary_restrictions" class="block text-sm font-medium text-gray-700 mb-2">
+              <label for="plus_one_dietary_restrictions" class="block text-sm font-medium text-text-secondary mb-2">
                 Restricciones alimentarias del acompañante
               </label>
               <textarea 
                 id="plus_one_dietary_restrictions" 
                 name="plus_one_dietary_restrictions" 
                 rows="2" 
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-gold"
+                class="w-full px-4 py-3 border border-border-strong rounded-lg focus:ring-2 focus:ring-accent focus:border-accent"
                 placeholder="Ej: Sin gluten, sin lactosa, alergia a frutos secos..."
               ></textarea>
             </div>
@@ -306,17 +306,17 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
         </div>
 
         <!-- Menú de niños -->
-        <div id="children-menu" class="border-l-4 border-blue-300 pl-4 hidden">
-          <h4 class="font-medium text-gray-800 mb-4">Menú de los niños</h4>
+        <div id="children-menu" class="border-l-4 border-status-info/40 pl-4 hidden">
+          <h4 class="font-medium text-text-secondary mb-4">Menú de los niños</h4>
           <div class="space-y-4">
             <div>
-              <label for="children_menu_choice" class="block text-sm font-medium text-gray-700 mb-2">
+              <label for="children_menu_choice" class="block text-sm font-medium text-text-secondary mb-2">
                 Menú para los niños
               </label>
               <select 
                 id="children_menu_choice" 
                 name="children_menu_choice" 
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-gold"
+                class="w-full px-4 py-3 border border-border-strong rounded-lg focus:ring-2 focus:ring-accent focus:border-accent"
               >
                 <option value="">Selecciona una opción</option>
                 <option value="ninos">Menú niños</option>
@@ -325,14 +325,14 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
             </div>
             
             <div>
-              <label for="children_dietary_restrictions" class="block text-sm font-medium text-gray-700 mb-2">
+              <label for="children_dietary_restrictions" class="block text-sm font-medium text-text-secondary mb-2">
                 Restricciones alimentarias de los niños
               </label>
               <textarea 
                 id="children_dietary_restrictions" 
                 name="children_dietary_restrictions" 
                 rows="2" 
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-gold"
+                class="w-full px-4 py-3 border border-border-strong rounded-lg focus:ring-2 focus:ring-accent focus:border-accent"
                 placeholder="Alergias o restricciones específicas de los niños..."
               ></textarea>
             </div>
@@ -341,14 +341,14 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
 
         <!-- Alergias importantes generales -->
         <div>
-          <label for="allergies" class="block text-sm font-medium text-gray-700 mb-2">
+          <label for="allergies" class="block text-sm font-medium text-text-secondary mb-2">
             Alergias importantes (cualquier persona del grupo)
           </label>
           <input 
             type="text" 
             id="allergies" 
             name="allergies" 
-            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-gold"
+            class="w-full px-4 py-3 border border-border-strong rounded-lg focus:ring-2 focus:ring-accent focus:border-accent"
             placeholder="Especifica alergias graves que debemos conocer"
           />
         </div>
@@ -356,53 +356,53 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
     </div>
 
     <!-- Bus Lanzadera -->
-    <div id="transport-section" class="bg-white border border-gray-200 rounded-lg p-6 hidden">
+    <div id="transport-section" class="bg-bg-panel border border-border-strong/60 rounded-lg p-6 hidden">
       <div class="flex items-center mb-6">
-        <div class="w-10 h-10 bg-gold rounded-full flex items-center justify-center mr-4">
-          <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+        <div class="w-10 h-10 bg-accent rounded-full flex items-center justify-center mr-4">
+          <svg class="w-5 h-5 text-accent-contrast" fill="currentColor" viewBox="0 0 20 20">
             <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/>
             <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3z"/>
           </svg>
         </div>
-        <h3 class="font-serif text-xl text-gray-800">Transporte</h3>
+        <h3 class="font-serif text-xl text-text-secondary">Transporte</h3>
       </div>
       
       <div class="space-y-4">
-        <label class="flex items-center space-x-4 cursor-pointer p-4 border border-gray-200 rounded-lg hover:bg-warm-beige transition-colors">
+        <label class="flex items-center space-x-4 cursor-pointer p-4 border border-border-strong/60 rounded-lg hover:bg-surface-1 transition-colors">
           <input 
             type="checkbox" 
             id="shuttle_bus" 
             name="shuttle_bus" 
-            class="w-5 h-5 text-gold focus:ring-gold rounded"
+            class="w-5 h-5 text-accent focus:ring-accent rounded"
           />
           <div>
-            <span class="font-medium text-gray-800 block">Necesito bus lanzadera</span>
-            <span class="text-sm text-gray-600">Servicio de transporte al evento (más detalles próximamente)</span>
+            <span class="font-medium text-text-secondary block">Necesito bus lanzadera</span>
+            <span class="text-sm text-text-muted">Servicio de transporte al evento (más detalles próximamente)</span>
           </div>
         </label>
       </div>
     </div>
 
     <!-- Comentarios adicionales -->
-    <div id="notes-section" class="bg-white border border-gray-200 rounded-lg p-6 hidden">
+    <div id="notes-section" class="bg-bg-panel border border-border-strong/60 rounded-lg p-6 hidden">
       <div class="flex items-center mb-6">
-        <div class="w-10 h-10 bg-gold rounded-full flex items-center justify-center mr-4">
-          <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+        <div class="w-10 h-10 bg-accent rounded-full flex items-center justify-center mr-4">
+          <svg class="w-5 h-5 text-accent-contrast" fill="currentColor" viewBox="0 0 20 20">
             <path fill-rule="evenodd" d="M18 13V5a2 2 0 00-2-2H4a2 2 0 00-2 2v8a2 2 0 002 2h3l3 3 3-3h3a2 2 0 002-2zM5 7a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1zm1 3a1 1 0 100 2h3a1 1 0 100-2H6z" clip-rule="evenodd"/>
           </svg>
         </div>
-        <h3 class="font-serif text-xl text-gray-800">Comentarios</h3>
+        <h3 class="font-serif text-xl text-text-secondary">Comentarios</h3>
       </div>
       
       <div>
-        <label for="notes" class="block text-sm font-medium text-gray-700 mb-2">
+        <label for="notes" class="block text-sm font-medium text-text-secondary mb-2">
           ¿Algo más que quieras contarnos?
         </label>
         <textarea 
           id="notes" 
           name="notes" 
           rows="4" 
-          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-gold"
+          class="w-full px-4 py-3 border border-border-strong rounded-lg focus:ring-2 focus:ring-accent focus:border-accent"
           placeholder="¡Cuéntanos lo que quieras! Felicitaciones, sugerencias, necesidades especiales..."
         ></textarea>
       </div>
@@ -413,7 +413,7 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
       <button 
         type="submit" 
         id="submit-btn"
-        class="flex-1 bg-gold text-white py-4 px-8 rounded-lg font-medium hover:bg-yellow-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        class="flex-1 bg-accent text-accent-contrast py-4 px-8 rounded-lg font-medium hover:bg-accent-hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       >
         Confirmar Asistencia
       </button>
@@ -421,7 +421,7 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
       <button 
         type="button" 
         id="logout-btn"
-        class="bg-gray-800 text-white py-4 px-8 rounded-lg font-medium hover:bg-gray-700 transition-colors"
+        class="bg-text-primary text-text-inverse py-4 px-8 rounded-lg font-medium hover:bg-text-secondary transition-colors"
       >
         Cerrar Sesión
       </button>
@@ -430,25 +430,25 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
 
   <!-- Mensaje de éxito -->
   <div id="success-message" class="hidden text-center py-12">
-    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-      <svg class="w-8 h-8 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+    <div class="w-16 h-16 bg-status-success/15 rounded-full flex items-center justify-center mx-auto mb-6">
+      <svg class="w-8 h-8 text-status-success" fill="currentColor" viewBox="0 0 20 20">
         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
       </svg>
     </div>
-    <h3 class="font-serif text-2xl text-gray-800 mb-4">¡Genial, ya lo tenemos!</h3>
-    <p class="text-gray-600 mb-8 max-w-md mx-auto">Gracias por confirmar. ¡Ya tenemos ganas de verte en la fiesta!</p>
+    <h3 class="font-serif text-2xl text-text-secondary mb-4">¡Genial, ya lo tenemos!</h3>
+    <p class="text-text-muted mb-8 max-w-md mx-auto">Gracias por confirmar. ¡Ya tenemos ganas de verte en la fiesta!</p>
     
     <div class="flex flex-col sm:flex-row gap-4 justify-center">
       <button 
         id="edit-rsvp-btn"
-        class="bg-gold text-white px-8 py-3 rounded-lg font-medium hover:bg-yellow-600 transition-colors"
+        class="bg-accent text-accent-contrast px-8 py-3 rounded-lg font-medium hover:bg-accent-hover transition-colors"
       >
         Editar mi Confirmación
       </button>
       
       <a 
         href="/"
-        class="bg-gray-800 text-white px-8 py-3 rounded-lg font-medium hover:bg-gray-700 transition-colors text-center"
+        class="bg-text-primary text-text-inverse px-8 py-3 rounded-lg font-medium hover:bg-text-secondary transition-colors text-center"
       >
         Volver a Inicio
       </a>

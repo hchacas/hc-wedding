@@ -39,7 +39,7 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
           class="relative w-full mx-auto bg-bg-card shadow-card rounded-sm overflow-hidden border border-border-soft"
         >
           {/* Ramas de olivo SUPERIOR (Derecha) */}
-          <div class="absolute -top-8 -right-12 h-36 md:h-52 md:-top-10 md:-right-12 pointer-events-none z-0">
+          <div class="absolute -top-10 -right-10 w-32 h-32 md:w-64 md:h-64 md:-top-24 md:-right-24 pointer-events-none z-0 transform-gpu">
             <img
               src={olivoBottomLeft.src}
               alt=""
@@ -49,7 +49,7 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
           </div>
 
           {/* Ramas de olivo INFERIOR (Izquierda) */}
-          <div class="absolute -bottom-8 -left-12 h-36 md:h-52 md:-bottom-12 md:-left-20 pointer-events-none z-0">
+          <div class="absolute -bottom-10 -left-10 w-32 h-32 md:w-64 md:h-64 md:-bottom-24 md:-left-32 pointer-events-none z-0 transform-gpu">
             <img
               src={olivoBottomLeft.src}
               alt=""
@@ -68,28 +68,15 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
 
               <div class="space-y-3 text-text-primary">
                 <h1 class="font-display text-5xl md:text-6xl leading-[0.95] tracking-[0.02em] font-medium">
-                  Sheila
-                </h1>
-
-                <p class="font-display text-3xl md:text-4xl leading-none opacity-80">
-                  &amp;
-                </p>
-
-                <h1 class="font-display text-5xl md:text-6xl leading-[0.95] tracking-[0.02em] font-medium">
-                  Habib
+                  Sheila <span class="text-3xl md:text-4xl align-middle opacity-80">&amp;</span> Habib
                 </h1>
               </div>
-
-              <p class="text-sm md:text-[15px] text-text-secondary/80 max-w-xl mx-auto leading-relaxed">
-                Nos encantaría poder contar con tu compañía en un día tan especial para nosotros.
-              </p>
             </header>
 
             {/* Texto principal de invitación */}
             <section class="space-y-4 max-w-xl mx-auto text-left text-[15px] leading-relaxed text-text-secondary">
-              <p>
-                Querido/a
-                <span id="guest-name" class="font-semibold"> Invitado</span>,
+              <p id="guest-name" class="font-semibold">
+                Querido/a Invitado/a,
               </p>
 
               <p id="personal-message">
@@ -150,26 +137,33 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
 
           <div class="pt-2 border-t border-border-soft/70 space-y-4">
             <p class="text-center text-text-secondary text-sm">
-              Para ayudarnos con la organización, te agradeceríamos que confirmaras tu asistencia.
+              Para ayudarnos con la organización, te agradeceríamos que confirmaras tu asistencia en el botón de aquí abajo.
+            </p>
+            <p class="text-center text-text-secondary text-xs">
+              ¡No te sientas solo, trae a alguien especial contigo si lo deseas!
             </p>
 
-            <div class="grid md:grid-cols-3 gap-4 text-center">
+            <div class="flex flex-col gap-4 text-center">
               <a
                 href="/rsvp/login"
-                class="block w-full bg-accent text-accent-contrast py-3 px-6 rounded-lg text-center font-medium hover:bg-accent-hover transition-colors"
+                class="cta-bounce block w-full bg-accent text-text-inverse py-3 px-6 rounded-lg text-center font-medium border border-white/20 shadow-[0_12px_30px_rgba(0,0,0,0.18)] transition-all duration-300 hover:brightness-95 hover:shadow-[0_16px_38px_rgba(0,0,0,0.22)] hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-0"
               >
                 Confirmar mi asistencia
               </a>
+
+              <p class="text-center text-text-secondary text-sm">
+                Si quieres saber información detallada del evento aquí abajo tienes todo lo que necesitas saber (Alojamiento, ubicación, transporte...).
+              </p>
               <a
                 href="/"
-                class="w-full bg-text-primary text-text-inverse py-3 px-6 rounded-lg font-medium hover:bg-text-secondary transition-colors"
+                class="block w-full bg-accent text-accent-contrast py-3 px-6 rounded-lg text-center font-medium transition-all duration-300 hover:brightness-95 hover:shadow-card hover:-translate-y-0.5"
               >
                 Más información del evento
               </a>
 
               <button
                 id="download-summary"
-                class="w-full bg-text-primary text-text-inverse py-3 px-6 rounded-lg font-medium hover:bg-text-secondary transition-colors"
+                class="w-full bg-text-primary text-text-inverse py-3 px-6 rounded-lg font-medium hover:bg-text-primary/90 transition-colors"
               >
                 Descargar resumen
               </button>
@@ -235,4 +229,36 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
         ?.addEventListener('click', downloadSummary);
     });
   </script>
+
+  <style>
+    .cta-bounce {
+      animation: cta-bounce 2.6s ease-in-out infinite;
+      will-change: transform;
+    }
+
+    @keyframes cta-bounce {
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+      12% {
+        transform: translateY(-6px);
+      }
+      24% {
+        transform: translateY(0);
+      }
+      36% {
+        transform: translateY(-3px);
+      }
+      48% {
+        transform: translateY(0);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cta-bounce {
+        animation: none;
+      }
+    }
+  </style>
 </BaseLayout>

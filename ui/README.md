@@ -26,7 +26,6 @@ Frontend de la aplicación de invitaciones de boda construido con Astro, Tailwin
 - `EventDetails.astro` - Detalles completos del evento
 - `Location.astro` - Ubicación y cómo llegar
 - `RSVPSection.astro` - Sección de confirmación
-- `PersonalInvitation.astro` - Invitación personalizada
 - `RSVPForm.astro` - Formulario completo de RSVP
 
 ## Instalación

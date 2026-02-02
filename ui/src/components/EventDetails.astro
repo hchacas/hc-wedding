@@ -1,4 +1,5 @@
 ---
+import jardinesImg from "../assets/jardines.webp";
 // Componente con detalles del evento
 ---
 
@@ -11,11 +12,11 @@
 
     <div class="bg-bg-panel rounded-lg p-8 shadow-sm border border-border-soft/60 mb-16">
       <div class="text-center mb-8">
-        <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-4">
-          <svg class="w-8 h-8 text-accent-contrast" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-          </svg>
-        </div>
+        <img
+          src={jardinesImg.src}
+          alt="Los Jardines Palacio de La Dehesa"
+          class="mx-auto mb-4 h-24 w-24 sm:h-28 sm:w-28 md:h-32 md:w-32 object-cover rounded-lg shadow-sm"
+        />
         <h3 class="font-serif text-3xl text-text-secondary mb-4">Los Jardines Palacio de La Dehesa</h3>
         <p class="text-text-muted mb-4">Zona Lago - Ceremonia Civil, Cóctel, Banquete y Fiesta</p>
         <a href="https://www.palaciodeladehesa.com/" target="_blank" class="text-accent hover:text-accent-hover font-medium">

@@ -341,10 +341,10 @@ Modal para crear invitación -->
             <div>
               <form id="invitation-form" class="space-y-4">
                 <div>
-                  <label for="guest_name" class="block text-sm font-medium text-text-secondary mb-2">Nombre del Invitado</label>
+                  <label for="guest_name" class="block text-sm font-medium text-text-secondary mb-2">Dedicatoria del invitado</label>
                   <input type="text" id="guest_name" name="guest_name" required
                     class="w-full px-3 py-2 border border-border-strong rounded-md focus:ring-accent focus:border-accent"
-                    placeholder="Nombre completo" />
+                    placeholder="Ej: Querido amigo" />
                 </div>
                 
                 <div>
@@ -384,8 +384,7 @@ Modal para crear invitación -->
                   
                   <div class="bg-bg-panel/50 rounded-lg p-4 mb-4">
                     <p class="text-text-secondary mb-2">
-                      <span class="font-medium">Querido/a</span> 
-                      <span id="preview-name" class="text-accent font-medium">Nombre del Invitado</span>
+                      <span id="preview-name" class="text-accent font-medium">Dedicatoria del Invitado</span>
                     </p>
                     <div id="preview-message" class="text-text-muted text-sm italic">
                       Nos complace invitarte a celebrar nuestro día especial.
@@ -394,7 +393,7 @@ Modal para crear invitación -->
                   
                   <div class="text-xs text-text-muted">
                     <p class="mb-1">📅 4 de Julio, 2026</p>
-                    <p>📍 Lugar de la celebración</p>
+                    <p>📍 Palacio Jardines de la Dehesa · Lucena, Córdoba</p>
                   </div>
                 </div>
               </div>
@@ -929,7 +928,7 @@ Modal para crear invitación -->
     const previewMessage = document.getElementById('preview-message');
     
     if (previewName && nameInput) {
-      previewName.textContent = nameInput.value || 'Nombre del Invitado';
+      previewName.textContent = nameInput.value || 'Dedicatoria del Invitado (Ej: Querido amigo)';
     }
     
     if (previewMessage && messageInput) {

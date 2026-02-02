@@ -99,6 +99,7 @@ const carouselImages = [
     <a
       href="/rsvp/login"
       class="
+        cta-bounce
         inline-flex items-center justify-center
         text-text-inverse bg-accent
         px-10 py-2
@@ -176,5 +177,35 @@ const carouselImages = [
 <style>
   .carousel-indicator.active {
     background-color: rgba(255, 255, 255, 0.8);
+  }
+
+  .cta-bounce {
+    animation: cta-bounce 2.6s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  @keyframes cta-bounce {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    12% {
+      transform: translateY(-6px);
+    }
+    24% {
+      transform: translateY(0);
+    }
+    36% {
+      transform: translateY(-3px);
+    }
+    48% {
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cta-bounce {
+      animation: none;
+    }
   }
 </style>

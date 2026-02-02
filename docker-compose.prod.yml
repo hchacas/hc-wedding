@@ -69,6 +69,7 @@ services:
     container_name: wedding-proxy
     restart: unless-stopped
     ports:
+      - "80:80"
       - "443:443"
     volumes:
       - /opt/hc-wedding/nginx/ssl:/etc/nginx/ssl:ro

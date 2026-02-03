@@ -130,7 +130,6 @@ ui/
 │       ├── EventDetails.astro   # Detalles evento
 │       ├── Location.astro       # Ubicación
 │       ├── RSVPSection.astro    # Sección RSVP
-│       ├── PersonalInvitation.astro # Invitación personal
 │       └── RSVPForm.astro       # Formulario RSVP
 ├── public/
 │   └── favicon.svg              # Favicon

@@ -5,88 +5,182 @@ import jardinesImg from "../assets/jardines.webp";
 
 <section class="py-20 bg-surface-1" id="evento">
   <div class="container mx-auto px-4 max-w-6xl">
-    <div class="text-center mb-16">
+    <div class="text-center mb-4">
       <h2 class="font-serif text-4xl md:text-5xl text-text-secondary mb-4">Detalles del Evento</h2>
       <div class="w-24 h-0.5 bg-accent mx-auto"></div>
+      <p class="text-accent mt-4 text-sm">
+        Todo el evento se celebra en el mismo lugar
+      </p>
     </div>
 
     <div class="bg-bg-panel rounded-lg p-8 shadow-sm border border-border-soft/60 mb-16">
-      <div class="text-center mb-8">
+      <div class="mb-8 text-center">
         <img
           src={jardinesImg.src}
           alt="Los Jardines Palacio de La Dehesa"
-          class="mx-auto mb-4 h-24 w-24 sm:h-28 sm:w-28 md:h-32 md:w-32 object-cover rounded-lg shadow-sm"
+          class="mx-auto mb-4 h-20 w-20 sm:h-24 sm:w-24 md:h-32 md:w-32 object-cover rounded-lg shadow-sm"
         />
-        <h3 class="font-serif text-3xl text-text-secondary mb-4">Los Jardines Palacio de La Dehesa</h3>
-        <p class="text-text-muted mb-4">Zona Lago - Ceremonia Civil, Cóctel, Banquete y Fiesta</p>
-        <a href="https://www.palaciodeladehesa.com/" target="_blank" class="text-accent hover:text-accent-hover font-medium">
-          www.palaciodeladehesa.com
+        <h3 class="font-serif text-3xl text-text-secondary mb-3">Los Jardines Palacio de La Dehesa</h3>
+        <p class="text-text-muted mb-4 text-sm">Zona Lago - Ceremonia Civil, Cóctel, Banquete y Fiesta</p>
+        <a
+          href="https://www.palaciodeladehesa.com/"
+          target="_blank"
+          rel="noreferrer"
+          class="inline-flex items-center gap-2 text-text-secondary hover:text-text-primary hover:underline underline-offset-4"
+        >
+          <svg
+            class="h-4 w-4"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M14 3h7v7" />
+            <path d="M10 14L21 3" />
+            <path d="M21 14v7h-7" />
+            <path d="M3 10V3h7" />
+          </svg>
+          <span>www.palaciodeladehesa.com</span>
         </a>
       </div>
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <!-- Ceremonia Civil -->
-        <div class="text-center p-4 bg-surface-1 rounded-lg">
-          <div class="text-2xl font-serif text-accent mb-2">19:00h</div>
-          <div class="font-medium text-text-secondary">Ceremonia Civil</div>
-        </div>
-
-        <!-- Cóctel -->
-        <div class="text-center p-4 bg-surface-1 rounded-lg">
-          <div class="text-2xl font-serif text-accent mb-2">20:30h</div>
-          <div class="font-medium text-text-secondary">Cóctel</div>
-        </div>
-
-        <!-- Cena -->
-        <div class="text-center p-4 bg-surface-1 rounded-lg">
-          <div class="text-2xl font-serif text-accent mb-2">23:00h</div>
-          <div class="font-medium text-text-secondary">Cena</div>
-        </div>
-
-        <!-- Fiesta -->
-        <div class="text-center p-4 bg-surface-1 rounded-lg">
-          <div class="text-2xl font-serif text-accent mb-2">00:00h</div>
-          <div class="font-medium text-text-secondary">Fiesta</div>
-        </div>
-      </div>
-
       <div class="text-center mb-6">
-        <p class="text-text-secondary mb-2">
-          <strong>Dirección:</strong> Ctra. Pilar de la Dehesa S/N, 14900 Lucena (Córdoba)
-        </p>
-        <p class="text-accent font-semibold mb-4">
-          ✨ Todo el evento se celebra en el mismo lugar ✨
+        <p class="text-text-secondary mb-2 inline-flex items-center gap-2">
+          <svg
+            class="h-4 w-4 text-text-muted"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="10" x2="12" y2="16" />
+            <circle cx="12" cy="7" r="1" fill="currentColor" stroke="none" />
+          </svg>
+          <span>Ctra. Pilar de la Dehesa S/N, 14900 Lucena (Córdoba)</span>
         </p>
       </div>
 
       <!-- Botones de navegación -->
       <div class="flex flex-col sm:flex-row gap-3 justify-center">
-        <a 
-          href="https://maps.google.com/?q=Los+Jardines+Palacio+de+La+Dehesa,+Lucena,+Córdoba" 
+        <a
+          href="https://maps.google.com/?q=Los+Jardines+Palacio+de+La+Dehesa,+Lucena,+Córdoba"
           target="_blank"
-          class="inline-flex items-center justify-center px-6 py-3 bg-accent text-accent-contrast font-medium rounded-lg hover:bg-accent-hover transition-colors"
+          class="inline-flex items-center justify-center px-6 py-3 rounded-lg border border-text-secondary/40 text-text-secondary hover:bg-text-secondary/5 transition-colors"
         >
-          📍 Ver ubicación
+          Ver ubicación
         </a>
       </div>
     </div>
 
-    <!-- Información sobre DJ -->
+    <!-- Horarios -->
     <div class="bg-bg-panel rounded-lg p-8 shadow-sm border border-border-soft/60 mb-16">
-      <div class="text-center mb-6">
-        <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-4">
-          <svg class="w-8 h-8 text-accent-contrast" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
-          </svg>
+      <h3 class="font-serif text-2xl text-text-secondary mb-8 text-center">Horarios</h3>
+      <div class="relative">
+        <div class="hidden md:block absolute left-10 right-10 top-8 h-px bg-border-soft/80"></div>
+        <div class="grid gap-8 md:grid-cols-4">
+          <div class="flex items-start gap-4 md:flex-col md:items-center md:text-center">
+            <div class="relative z-10 h-16 w-16 rounded-full bg-surface-1 border border-border-soft shadow-sm flex items-center justify-center">
+              <svg
+                class="h-7 w-7 text-text-secondary"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M5 12h2l2-4 2 8 2-4 2 4h4" />
+                <path d="M19 5l1 1" />
+                <path d="M20 3l1 1" />
+              </svg>
+            </div>
+            <div class="space-y-1">
+              <div class="text-2xl font-serif text-accent">20:15h</div>
+              <div class="text-sm font-medium tracking-[0.2em] uppercase text-text-secondary">Ceremonia Civil</div>
+              <p class="text-sm italic text-text-muted">Daremos el sí bajo el cielo de Lucena</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4 md:flex-col md:items-center md:text-center">
+            <div class="relative z-10 h-16 w-16 rounded-full bg-surface-1 border border-border-soft shadow-sm flex items-center justify-center">
+              <svg
+                class="h-7 w-7 text-text-secondary"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M7 2h10l-1 14a4 4 0 0 1-8 0L7 2z" />
+                <path d="M7 6h10" />
+              </svg>
+            </div>
+            <div class="space-y-1">
+              <div class="text-2xl font-serif text-accent">21:00h</div>
+              <div class="text-sm font-medium tracking-[0.2em] uppercase text-text-secondary">Cóctel</div>
+              <p class="text-sm italic text-text-muted">Primeras risas y brindis junto al lago</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4 md:flex-col md:items-center md:text-center">
+            <div class="relative z-10 h-16 w-16 rounded-full bg-surface-1 border border-border-soft shadow-sm flex items-center justify-center">
+              <svg
+                class="h-7 w-7 text-text-secondary"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M7 4v16" />
+                <path d="M11 4v6" />
+                <path d="M11 10a2 2 0 1 1-4 0" />
+                <path d="M17 4v6" />
+                <path d="M17 10a2 2 0 1 1-4 0" />
+              </svg>
+            </div>
+            <div class="space-y-1">
+              <div class="text-2xl font-serif text-accent">23:30h</div>
+              <div class="text-sm font-medium tracking-[0.2em] uppercase text-text-secondary">Cena</div>
+              <p class="text-sm italic text-text-muted">Banquete para celebrar la unión</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4 md:flex-col md:items-center md:text-center">
+            <div class="relative z-10 h-16 w-16 rounded-full bg-surface-1 border border-border-soft shadow-sm flex items-center justify-center">
+              <svg
+                class="h-7 w-7 text-text-secondary"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M9 18a3 3 0 1 1-2-2.83V5l10-2v8" />
+                <path d="M17 16a3 3 0 1 1-2-2.83V3" />
+              </svg>
+            </div>
+            <div class="space-y-1">
+              <div class="text-2xl font-serif text-accent">00:30h</div>
+              <div class="text-sm font-medium tracking-[0.2em] uppercase text-text-secondary">Fiesta</div>
+              <p class="text-sm italic text-text-muted">¡A bailar con DJ MAI hasta el amanecer!</p>
+            </div>
+          </div>
         </div>
-        <h3 class="font-serif text-2xl text-text-secondary mb-4">Fiesta Asegurada</h3>
-        <p class="text-text-secondary mb-4">
-          La música estará a cargo de <strong>DJ MAI</strong>, que nos va a poner a todos a bailar 
-          hasta que no podamos más. ¡Preparad las piernas porque va a ser increíble!
-        </p>
-        <p class="text-text-muted text-sm">
-          Síguelo en Instagram para hacerte una idea de lo que nos espera
-        </p>
       </div>
     </div>
 
@@ -129,8 +223,8 @@ import jardinesImg from "../assets/jardines.webp";
           </div>
           <h4 class="font-medium text-text-secondary mb-3">Contacto</h4>
           <div class="space-y-2">
-            <p class="text-text-muted text-sm">Sheila: 600 123 456</p>
-            <p class="text-text-muted text-sm">Habib: 600 654 321</p>
+            <p class="text-text-muted text-sm">Sheila: 658 819 607</p>
+            <p class="text-text-muted text-sm">Habib: 685 406 727</p>
           </div>
         </div>
       </div>

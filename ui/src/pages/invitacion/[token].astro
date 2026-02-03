@@ -67,8 +67,8 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
               </p>
 
               <div class="space-y-3 text-text-primary">
-                <h1 class="font-display text-5xl md:text-6xl leading-[0.95] tracking-[0.02em] font-medium">
-                  Sheila <span class="text-3xl md:text-4xl align-middle opacity-80">&amp;</span> Habib
+                <h1 class="font-display text-[clamp(31px,9.5vw,50px)] sm:text-5xl md:text-6xl leading-[0.95] tracking-[0.01em] font-medium whitespace-nowrap">
+                  Sheila <span class="text-[0.6em] sm:text-3xl md:text-4xl align-middle opacity-80">&amp;</span> Habib
                 </h1>
               </div>
             </header>
@@ -115,7 +115,21 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
                   <p>
                     <span class="font-medium">Sábado, 4 de julio de 2026 · 20:15h</span>
                   </p>
-                  <p>Los Jardines Palacio de La Dehesa · Lucena, Córdoba</p>
+                  <p>
+                    <a
+                      href="https://maps.app.goo.gl/TQENkxEA9Pz8y9Ze6"
+                      target="_blank"
+                      rel="noreferrer"
+                      class="inline-flex flex-wrap items-center gap-2 text-accent underline decoration-accent/60 underline-offset-4 hover:text-accent-hover hover:decoration-accent"
+                    >
+                      <span class="text-text-secondary">
+                        Los Jardines Palacio de La Dehesa · Lucena, Córdoba
+                      </span>
+                      <span class="text-xs uppercase tracking-[0.18em] font-semibold text-accent">
+                        Ver mapa
+                      </span>
+                    </a>
+                  </p>
                 </div>
               </li>
 

@@ -1,0 +1,360 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ImageCarousel from "../components/ImageCarousel.astro";
+import her1 from "../assets/dresscode/her1.jpeg";
+import her2 from "../assets/dresscode/her2.jpeg";
+import her3 from "../assets/dresscode/her3.jpeg";
+import her4 from "../assets/dresscode/her4.jpeg";
+import him1 from "../assets/dresscode/him1.jpeg";
+import him2 from "../assets/dresscode/him2.jpeg";
+import him3 from "../assets/dresscode/him3.jpeg";
+import him4 from "../assets/dresscode/him4.jpeg";
+
+const ellaImages = [her1, her2, her3, her4].map((image) => image.src ?? image);
+const ellosImages = [him1, him2, him3, him4].map((image) => image.src ?? image);
+---
+
+<BaseLayout title="Dress Code - Sheila & Habib">
+  <main class="min-h-screen bg-bg-page">
+    <nav class="sticky top-0 z-10 bg-bg-page/80 backdrop-blur border-b border-border-soft/60">
+      <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+        <a href="/" class="inline-flex items-center gap-2 text-text-muted hover:text-text-secondary transition-colors">
+          <svg
+            class="h-4 w-4"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
+          <span class="text-[10px] uppercase tracking-[0.3em] font-semibold">Volver</span>
+        </a>
+        <span class="text-xs font-serif italic text-text-muted">S &amp; H Dress Code</span>
+        <div class="w-10"></div>
+      </div>
+    </nav>
+
+    <section class="container mx-auto px-6 py-16 max-w-5xl">
+      <header class="text-center">
+        <h1 class="font-serif text-4xl md:text-6xl text-text-secondary mb-4 mt-4">
+          Inspiración Boho Sencilla
+        </h1>
+        <p class="text-text-muted uppercase tracking-[0.3em] text-[11px] font-medium mb-8">
+          Verano · Córdoba · Mucho calor
+        </p>
+      </header>
+
+      <div class="mt-14 grid gap-6 md:grid-cols-2">
+        <div class="bg-bg-card rounded-3xl border border-border-soft/70 p-8 shadow-sm">
+          <div class="flex items-center gap-3 mb-6">
+            <svg
+              class="h-6 w-6 text-accent"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <path d="m9 12 2 2 4-4" />
+            </svg>
+            <h2 class="font-serif text-2xl text-text-secondary">Boho Sencillo es:</h2>
+          </div>
+          <ul class="space-y-3 text-text-secondary/80">
+            <li class="flex gap-3">
+              <span class="mt-2 h-2 w-2 rounded-full bg-accent/70 flex-shrink-0"></span>
+              <span>Tejidos naturales (lino, algodón, seda)</span>
+            </li>
+            <li class="flex gap-3">
+              <span class="mt-2 h-2 w-2 rounded-full bg-accent/70 flex-shrink-0"></span>
+              <span>Colores claros, tierra o suaves</span>
+            </li>
+            <li class="flex gap-3">
+              <span class="mt-2 h-2 w-2 rounded-full bg-accent/70 flex-shrink-0"></span>
+              <span>Elegancia natural, sin artificios</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="bg-bg-card rounded-3xl border border-border-soft/70 p-8 shadow-sm">
+          <div class="flex items-center gap-3 mb-6">
+            <svg
+              class="h-6 w-6 text-text-muted"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <line x1="8" y1="8" x2="16" y2="16" />
+              <line x1="16" y1="8" x2="8" y2="16" />
+            </svg>
+            <h2 class="font-serif text-2xl text-text-secondary">NO es:</h2>
+          </div>
+          <ul class="space-y-3 text-text-secondary/80">
+            <li class="flex gap-3">
+              <span class="mt-2 h-2 w-2 rounded-full bg-accent/70 flex-shrink-0"></span>
+              <span>Looks de invierno o muy estructurados</span>
+            </li>
+            <li class="flex gap-3">
+              <span class="mt-2 h-2 w-2 rounded-full bg-accent/70 flex-shrink-0"></span>
+              <span>Exceso de brillos o rigidez</span>
+            </li>
+            <li class="flex gap-3">
+              <span class="mt-2 h-2 w-2 rounded-full bg-accent/70 flex-shrink-0"></span>
+              <span>Vestir incómodo "porque es una boda"</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mt-16 space-y-16">
+        <!-- ========================= -->
+        <!--      BLOQUE MUJERES       -->
+        <!-- ========================= -->
+        <div class="grid md:grid-cols-2 gap-10 items-start">
+          <div class="order-1 md:order-1 relative">
+            <div class="rounded-[2.5rem] border border-border-soft/70 bg-bg-card/70 shadow-sm p-8 md:p-10 overflow-hidden">
+              <!-- detalle boho suave -->
+              <div class="pointer-events-none absolute -top-24 -right-24 h-56 w-56 rounded-full bg-accent/10 blur-3xl"></div>
+              <div class="pointer-events-none absolute -bottom-24 -left-24 h-56 w-56 rounded-full bg-text-secondary/10 blur-3xl"></div>
+
+              <div class="flex items-start justify-between gap-6">
+                <div class="space-y-3">
+                  <p class="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.35em] font-semibold text-text-muted">
+                    <span class="h-1.5 w-1.5 rounded-full bg-accent/80"></span>
+                    Para ellas
+                  </p>
+
+                  <h3 class="font-serif text-3xl md:text-4xl text-text-secondary">
+                    Boho mujeres
+                  </h3>
+                </div>
+              </div>
+
+              <p class="mt-5 text-text-muted text-base md:text-lg">
+                Puedes encontrar ropa de invitada para bodas estilo boho en diversas tiendas online especializadas y
+                boutiques físicas que ofrecen diseños con tejidos fluidos, encajes y estampados florales.
+              </p>
+
+              <div class="mt-8 grid gap-6">
+                <div class="rounded-3xl border border-border-soft/70 bg-bg-page/30 p-6">
+                  <div class="flex items-center justify-between gap-4 mb-4">
+                    <h4 class="font-medium text-text-secondary">Tiendas online</h4>
+                  </div>
+                  <ul class="space-y-3 text-sm text-text-muted">
+                    <li class="flex gap-3">
+                      <span class="mt-2 h-1.5 w-1.5 rounded-full bg-accent/80 flex-shrink-0"></span>
+                      <span> <span class="font-semibold italic text-text-secondary">Lady Pipa</span>: Aunque algunas de sus colecciones estivales incorporan elementos relajados como tejidos de gasa o estampados que pueden recordar al estilo boho-chic.</span>
+                    </li>
+                    <li class="flex gap-3">
+                      <span class="mt-2 h-1.5 w-1.5 rounded-full bg-accent/80 flex-shrink-0"></span>
+                      <span> <span class="font-semibold italic text-text-secondary">Kalexa Boho Chic</span>: Ofrece una sección dedicada a "Invitada Bohemia" con vestidos y conjuntos que capturan perfectamente el estilo, con faldas fluidas y un toque hippie chic.</span>
+                    </li>
+                    <li class="flex gap-3">
+                      <span class="mt-2 h-1.5 w-1.5 rounded-full bg-accent/80 flex-shrink-0"></span>
+                      <span> <span class="font-semibold italic text-text-secondary">Mimetik Bcn</span>: Especializados en vestidos bohemios y románticos hechos a mano en Barcelona, muchos de sus diseños son convertibles y adaptables, ideales para un look único y personal.</span>
+                    </li>
+                    <li class="flex gap-3">
+                      <span class="mt-2 h-1.5 w-1.5 rounded-full bg-accent/80 flex-shrink-0"></span>
+                      <span> <span class="font-semibold italic text-text-secondary">Bohochicbarcelona</span>: Su tienda online presenta una gama de vestidos largos y ligeros, combinando la estética boho con diseños modernos, perfectos para invitadas que buscan comodidad y estilo.</span>
+                    </li>
+                    <li class="flex gap-3">
+                      <span class="mt-2 h-1.5 w-1.5 rounded-full bg-accent/80 flex-shrink-0"></span>
+                      <span> <span class="font-semibold italic text-text-secondary">ASOS</span>: Este gran minorista online cuenta con una categoría específica para "Vestidos de Estilo Boho", permitiendo filtrar entre una gran variedad de marcas, precios y estilos.</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="rounded-3xl border border-border-soft/70 bg-bg-page/30 p-6">
+                  <div class="flex items-center justify-between gap-4 mb-4">
+                    <h4 class="font-medium text-text-secondary">Tiendas físicas</h4>
+                  </div>
+                  <ul class="space-y-3 text-sm text-text-muted">
+                    <li class="flex gap-3">
+                      <span class="mt-2 h-1.5 w-1.5 rounded-full bg-accent/80 flex-shrink-0"></span>
+                      <span> <span class="font-semibold italic text-text-secondary">Mimetik Bcn</span> (Barcelona): Cuentan con un taller y showroom donde puedes probarte los vestidos y recibir asesoramiento experto, garantizando un ajuste perfecto y un trato cercano.</span>
+                    </li>
+                    <li class="flex gap-3">
+                      <span class="mt-2 h-1.5 w-1.5 rounded-full bg-accent/80 flex-shrink-0"></span>
+                      <span> <span class="font-semibold italic text-text-secondary">Invitadisima</span> (Madrid): Tienen una tienda física en Madrid donde puedes encontrar una amplia selección de vestidos de fiesta, incluyendo opciones largas y fluidas que encajan con la estética boho.</span>
+                    </li>
+                    <li class="flex gap-3">
+                      <span class="mt-2 h-1.5 w-1.5 rounded-full bg-accent/80 flex-shrink-0"></span>
+                      <span> <span class="font-semibold italic text-text-secondary">AIRE BARCELONA</span> (varias ubicaciones): Muchas de sus colecciones de fiesta incluyen vestidos con toques bohemios, como faldas de gasa y detalles delicados, que puedes encontrar en sus tiendas físicas.</span>
+                    </li>
+                    <li class="flex gap-3">
+                      <span class="mt-2 h-1.5 w-1.5 rounded-full bg-accent/80 flex-shrink-0"></span>
+                      <span> <span class="font-semibold italic text-text-secondary">La Croixé</span> (Madrid): Ubicada en la C. de Jorge Juan, es conocida por sus vestidos de invitada con diseños elegantes y juveniles, ideales para un estilo boho más sofisticado.</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="order-2 md:order-2 self-start relative mb-10 md:mb-0 md:sticky md:top-32">
+            <ImageCarousel
+              images={ellaImages}
+              alt="Inspiración Ella"
+              aspectClass="aspect-[4/5]"
+              class="border border-border-soft/70 shadow-sm"
+            />
+          </div>
+        </div>
+
+        <!-- ========================= -->
+        <!--       BLOQUE HOMBRES      -->
+        <!-- ========================= -->
+        <div class="grid md:grid-cols-2 gap-10 items-start">
+          <div class="order-2 md:order-1 self-start relative md:sticky md:top-32">
+            <ImageCarousel
+              images={ellosImages}
+              alt="Inspiración Ellos"
+              aspectClass="aspect-[4/5]"
+              class="border border-border-soft/70 shadow-sm"
+            />
+          </div>
+
+          <div class="order-1 md:order-2 relative">
+            <div class="rounded-[2.5rem] border border-border-soft/70 bg-bg-card/70 shadow-sm p-8 md:p-10 overflow-hidden">
+              <div class="pointer-events-none absolute -top-24 -left-24 h-56 w-56 rounded-full bg-accent/10 blur-3xl"></div>
+              <div class="pointer-events-none absolute -bottom-24 -right-24 h-56 w-56 rounded-full bg-text-secondary/10 blur-3xl"></div>
+
+              <p class="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.35em] font-semibold text-text-muted">
+                <span class="h-1.5 w-1.5 rounded-full bg-accent/80"></span>
+                Para ellos
+              </p>
+
+              <h3 class="mt-3 font-serif text-3xl md:text-4xl text-text-secondary">Boho hombres</h3>
+
+              <p class="mt-5 text-text-muted text-base md:text-lg">
+                Para comprar ropa de hombre estilo boho para bodas, lo mejor es buscar en tiendas online especializadas y
+                en marcas que ofrecen prendas de lino y algodón, que son la base de este estilo.
+              </p>
+
+              <div class="mt-8 rounded-3xl border border-border-soft/70 bg-bg-page/35 p-6">
+                <div class="flex items-start justify-between gap-4">
+                  <div>
+                    <h4 class="font-medium text-text-secondary">Tienda colaboradora y online</h4>
+                    <p class="mt-2 text-sm text-text-muted">
+                      Queremos que disfrutéis del día sin complicaciones, por eso os sugerimos apostar por tejidos naturales
+                      como el lino. En la web de <span class="font-semibold italic text-text-secondary">Custimikelo</span>
+                      encontraréis camisas, americanas y pantalones ideales para el dress code de la celebración. Nos han
+                      regalado un código descuento para que todos los invitados puedan disfrutar de un 5% de descuento en su compra. Solo tenéis que usar el código.
+                    </p>
+                  </div>
+
+                  <div class="shrink-0 text-right">
+                    <p class="text-[11px] uppercase tracking-[0.3em] text-text-muted">Código</p>
+                    <p class="mt-1 inline-flex items-center px-3 py-1 rounded-full border border-border-soft/70 bg-bg-card text-sm font-semibold text-text-secondary">
+                      BODORRIO
+                    </p>
+                    <p class="mt-1 text-xs text-text-muted">-5%</p>
+                  </div>
+                </div>
+
+                <div class="mt-4 flex flex-wrap items-center gap-3 text-sm">
+                  <span class="text-text-muted">Link:</span>
+                  <a
+                    class="text-text-secondary underline underline-offset-4 decoration-border-soft hover:decoration-text-secondary transition-colors break-all"
+                    href="https://custimikelo.es/collections/camisas-lino-hombre"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    https://custimikelo.es/collections/camisas-lino-hombre
+                  </a>
+                </div>
+              </div>
+
+              <div class="mt-6 grid gap-6">
+                <div class="rounded-3xl border border-border-soft/70 bg-bg-page/30 p-6">
+                  <div class="flex items-center justify-between gap-4 mb-4">
+                    <h4 class="font-medium text-text-secondary">Otras tiendas online</h4>
+                  </div>
+                  <ul class="space-y-3 text-sm text-text-muted">
+                    <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 rounded-full bg-accent/80 flex-shrink-0"></span><span><span class="font-semibold italic text-text-secondary">Etsy</span>: Es una excelente opción para encontrar prendas únicas y hechas a mano, como chaquetas de lino para hombre, trajes de lino a medida, chalecos e incluso accesorios como corbatas bolo con flores preservadas.</span></li>
+                    <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 rounded-full bg-accent/80 flex-shrink-0"></span><span><span class="font-semibold italic text-text-secondary">Hockerty</span>: Ofrecen trajes y chalecos de lino hechos a medida, permitiéndote diseñar un conjunto boho-chic a tu gusto, incluyendo opciones de lino para bodas en jardín o playa.</span></li>
+                    <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 rounded-full bg-accent/80 flex-shrink-0"></span><span><span class="font-semibold italic text-text-secondary">Valentina Del Sur</span>: Tienen una colección específica de moda boho chic para hombre, con prendas que se adaptan bien a este estilo relajado y natural.</span></li>
+                    <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 rounded-full bg-accent/80 flex-shrink-0"></span><span><span class="font-semibold italic text-text-secondary">Wanderlove.es</span>: Se especializa en ropa hippie y boho, con opciones que pueden funcionar para un look de invitado casual y con un toque diferente.</span></li>
+                    <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 rounded-full bg-accent/80 flex-shrink-0"></span><span><span class="font-semibold italic text-text-secondary">Amazon</span> y <span class="font-semibold italic text-text-secondary">AliExpress</span>: Puedes encontrar conjuntos de lino, camisas y pantalones a precios variados, aunque la calidad puede ser variable y requiere más búsqueda para encontrar las prendas adecuadas.</span></li>
+                  </ul>
+                </div>
+
+                <div class="rounded-3xl border border-border-soft/70 bg-bg-page/30 p-6">
+                  <div class="flex items-center justify-between gap-4 mb-4">
+                    <h4 class="font-medium text-text-secondary">Tiendas físicas</h4>
+                  </div>
+                  <ul class="space-y-3 text-sm text-text-muted">
+                    <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 rounded-full bg-accent/80 flex-shrink-0"></span><span><span class="font-semibold italic text-text-secondary">Pedro del Hierro</span> / <span class="font-semibold italic text-text-secondary">Cortefiel</span>: Ambas marcas suelen tener una buena selección de ropa de lino para hombre en sus colecciones de primavera-verano.</span></li>
+                    <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 rounded-full bg-accent/80 flex-shrink-0"></span><span><span class="font-semibold italic text-text-secondary">Celio</span>: Ofrecen opciones de trajes bohemio chic en algunas de sus colecciones.</span></li>
+                    <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 rounded-full bg-accent/80 flex-shrink-0"></span><span><span class="font-semibold italic text-text-secondary">C&amp;A</span>: Tienen una sección de tendencia "estilo boho hombre" en su tienda online, y en sus tiendas físicas puedes buscar prendas sueltas como camisas de algodón y pantalones cómodos.</span></li>
+                    <li class="flex gap-3"><span class="mt-2 h-1.5 w-1.5 rounded-full bg-accent/80 flex-shrink-0"></span><span><span class="font-semibold italic text-text-secondary">Boutiques de novios/ceremonia</span>: Tiendas especializadas en trajes de novio y padrino pueden ofrecer trajes de lino o algodón en tonos neutros que se adaptan al estilo boho para una boda más formal.</span></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-8 pt-12 border-t border-border-soft/70">
+        <h3 class="font-serif text-2xl text-text-secondary text-center mb-8 mt-8">¿Voy bien así?</h3>
+        <div class="grid md:grid-cols-2 gap-6 text-center">
+          <div class="bg-bg-card rounded-2xl border border-border-soft/70 p-6">
+            <h4 class="font-medium text-text-secondary mb-2">¿Es obligatorio llevar vestido largo?</h4>
+            <p class="text-text-muted text-sm">No necesariamente. El estilo boho favorece los vestidos midi o largos con movimiento, pero la clave está en el tejido. Se buscan telas fluidas como la gasa, el lino o el encaje, evitando estructuras rígidas.</p>
+          </div>
+          <div class="bg-bg-card rounded-2xl border border-border-soft/70 p-6">
+            <h4 class="font-medium text-text-secondary mb-2">¿Puedo llevar brillos o lentejuelas?</h4>
+            <p class="text-text-muted text-sm">Mejor evitarlos. Inspírate en la naturaleza y cambia el brillo metálico por bordados, flores, flecos o texturas naturales.</p>
+          </div>
+          <div class="bg-bg-card rounded-2xl border border-border-soft/70 p-6">
+            <h4 class="font-medium text-text-secondary mb-2">¿Qué accesorios debo usar?</h4>
+            <p class="text-text-muted text-sm">Apuesta por el "menos es más" en joyería de aspecto artesanal o piezas con piedras naturales. Las coronas de flores o sombreros de ala ancha son el toque definitivo para este estilo.</p>
+          </div>
+          
+          <div class="bg-bg-card rounded-2xl border border-border-soft/70 p-6">
+            <h4 class="font-medium text-text-secondary mb-2">¿Es adecuado el traje negro de corte clásico?</h4>
+            <p class="text-text-muted text-sm">Es preferible evitarlo. Los colores estrella son los tonos tierra, beige, verdes o azul claro. Los trajes de lino o algodón son la opción más recomendada.</p>
+          </div>
+          <div class="bg-bg-card rounded-2xl border border-border-soft/70 p-6">
+            <h4 class="font-medium text-text-secondary mb-2">¿Puedo llevar corbata?</h4>
+            <p class="text-text-muted text-sm">Generalmente, no. El estilo es más relajado, se suele optar por la camisa abierta o una pajarita de tejido informal (como punto o madera).</p>
+          </div>
+          <div class="bg-bg-card rounded-2xl border border-border-soft/70 p-6">
+            <h4 class="font-medium text-text-secondary mb-2">¿Debo llevar chaleco y americana?</h4>
+            <p class="text-text-muted text-sm">Si quieres reforzar tu look, preferiblemente solo uno de los dos. Así llevarás un estilo más informal.</p>
+          </div>
+
+          <div class="bg-bg-card rounded-2xl border border-border-soft/70 p-6 md:col-span-2 md:p-8">
+            <h4 class="font-medium text-text-secondary mb-2">¿Qué hago con los zapatos?</h4>
+            <p class="text-text-muted text-sm"><span class="font-semibold text-text-secondary">Mujeres</span>: Prioriza la comodidad. Los tacones anchos y bajos, cuñas de esparto o sandalias planas son ideales para no hundirse en el césped.</p>
+            <p class="text-text-muted text-sm"><span class="font-semibold text-text-secondary">Hombres</span>: Unos mocasines, sandalias, alpargatas o náuticos de ante encajan perfectamente con el aire desenfadado del evento.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-16 text-center mb-8">
+        <p class="font-serif italic text-text-secondary text-xl md:text-2xl mb-6">
+          Ven elegante, ven cómodo, ven a disfrutar. El resto fluye solo.
+        </p>
+        <a
+          href="/#dresscode"
+          class="inline-flex items-center justify-center px-6 py-3 rounded-lg border border-text-secondary/40 text-text-secondary hover:bg-text-secondary/5 transition-colors"
+        >
+          Volver a los detalles del evento
+        </a>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

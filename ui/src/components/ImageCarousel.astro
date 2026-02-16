@@ -1,0 +1,127 @@
+---
+export interface Props {
+  images: string[];
+  alt: string;
+  aspectClass?: string;
+  class?: string;
+  loading?: "lazy" | "eager";
+}
+
+const {
+  images,
+  alt,
+  aspectClass = "aspect-[4/5]",
+  class: className = "",
+  loading = "lazy",
+} = Astro.props;
+
+const safeImages = Array.isArray(images) ? images : [];
+const hasControls = safeImages.length > 1;
+---
+
+{
+  safeImages.length ? (
+    <div class={`relative w-full rounded-[2.5rem] ${className}`} data-image-carousel style="isolation:isolate;">
+      {/* Marco = lo que define el tamaño real del carrusel */}
+      <div class={`relative overflow-hidden rounded-[2.5rem] bg-zinc-200 ${aspectClass}`}>
+        {/* Track SIEMPRE rellena el marco */}
+        <div
+          class="absolute inset-0 flex transition-transform duration-500 ease-out"
+          data-image-carousel-track
+        >
+          {safeImages.map((img, index) => (
+            <img
+              src={img}
+              class="w-full h-full object-cover flex-none select-none"
+              alt={`${alt} ${index + 1}`}
+              loading={loading}
+              decoding="async"
+              draggable="false"
+            />
+          ))}
+        </div>
+
+        {hasControls && (
+          <>
+            {/* Flecha Izquierda */}
+            <button
+              type="button"
+              aria-label="Imagen anterior"
+              class="absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 bg-white/95 rounded-full flex items-center justify-center text-black shadow-xl cursor-pointer hover:scale-110 active:scale-95 transition-all"
+              data-image-carousel-prev
+            >
+              <svg class="h-6 w-6 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M15 18l-6-6 6-6" />
+              </svg>
+            </button>
+
+            {/* Flecha Derecha */}
+            <button
+              type="button"
+              aria-label="Imagen siguiente"
+              class="absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 bg-white/95 rounded-full flex items-center justify-center text-black shadow-xl cursor-pointer hover:scale-110 active:scale-95 transition-all"
+              data-image-carousel-next
+            >
+              <svg class="h-6 w-6 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M9 6l6 6-6 6" />
+              </svg>
+            </button>
+
+            {/* Dots con base para que SIEMPRE se vean */}
+            <div class="absolute bottom-5 left-1/2 -translate-x-1/2 flex items-center gap-2 rounded-full bg-black/35 px-3 py-2 backdrop-blur">
+              {safeImages.map((_, index) => (
+                <button
+                  type="button"
+                  class={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                    index === 0 ? "bg-white w-6" : "bg-white/55 w-2 hover:bg-white/85"
+                  }`}
+                  data-image-carousel-dot={index}
+                  aria-label={`Ir a la imagen ${index + 1}`}
+                />
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  ) : null
+}
+
+<script>
+  const initCarousels = () => {
+    document.querySelectorAll("[data-image-carousel]").forEach((carousel) => {
+      if (!(carousel instanceof HTMLElement) || carousel.dataset.init === "true") return;
+      carousel.dataset.init = "true";
+
+      const track = carousel.querySelector("[data-image-carousel-track]");
+      const dots = carousel.querySelectorAll("[data-image-carousel-dot]");
+      const prev = carousel.querySelector("[data-image-carousel-prev]");
+      const next = carousel.querySelector("[data-image-carousel-next]");
+
+      let index = 0;
+      const total = dots.length;
+      if (total <= 1 || !(track instanceof HTMLElement)) return;
+
+      const update = (newIndex) => {
+        index = (newIndex + total) % total;
+        track.style.transform = `translateX(-${index * 100}%)`;
+
+        dots.forEach((dot, i) => {
+          const isActive = i === index;
+          dot.classList.toggle("bg-white", isActive);
+          dot.classList.toggle("w-6", isActive);
+
+          dot.classList.toggle("bg-white/55", !isActive);
+          dot.classList.toggle("w-2", !isActive);
+        });
+      };
+
+      prev?.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); update(index - 1); });
+      next?.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); update(index + 1); });
+      dots.forEach((dot, i) => dot.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); update(i); }));
+    });
+  };
+
+  initCarousels();
+  document.addEventListener("astro:after-swap", initCarousels);
+</script>

@@ -7,7 +7,8 @@ RUN apk add --no-cache \
     make \
     g++ \
     sqlite \
-    wget
+    wget \
+    su-exec
 
 # Crear directorio de trabajo
 WORKDIR /app
@@ -29,10 +30,9 @@ RUN mkdir -p /app/data
 COPY docker-entrypoint.sh ./
 RUN chmod +x docker-entrypoint.sh
 
-# Run as non-root user
+# Create non-root user (container starts as root; entrypoint drops privileges via su-exec)
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 RUN chown -R appuser:appgroup /app
-USER appuser
 
 # Exponer puerto
 EXPOSE 3001

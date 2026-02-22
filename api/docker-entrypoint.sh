@@ -2,6 +2,12 @@
 
 echo "🚀 Starting Wedding API..."
 
+# Fix data directory ownership so appuser can write to the named volume.
+# This is necessary because Docker named volumes are created as root:root on
+# first mount, while the app runs as appuser (UID 100). The container starts
+# as root and drops privileges at the end of this script via su-exec.
+chown -R appuser:appgroup /app/data 2>/dev/null || true
+
 # Set database path for production
 DB_PATH="/app/data/wedding.db"
 
@@ -38,7 +44,7 @@ else
 fi
 
 echo "✅ Database initialization complete"
-echo "🎉 Starting server..."
+echo "🎉 Starting server as appuser..."
 
-# Start the main application
-exec node src/index.js
+# Drop from root to appuser and exec the application
+exec su-exec appuser node src/index.js

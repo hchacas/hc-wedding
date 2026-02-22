@@ -25,6 +25,21 @@ npm run create-admin -- --interactive  # Create admin interactively (use for pro
 npm run create-admin -- -u <user> -p <pass> -n "Name"  # Create admin with flags
 ```
 
+### Creating / resetting admin credentials
+Always use the script — it runs `Admin.hashPassword()` (bcrypt, cost 12) automatically. Never insert a password hash manually.
+
+```bash
+# New admin — interactive (recommended for production)
+cd api && npm run create-admin -- --interactive
+
+# New admin — flags
+cd api && npm run create-admin -- -u <user> -p <password> -n "Full Name"
+
+# Reset password: delete the row, then recreate
+sqlite3 api/data/wedding.db "DELETE FROM admins WHERE username='<user>';"
+cd api && npm run create-admin -- --interactive
+```
+
 ### Docker
 ```bash
 docker compose up --build                              # Development

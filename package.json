@@ -1,0 +1,17 @@
+{
+  "name": "hc-wedding",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "api",
+    "ui"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev --workspace=api\" \"npm run dev --workspace=ui\"",
+    "build": "npm run build --workspace=ui",
+    "lint": "concurrently \"npm run lint --workspace=api --if-present\" \"npm run lint --workspace=ui --if-present\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

@@ -1,5 +1,6 @@
 import { dbGet, dbRun } from '../config/database.js';
 import crypto from 'crypto';
+import bcrypt from 'bcryptjs';
 
 export class Admin {
   static async findByUsername(username) {
@@ -12,7 +13,7 @@ export class Admin {
 
   static async create(adminData) {
     const { username, password, name } = adminData;
-    const passwordHash = this.hashPassword(password);
+    const passwordHash = await this.hashPassword(password);
 
     const result = await dbRun(`
       INSERT INTO admins (username, password_hash, name, created_at)
@@ -26,14 +27,22 @@ export class Admin {
     const admin = await this.findByUsername(username);
     if (!admin) return null;
 
-    const passwordHash = this.hashPassword(password);
-    if (passwordHash === admin.password_hash) {
+    // Try bcrypt first (new hashes)
+    const bcryptMatch = await bcrypt.compare(password, admin.password_hash).catch(() => false);
+    if (bcryptMatch) return admin;
+
+    // Fall back to SHA256 (legacy hashes) and auto-upgrade
+    const sha256Hash = crypto.createHash('sha256').update(password).digest('hex');
+    if (sha256Hash === admin.password_hash) {
+      const newHash = await bcrypt.hash(password, 12);
+      await dbRun('UPDATE admins SET password_hash = ? WHERE id = ?', [newHash, admin.id]);
       return admin;
     }
+
     return null;
   }
 
-  static hashPassword(password) {
-    return crypto.createHash('sha256').update(password).digest('hex');
+  static async hashPassword(password) {
+    return await bcrypt.hash(password, 12);
   }
 }

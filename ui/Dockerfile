@@ -24,6 +24,11 @@ ENV FRONTEND_URL=$FRONTEND_URL
 # Build de la aplicación
 RUN npm run build
 
+# Run as non-root user
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+RUN chown -R appuser:appgroup /app
+USER appuser
+
 # Exponer puerto (Astro server runs on 4321 by default)
 EXPOSE 4321
 

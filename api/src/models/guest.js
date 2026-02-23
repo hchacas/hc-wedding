@@ -177,16 +177,20 @@ export class Guest {
 
     // Estadísticas de menú consolidadas (para catering)
     const allMenuChoices = await dbAll(`
-      SELECT menu_type, menu_choice, COUNT(*) as count FROM (
-        SELECT 'Principal' as menu_type, menu_choice
+      SELECT menu_type, menu_choice, SUM(quantity) as count FROM (
+        SELECT 'Principal' as menu_type, menu_choice, 1 as quantity
         FROM guests WHERE attending = 1 AND menu_choice IS NOT NULL AND menu_choice != ''
         UNION ALL
-        SELECT 'Acompañante' as menu_type, c.menu_choice as menu_choice
+        SELECT 'Acompañante' as menu_type, c.menu_choice as menu_choice, 1 as quantity
         FROM companions c INNER JOIN guests g ON c.guest_id = g.id
         WHERE g.attending = 1 AND c.menu_choice IS NOT NULL AND c.menu_choice != ''
         UNION ALL
-        SELECT 'Niños' as menu_type, children_menu_choice as menu_choice
-        FROM guests WHERE attending = 1 AND children = 1 AND children_menu_choice IS NOT NULL AND children_menu_choice != ''
+        SELECT
+          'Niños' as menu_type,
+          children_menu_choice as menu_choice,
+          CASE WHEN children_count > 0 THEN children_count ELSE 0 END as quantity
+        FROM guests
+        WHERE attending = 1 AND children = 1 AND children_menu_choice IS NOT NULL AND children_menu_choice != ''
       ) GROUP BY menu_choice ORDER BY count DESC
     `);
 
@@ -207,6 +211,51 @@ export class Guest {
 
     // Estadísticas de transporte (crítico para logística)
     const transportNeeded = await dbGet('SELECT COUNT(*) as count FROM guests WHERE attending = 1 AND needs_transport = 1');
+    const transportGuests = await dbAll(`
+      SELECT id, name, children, children_count, children_names
+      FROM guests
+      WHERE attending = 1 AND needs_transport = 1
+      ORDER BY name
+    `);
+    const transportPeople = [];
+
+    for (const guest of transportGuests) {
+      // Host siempre incluido cuando solicita transporte
+      transportPeople.push({
+        name: guest.name,
+        role: 'host',
+        host: guest.name
+      });
+
+      const companions = await dbAll(
+        'SELECT name FROM companions WHERE guest_id = ? ORDER BY id ASC',
+        [guest.id]
+      );
+
+      companions.forEach((companion) => {
+        transportPeople.push({
+          name: companion.name,
+          role: 'companion',
+          host: guest.name
+        });
+      });
+
+      const childrenCount = guest.children ? (parseInt(guest.children_count, 10) || 0) : 0;
+      if (childrenCount > 0) {
+        const parsedChildrenNames = (guest.children_names || '')
+          .split(/[\n,;]+/)
+          .map((name) => name.trim())
+          .filter(Boolean);
+
+        for (let i = 0; i < childrenCount; i++) {
+          transportPeople.push({
+            name: parsedChildrenNames[i] || `Niño ${i + 1}`,
+            role: 'child',
+            host: guest.name
+          });
+        }
+      }
+    }
 
     // Desglose detallado de niños por familia
     const childrenBreakdown = await dbAll(`
@@ -263,6 +312,8 @@ export class Guest {
       logistics: {
         needsTransport: transportNeeded.count > 0,
         transportCount: transportNeeded.count,
+        transportPeopleTotal: transportPeople.length,
+        transportPeople,
         phoneNumbers: phoneNumbers
       }
     };

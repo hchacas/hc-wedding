@@ -193,6 +193,12 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
                   <span class="text-text-secondary">Necesitan Transporte:</span>
                   <span id="transport-needed" class="font-bold text-status-info">-</span>
                 </div>
+                <div>
+                  <h4 class="font-medium text-text-secondary mb-2">Personas con transporte</h4>
+                  <div id="transport-people-list" class="space-y-2">
+                    <p class="text-text-muted text-sm">Sin datos disponibles</p>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -310,6 +316,7 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
                     <th class="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Acompañantes</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Menú</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Rest. Dietéticas</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Alergias niños</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Niños</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Transporte</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Notas</th>
@@ -673,6 +680,43 @@ Modal para crear invitación -->
     }
   }
 
+  function formatGenderLabel(gender) {
+    const labels = {
+      masculino: 'Masculino',
+      femenino: 'Femenino',
+      otro: 'Otro'
+    };
+    if (!gender) return 'No especificado';
+    return labels[gender] || gender;
+  }
+
+  function formatMenuLabel(menuChoice) {
+    const labels = {
+      carne: 'Menú con carne',
+      pescado: 'Menú con pescado',
+      vegetariano: 'Menú vegetariano',
+      vegano: 'Menú vegano'
+    };
+    if (!menuChoice) return 'No especificado';
+    return labels[menuChoice] || menuChoice;
+  }
+
+  function formatCompanionEntry(companion) {
+    const name = companion?.name || 'Sin nombre';
+    const gender = formatGenderLabel(companion?.gender);
+    const menu = formatMenuLabel(companion?.menu_choice);
+    return `${name} · ${gender} · ${menu}`;
+  }
+
+  function formatTransportRole(role) {
+    const roleLabels = {
+      host: 'Host',
+      companion: 'Acompañante',
+      child: 'Niño'
+    };
+    return roleLabels[role] || 'Persona';
+  }
+
   // Actualizar tabla de invitados recientes
   function updateGuestsTable(guests) {
     const tbody = document.getElementById('guests-table-body');
@@ -681,7 +725,9 @@ Modal para crear invitación -->
     tbody.innerHTML = guests.map(guest => {
       const status = guest.attending === 1 ? 'Confirmado' : guest.attending === 0 ? 'No asiste' : 'Pendiente';
       const statusClass = guest.attending === 1 ? 'text-status-success' : guest.attending === 0 ? 'text-status-danger' : 'text-status-warning';
-      const plusOne = (guest.companions || []).length > 0 ? guest.companions.map(c => c.name).join(', ') : 'No';
+      const plusOne = (guest.companions || []).length > 0
+        ? guest.companions.map(formatCompanionEntry).join('<br>')
+        : 'No';
       const date = new Date(guest.created_at).toLocaleDateString('es-ES');
       
       return `
@@ -689,7 +735,7 @@ Modal para crear invitación -->
           <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-text-primary">${guest.name}</td>
           <td class="px-6 py-4 whitespace-nowrap text-sm">${guest.email || '-'}</td>
           <td class="px-6 py-4 whitespace-nowrap text-sm ${statusClass}">${status}</td>
-          <td class="px-6 py-4 whitespace-nowrap text-sm text-text-muted">${plusOne}</td>
+          <td class="px-6 py-4 text-sm text-text-muted">${plusOne}</td>
           <td class="px-6 py-4 whitespace-nowrap text-sm text-text-muted">${date}</td>
         </tr>
       `;
@@ -713,7 +759,23 @@ Modal para crear invitación -->
     document.getElementById('people-children').textContent = composition.totalChildren || '0';
     
     // Estadísticas de transporte
-    document.getElementById('transport-needed').textContent = logistics.transportCount || '0';
+    const transportTotal = logistics.transportPeopleTotal ?? logistics.transportCount ?? 0;
+    document.getElementById('transport-needed').textContent = String(transportTotal);
+
+    const transportPeopleEl = document.getElementById('transport-people-list');
+    if (transportPeopleEl) {
+      const people = logistics.transportPeople || [];
+      if (people.length === 0) {
+        transportPeopleEl.innerHTML = '<p class="text-text-muted text-sm">Sin personas registradas</p>';
+      } else {
+        transportPeopleEl.innerHTML = people.map(person => `
+          <div class="py-1 border-b border-border-strong/30 last:border-b-0">
+            <p class="text-sm text-text-secondary font-medium">${person.name}</p>
+            <p class="text-xs text-text-muted">${formatTransportRole(person.role)} · Grupo: ${person.host}</p>
+          </div>
+        `).join('');
+      }
+    }
     
     // Estadísticas de género (invitados principales)
     updateStatsSection('gender-stats', demographics.mainGuests || []);
@@ -829,16 +891,14 @@ Modal para crear invitación -->
     tbody.innerHTML = guests.map(guest => {
       const status = guest.attending === 1 ? 'Confirmado' : guest.attending === 0 ? 'No asiste' : 'Pendiente';
       const statusClass = guest.attending === 1 ? 'text-status-success' : guest.attending === 0 ? 'text-status-danger' : 'text-status-warning';
-      const genderLabel = guest.gender ? `<span class="text-xs text-text-muted">${guest.gender}</span>` : '';
+      const genderLabel = guest.gender ? `<span class="text-xs text-text-muted">${formatGenderLabel(guest.gender)}</span>` : '';
       const phoneLabel = guest.phone ? `<span class="text-xs text-text-muted">${guest.phone}</span>` : '';
       const companions = (guest.companions || []).length > 0
-        ? guest.companions.map(c => {
-            const g = c.gender ? ` <span class="text-xs text-text-muted">(${c.gender})</span>` : '';
-            return `${c.name}${g} — <em>${c.menu_choice || 'sin menú'}</em>`;
-          }).join('<br>')
+        ? guest.companions.map(c => formatCompanionEntry(c)).join('<br>')
         : '<span class="text-text-muted">Ninguno</span>';
       const menu = guest.menu_choice || '-';
       const dietary = guest.dietary_restrictions || '-';
+      const childrenDietary = guest.children_dietary_restrictions || '-';
       const children = guest.children ? `${guest.children_count} (${guest.children_names || 'sin nombres'})` : 'No';
       const transport = guest.needs_transport ? 'Sí' : 'No';
       const notes = guest.notes || '-';
@@ -854,6 +914,7 @@ Modal para crear invitación -->
           <td class="px-6 py-4 text-sm text-text-muted">${companions}</td>
           <td class="px-6 py-4 whitespace-nowrap text-sm text-text-muted">${menu}</td>
           <td class="px-6 py-4 text-sm text-text-muted">${dietary}</td>
+          <td class="px-6 py-4 text-sm text-text-muted">${childrenDietary}</td>
           <td class="px-6 py-4 whitespace-nowrap text-sm text-text-muted">${children}</td>
           <td class="px-6 py-4 whitespace-nowrap text-sm text-text-muted">${transport}</td>
           <td class="px-6 py-4 text-sm text-text-muted">${notes}</td>

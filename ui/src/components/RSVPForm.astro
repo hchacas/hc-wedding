@@ -116,6 +116,57 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
       </div>
     </div>
 
+    <!-- Preferencias alimentarias -->
+    <div id="dietary-section" class="bg-bg-panel border border-border-strong/60 rounded-lg p-6 hidden">
+      <div class="flex items-center mb-6">
+        <div class="w-10 h-10 bg-accent rounded-full flex items-center justify-center mr-4">
+          <svg class="w-5 h-5 text-accent-contrast" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M3 5a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2h-2.22l.123.489.804.804A1 1 0 0113 18H7a1 1 0 01-.707-1.707l.804-.804L7.22 15H5a2 2 0 01-2-2V5zm5.771 7H5V5h10v7H8.771z" clip-rule="evenodd"/>
+          </svg>
+        </div>
+        <h3 class="font-serif text-xl text-text-secondary">Preferencias Alimentarias</h3>
+      </div>
+      
+      <div class="space-y-8">
+        <!-- Menú del invitado principal -->
+        <div class="border-l-4 border-accent pl-4">
+          <h4 class="font-medium text-text-secondary mb-4">Tu menú</h4>
+          <div class="space-y-4">
+            <div>
+              <label for="menu_choice" class="block text-sm font-medium text-text-secondary mb-2">
+                Menú preferido
+              </label>
+              <select 
+                id="menu_choice" 
+                name="menu_choice" 
+                class="w-full px-4 py-3 border border-border-strong rounded-lg focus:ring-2 focus:ring-accent focus:border-accent"
+              >
+                <option value="">Selecciona una opción</option>
+                <option value="carne">Menú con carne</option>
+                <option value="pescado">Menú con pescado</option>
+                <option value="vegetariano">Menú vegetariano</option>
+                <option value="vegano">Menú vegano</option>
+              </select>
+            </div>
+            
+            <div>
+              <label for="dietary_restrictions" class="block text-sm font-medium text-text-secondary mb-2">
+                Restricciones alimentarias
+              </label>
+              <textarea 
+                id="dietary_restrictions" 
+                name="dietary_restrictions" 
+                rows="2" 
+                class="w-full px-4 py-3 border border-border-strong rounded-lg focus:ring-2 focus:ring-accent focus:border-accent"
+                placeholder="Ej: Sin gluten, sin lactosa, alergia a frutos secos..."
+              ></textarea>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
     <!-- Acompañantes y Niños -->
     <div id="plus-one-section" class="bg-bg-panel border border-border-strong/60 rounded-lg p-6 hidden">
       <div class="flex items-center mb-6">
@@ -188,75 +239,21 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
                 placeholder="Nombres y edades de los niños (ej: Ana 5 años, Carlos 8 años)"
               ></textarea>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <!-- Preferencias alimentarias -->
-    <div id="dietary-section" class="bg-bg-panel border border-border-strong/60 rounded-lg p-6 hidden">
-      <div class="flex items-center mb-6">
-        <div class="w-10 h-10 bg-accent rounded-full flex items-center justify-center mr-4">
-          <svg class="w-5 h-5 text-accent-contrast" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M3 5a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2h-2.22l.123.489.804.804A1 1 0 0113 18H7a1 1 0 01-.707-1.707l.804-.804L7.22 15H5a2 2 0 01-2-2V5zm5.771 7H5V5h10v7H8.771z" clip-rule="evenodd"/>
-          </svg>
-        </div>
-        <h3 class="font-serif text-xl text-text-secondary">Preferencias Alimentarias</h3>
-      </div>
-      
-      <div class="space-y-8">
-        <!-- Menú del invitado principal -->
-        <div class="border-l-4 border-accent pl-4">
-          <h4 class="font-medium text-text-secondary mb-4">Tu menú</h4>
-          <div class="space-y-4">
             <div>
-              <label for="menu_choice" class="block text-sm font-medium text-text-secondary mb-2">
-                Menú preferido
+              <label for="children_dietary_restrictions" class="block text-sm font-medium text-text-secondary mb-2">
+                Alergias o intolerancias de los niños
               </label>
-              <select 
-                id="menu_choice" 
-                name="menu_choice" 
+              <textarea
+                id="children_dietary_restrictions"
+                name="children_dietary_restrictions"
+                rows="2"
                 class="w-full px-4 py-3 border border-border-strong rounded-lg focus:ring-2 focus:ring-accent focus:border-accent"
-              >
-                <option value="">Selecciona una opción</option>
-                <option value="carne">Menú con carne</option>
-                <option value="pescado">Menú con pescado</option>
-                <option value="vegetariano">Menú vegetariano</option>
-                <option value="vegano">Menú vegano</option>
-              </select>
-            </div>
-            
-            <div>
-              <label for="dietary_restrictions" class="block text-sm font-medium text-text-secondary mb-2">
-                Restricciones alimentarias
-              </label>
-              <textarea 
-                id="dietary_restrictions" 
-                name="dietary_restrictions" 
-                rows="2" 
-                class="w-full px-4 py-3 border border-border-strong rounded-lg focus:ring-2 focus:ring-accent focus:border-accent"
-                placeholder="Ej: Sin gluten, sin lactosa, alergia a frutos secos..."
+                placeholder="Ej: alergia a frutos secos, intolerancia a la lactosa..."
               ></textarea>
             </div>
           </div>
         </div>
-
-        <!-- Restricciones de niños -->
-        <div id="children-menu" class="border-l-4 border-status-info/40 pl-4 hidden">
-          <div>
-            <label for="children_dietary_restrictions" class="block text-sm font-medium text-text-secondary mb-2">
-              Restricciones alimentarias de los niños
-            </label>
-            <textarea
-              id="children_dietary_restrictions"
-              name="children_dietary_restrictions"
-              rows="2"
-              class="w-full px-4 py-3 border border-border-strong rounded-lg focus:ring-2 focus:ring-accent focus:border-accent"
-              placeholder="Alergias o restricciones específicas de los niños..."
-            ></textarea>
-          </div>
-        </div>
-
       </div>
     </div>
 
@@ -445,7 +442,7 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
 
     if (attending && data.children) {
       rows.push(row('Niños', `${data.children_count}${data.children_names ? ` (${data.children_names})` : ''}`));
-      if (data.children_dietary_restrictions) rows.push(row('Rest. niños', data.children_dietary_restrictions));
+      if (data.children_dietary_restrictions) rows.push(row('Alergias/intolerancias niños', data.children_dietary_restrictions));
     }
 
     if (attending && data.needs_transport) rows.push(row('Transporte', 'Bus lanzadera solicitado'));
@@ -566,10 +563,12 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
             name="companions[${index}][name]"
             value="${data.name || ''}"
             placeholder="Nombre completo"
+            required
             class="w-full px-4 py-3 border border-border-strong rounded-lg focus:ring-2 focus:ring-accent focus:border-accent"
           />
           <select
             name="companions[${index}][menu_choice]"
+            required
             class="w-full px-4 py-3 border border-border-strong rounded-lg focus:ring-2 focus:ring-accent focus:border-accent"
           >
             <option value="">Selecciona una opción</option>
@@ -582,9 +581,10 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
         <div class="mt-3">
           <select
             name="companions[${index}][gender]"
+            required
             class="w-full px-4 py-3 border border-border-strong rounded-lg focus:ring-2 focus:ring-accent focus:border-accent"
           >
-            <option value="">Sexo (opcional)</option>
+            <option value="">Selecciona sexo</option>
             <option value="masculino" ${data.gender === 'masculino' ? 'selected' : ''}>Masculino</option>
             <option value="femenino" ${data.gender === 'femenino' ? 'selected' : ''}>Femenino</option>
             <option value="otro" ${data.gender === 'otro' ? 'selected' : ''}>Otro</option>
@@ -648,13 +648,10 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
 
     if (target.id === 'children') {
       const childrenDetails = document.getElementById('children-details');
-      const childrenMenu = document.getElementById('children-menu');
       if (target.checked) {
         childrenDetails?.classList.remove('hidden');
-        childrenMenu?.classList.remove('hidden');
       } else {
         childrenDetails?.classList.add('hidden');
-        childrenMenu?.classList.add('hidden');
         document.getElementById('children_count').value = '';
         document.getElementById('children_names').value = '';
         document.getElementById('children_dietary_restrictions').value = '';
@@ -686,10 +683,45 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
         });
         ci++;
       }
-      data.companions = companionsList.filter(c => c.name.length > 0);
+      data.companions = companionsList;
 
       // Convertir valores
       data.attending = data.attending === 'true';
+
+      // Validaciones de negocio
+      const validationErrors = [];
+
+      if (data.attending) {
+        data.companions.forEach((companion, index) => {
+          const companionLabel = `Acompañante ${index + 1}`;
+          if (!companion.name) {
+            validationErrors.push(`${companionLabel}: el nombre es obligatorio.`);
+          }
+          if (!companion.menu_choice) {
+            validationErrors.push(`${companionLabel}: debes seleccionar un tipo de menú.`);
+          }
+          if (!companion.gender) {
+            validationErrors.push(`${companionLabel}: debes seleccionar el sexo.`);
+          }
+        });
+
+        if (data.children === 'on') {
+          const childrenCount = parseInt(data.children_count, 10) || 0;
+          const childrenNames = (data.children_names || '').trim();
+
+          if (childrenCount <= 0) {
+            validationErrors.push('Si vienes con niños, debes indicar cuántos niños vienen.');
+          }
+          if (!childrenNames) {
+            validationErrors.push('Si vienes con niños, debes rellenar los nombres de los niños.');
+          }
+        }
+      }
+
+      if (validationErrors.length > 0) {
+        throw new Error(validationErrors.join('\n'));
+      }
+
       // Eliminar campos legacy que puedan venir del FormData
       delete data.plus_one; delete data.plus_one_name; delete data.plus_one_gender;
       
@@ -713,7 +745,7 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
       
     } catch (error) {
       console.error('Error submitting RSVP:', error);
-      alert('Error al guardar. Por favor, inténtalo de nuevo.');
+      alert(error?.message || 'Error al guardar. Por favor, inténtalo de nuevo.');
     } finally {
       submitBtn.disabled = false;
       submitBtn.textContent = 'Confirmar Asistencia';

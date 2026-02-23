@@ -241,28 +241,53 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
     }
   });
 
+  function formatGenderLabel(gender) {
+    const labels = {
+      masculino: "Masculino",
+      femenino: "Femenino",
+      otro: "Otro",
+    };
+    if (!gender) return "No especificado";
+    return labels[gender] || gender;
+  }
+
+  function formatMenuLabel(menuChoice) {
+    const labels = {
+      carne: "Menú con carne",
+      pescado: "Menú con pescado",
+      vegetariano: "Menú vegetariano",
+      vegano: "Menú vegano",
+    };
+    if (!menuChoice) return "No especificado";
+    return labels[menuChoice] || menuChoice;
+  }
+
   function displayRSVPStatus(rsvp) {
     const statusContainer = document.getElementById("rsvp-status");
     if (!statusContainer) return;
 
+    const isPending = rsvp.attending === null || typeof rsvp.attending === "undefined";
+    const isAttending = rsvp.attending === true || rsvp.attending === 1;
+    const companions = Array.isArray(rsvp.companions) ? rsvp.companions : [];
+    const hasCompanions = companions.length > 0;
+
     let statusHtml = "";
 
-    if (rsvp.attending === null) {
+    if (isPending) {
       statusHtml = `
         <div class="bg-status-warning/10 border border-status-warning/30 rounded-lg p-4">
           <p class="font-semibold text-status-warning">Pendiente de confirmación</p>
           <p class="text-sm text-status-warning">Aún no has confirmado tu asistencia</p>
         </div>
       `;
-    } else if (rsvp.attending) {
+    } else if (isAttending) {
       statusHtml = `
         <div class="bg-status-success/10 border border-status-success/30 rounded-lg p-4">
           <p class="font-semibold text-status-success">Confirmado</p>
           <p class="text-sm text-status-success">Gracias por confirmar tu asistencia</p>
-          ${rsvp.plus_one ? `
+          ${hasCompanions ? `
             <div class="mt-2 pt-2 border-t border-status-success/40">
-              <p class="text-sm text-status-success"><strong>Acompañante:</strong> ${rsvp.plus_one_name || "Sin especificar"}</p>
-              ${rsvp.plus_one_gender ? `<p class="text-sm text-status-success"><strong>Género:</strong> ${rsvp.plus_one_gender}</p>` : ""}
+              <p class="text-sm text-status-success"><strong>Acompañantes:</strong> ${companions.map((c) => c.name || "Sin nombre").join(", ")}</p>
             </div>
           ` : ""}
         </div>
@@ -277,28 +302,63 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
     }
 
     // Agregar detalles adicionales si existen
-    const hasAdditionalDetails = rsvp.gender || rsvp.menu_choice || rsvp.dietary_restrictions || 
-                                rsvp.plus_one_menu_choice || rsvp.plus_one_dietary_restrictions ||
-                                rsvp.children || rsvp.needs_transport || rsvp.notes;
+    const hasAdditionalDetails =
+      rsvp.phone ||
+      rsvp.gender ||
+      rsvp.menu_choice ||
+      rsvp.dietary_restrictions ||
+      (isAttending && hasCompanions) ||
+      rsvp.children ||
+      rsvp.children_menu_choice ||
+      rsvp.children_dietary_restrictions ||
+      rsvp.needs_transport ||
+      rsvp.notes;
+
+    const hasChildrenDetails = rsvp.children || rsvp.children_menu_choice || rsvp.children_dietary_restrictions;
+    const hasLogisticsDetails = rsvp.needs_transport || rsvp.notes;
     
     if (hasAdditionalDetails) {
       statusHtml += `
         <div class="bg-status-info/10 border border-status-info/30 rounded-lg p-4 mt-4">
           <p class="font-semibold text-status-info mb-2">Detalles adicionales</p>
           
-          ${rsvp.gender ? `<p class="text-sm text-status-info"><strong>Género:</strong> ${rsvp.gender}</p>` : ""}
-          ${rsvp.menu_choice ? `<p class="text-sm text-status-info"><strong>Menú:</strong> ${rsvp.menu_choice}</p>` : ""}
+          ${rsvp.phone ? `<p class="text-sm text-status-info"><strong>Teléfono:</strong> ${rsvp.phone}</p>` : ""}
+          ${rsvp.gender ? `<p class="text-sm text-status-info"><strong>Sexo:</strong> ${formatGenderLabel(rsvp.gender)}</p>` : ""}
+          ${rsvp.menu_choice ? `<p class="text-sm text-status-info"><strong>Menú:</strong> ${formatMenuLabel(rsvp.menu_choice)}</p>` : ""}
           ${rsvp.dietary_restrictions ? `<p class="text-sm text-status-info"><strong>Restricciones dietéticas:</strong> ${rsvp.dietary_restrictions}</p>` : ""}
-          
-          ${rsvp.plus_one_menu_choice ? `<p class="text-sm text-status-info"><strong>Menú acompañante:</strong> ${rsvp.plus_one_menu_choice}</p>` : ""}
-          ${rsvp.plus_one_dietary_restrictions ? `<p class="text-sm text-status-info"><strong>Restricciones acompañante:</strong> ${rsvp.plus_one_dietary_restrictions}</p>` : ""}
-          
-          ${rsvp.children ? `<p class="text-sm text-status-info"><strong>Niños:</strong> ${rsvp.children_count || 'Sí'} ${rsvp.children_names ? `(${rsvp.children_names})` : ''}</p>` : ""}
-          ${rsvp.children_menu_choice ? `<p class="text-sm text-status-info"><strong>Menú niños:</strong> ${rsvp.children_menu_choice}</p>` : ""}
-          ${rsvp.children_dietary_restrictions ? `<p class="text-sm text-status-info"><strong>Restricciones niños:</strong> ${rsvp.children_dietary_restrictions}</p>` : ""}
-          
-          ${rsvp.needs_transport ? `<p class="text-sm text-status-info"><strong>Transporte:</strong> Necesita bus lanzadera</p>` : ""}
-          ${rsvp.notes ? `<p class="text-sm text-status-info"><strong>Comentarios:</strong> ${rsvp.notes}</p>` : ""}
+
+          ${isAttending && hasCompanions ? `
+            <div class="mt-3 pt-3 border-t border-status-info/30">
+              <p class="text-sm font-semibold text-status-info mb-2">Acompañantes</p>
+              <div class="space-y-2">
+                ${companions.map((companion, index) => `
+                  <div class="text-sm text-status-info">
+                    <p><strong>${index + 1}. Nombre:</strong> ${companion.name || 'Sin especificar'}</p>
+                    <p><strong>Sexo:</strong> ${formatGenderLabel(companion.gender)}</p>
+                    <p><strong>Menú:</strong> ${formatMenuLabel(companion.menu_choice)}</p>
+                    <p><strong>Intolerancias:</strong> ${companion.dietary_restrictions || 'No especificado'}</p>
+                  </div>
+                `).join("")}
+              </div>
+            </div>
+          ` : ""}
+
+          ${hasChildrenDetails ? `
+            <div class="mt-3 pt-3 border-t border-status-info/30">
+              <p class="text-sm font-semibold text-status-info mb-2">Niños</p>
+              ${rsvp.children ? `<p class="text-sm text-status-info"><strong>Niños:</strong> ${rsvp.children_count || 'Sí'} ${rsvp.children_names ? `(${rsvp.children_names})` : ''}</p>` : ""}
+              ${rsvp.children_menu_choice ? `<p class="text-sm text-status-info"><strong>Menú niños:</strong> ${formatMenuLabel(rsvp.children_menu_choice)}</p>` : ""}
+              ${rsvp.children_dietary_restrictions ? `<p class="text-sm text-status-info"><strong>Restricciones niños:</strong> ${rsvp.children_dietary_restrictions}</p>` : ""}
+            </div>
+          ` : ""}
+
+          ${hasLogisticsDetails ? `
+            <div class="mt-3 pt-3 border-t border-status-info/30">
+              <p class="text-sm font-semibold text-status-info mb-2">Transporte y comentarios</p>
+              ${rsvp.needs_transport ? `<p class="text-sm text-status-info"><strong>Transporte:</strong> Necesita bus lanzadera</p>` : ""}
+              ${rsvp.notes ? `<p class="text-sm text-status-info"><strong>Comentarios:</strong> ${rsvp.notes}</p>` : ""}
+            </div>
+          ` : ""}
         </div>
       `;
     }

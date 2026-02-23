@@ -44,6 +44,11 @@ else
 fi
 
 echo "✅ Database initialization complete"
+
+# Run pending database migrations (idempotent – safe to run every start)
+echo "🔄 Running database migrations..."
+node scripts/migrate-database.js
+
 echo "🎉 Starting server as appuser..."
 
 # Drop from root to appuser and exec the application

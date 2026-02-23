@@ -163,9 +163,9 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
                   <h4 class="font-medium text-text-secondary mb-2">Por Género</h4>
                   <div id="gender-stats" class="space-y-2"></div>
                 </div>
-                <div>
-                  <h4 class="font-medium text-text-secondary mb-2">Por Grupo de Edad</h4>
-                  <div id="age-stats" class="space-y-2"></div>
+                <div class="flex justify-between items-center mt-4">
+                  <span class="text-text-secondary">Total Niños:</span>
+                  <span id="demographics-children" class="font-bold text-text-secondary">-</span>
                 </div>
               </div>
             </div>
@@ -182,10 +182,6 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
                   <h4 class="font-medium text-text-secondary mb-2">Restricciones Dietéticas</h4>
                   <div id="dietary-stats" class="space-y-2"></div>
                 </div>
-                <div>
-                  <h4 class="font-medium text-text-secondary mb-2">Alergias</h4>
-                  <div id="allergy-stats" class="space-y-2"></div>
-                </div>
               </div>
             </div>
 
@@ -196,14 +192,6 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
                 <div class="flex justify-between items-center">
                   <span class="text-text-secondary">Necesitan Transporte:</span>
                   <span id="transport-needed" class="font-bold text-status-info">-</span>
-                </div>
-                <div>
-                  <h4 class="font-medium text-text-secondary mb-2">Ubicaciones de Recogida</h4>
-                  <div id="transport-locations" class="space-y-2"></div>
-                </div>
-                <div class="flex justify-between items-center">
-                  <span class="text-text-secondary">Necesitan Alojamiento:</span>
-                  <span id="accommodation-needed" class="font-bold text-status-info">-</span>
                 </div>
               </div>
             </div>
@@ -223,6 +211,10 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
                 <div class="flex justify-between items-center">
                   <span class="text-text-secondary">Acompañantes:</span>
                   <span id="plus-ones" class="font-bold text-text-secondary">-</span>
+                </div>
+                <div class="flex justify-between items-center">
+                  <span class="text-text-secondary">Niños:</span>
+                  <span id="people-children" class="font-bold text-text-secondary">-</span>
                 </div>
               </div>
             </div>
@@ -315,10 +307,12 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
                     <th class="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Nombre</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Email</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Estado</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Género</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Acompañante</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Acompañantes</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Menú</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Rest. Dietéticas</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Niños</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Transporte</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Notas</th>
                   </tr>
                 </thead>
                 <tbody id="full-guests-table-body" class="bg-bg-panel divide-y divide-border-strong/60">
@@ -665,7 +659,7 @@ Modal para crear invitación -->
     // Update additional stats if elements exist
     const plusOneElement = document.getElementById('plus-one-count');
     if (plusOneElement) {
-      plusOneElement.textContent = composition.withPlusOne || '0';
+      plusOneElement.textContent = composition.withCompanions || '0';
     }
     
     const childrenElement = document.getElementById('children-count');
@@ -687,7 +681,7 @@ Modal para crear invitación -->
     tbody.innerHTML = guests.map(guest => {
       const status = guest.attending === 1 ? 'Confirmado' : guest.attending === 0 ? 'No asiste' : 'Pendiente';
       const statusClass = guest.attending === 1 ? 'text-status-success' : guest.attending === 0 ? 'text-status-danger' : 'text-status-warning';
-      const plusOne = guest.plus_one ? (guest.plus_one_name || 'Sí') : 'No';
+      const plusOne = (guest.companions || []).length > 0 ? guest.companions.map(c => c.name).join(', ') : 'No';
       const date = new Date(guest.created_at).toLocaleDateString('es-ES');
       
       return `
@@ -714,7 +708,9 @@ Modal para crear invitación -->
     // Actualizar contadores principales
     document.getElementById('total-people').textContent = basic.totalPeople || '0';
     document.getElementById('main-guests').textContent = basic.attending || '0';
-    document.getElementById('plus-ones').textContent = composition.withPlusOne || '0';
+    document.getElementById('plus-ones').textContent = composition.totalCompanions || '0';
+    document.getElementById('demographics-children').textContent = composition.totalChildren || '0';
+    document.getElementById('people-children').textContent = composition.totalChildren || '0';
     
     // Estadísticas de transporte
     document.getElementById('transport-needed').textContent = logistics.transportCount || '0';
@@ -725,8 +721,21 @@ Modal para crear invitación -->
     // Estadísticas de menú consolidadas
     updateStatsSection('menu-stats', catering.menuChoices || []);
     
-    // Estadísticas dietéticas consolidadas
-    updateStatsSection('dietary-stats', catering.dietaryRestrictions || []);
+    // Restricciones dietéticas con nombres de personas
+    const dietaryEl = document.getElementById('dietary-stats');
+    if (dietaryEl) {
+      const items = catering.dietaryRestrictions || [];
+      if (items.length === 0) {
+        dietaryEl.innerHTML = '<p class="text-text-muted text-sm">Sin restricciones registradas</p>';
+      } else {
+        dietaryEl.innerHTML = items.map(item =>
+          `<div class="py-1">
+            <span class="text-text-secondary font-medium">${item.restriction}:</span>
+            <span class="text-text-muted text-xs ml-1">${item.people}</span>
+          </div>`
+        ).join('');
+      }
+    }
     
     // Estadísticas de niños
     const childrenElement = document.getElementById('children-stats');
@@ -816,24 +825,38 @@ Modal para crear invitación -->
   function updateFullGuestsTable(guests) {
     const tbody = document.getElementById('full-guests-table-body');
     if (!tbody) return;
-    
+
     tbody.innerHTML = guests.map(guest => {
       const status = guest.attending === 1 ? 'Confirmado' : guest.attending === 0 ? 'No asiste' : 'Pendiente';
       const statusClass = guest.attending === 1 ? 'text-status-success' : guest.attending === 0 ? 'text-status-danger' : 'text-status-warning';
-      const gender = guest.gender || 'No especificado';
-      const plusOne = guest.plus_one ? (guest.plus_one_name || 'Sí') : 'No';
-      const menu = guest.menu_choice || 'No especificado';
+      const genderLabel = guest.gender ? `<span class="text-xs text-text-muted">${guest.gender}</span>` : '';
+      const phoneLabel = guest.phone ? `<span class="text-xs text-text-muted">${guest.phone}</span>` : '';
+      const companions = (guest.companions || []).length > 0
+        ? guest.companions.map(c => {
+            const g = c.gender ? ` <span class="text-xs text-text-muted">(${c.gender})</span>` : '';
+            return `${c.name}${g} — <em>${c.menu_choice || 'sin menú'}</em>`;
+          }).join('<br>')
+        : '<span class="text-text-muted">Ninguno</span>';
+      const menu = guest.menu_choice || '-';
+      const dietary = guest.dietary_restrictions || '-';
+      const children = guest.children ? `${guest.children_count} (${guest.children_names || 'sin nombres'})` : 'No';
       const transport = guest.needs_transport ? 'Sí' : 'No';
-      
+      const notes = guest.notes || '-';
+
       return `
         <tr>
-          <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-text-primary">${guest.name}</td>
+          <td class="px-6 py-4 whitespace-nowrap">
+            <div class="text-sm font-medium text-text-primary">${guest.name}</div>
+            <div class="flex gap-2 mt-0.5">${genderLabel}${genderLabel && phoneLabel ? '<span class="text-text-muted">·</span>' : ''}${phoneLabel}</div>
+          </td>
           <td class="px-6 py-4 whitespace-nowrap text-sm">${guest.email || '-'}</td>
           <td class="px-6 py-4 whitespace-nowrap text-sm ${statusClass}">${status}</td>
-          <td class="px-6 py-4 whitespace-nowrap text-sm text-text-muted">${gender}</td>
-          <td class="px-6 py-4 whitespace-nowrap text-sm text-text-muted">${plusOne}</td>
+          <td class="px-6 py-4 text-sm text-text-muted">${companions}</td>
           <td class="px-6 py-4 whitespace-nowrap text-sm text-text-muted">${menu}</td>
+          <td class="px-6 py-4 text-sm text-text-muted">${dietary}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-text-muted">${children}</td>
           <td class="px-6 py-4 whitespace-nowrap text-sm text-text-muted">${transport}</td>
+          <td class="px-6 py-4 text-sm text-text-muted">${notes}</td>
         </tr>
       `;
     }).join('');

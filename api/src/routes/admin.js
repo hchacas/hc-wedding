@@ -86,7 +86,7 @@ router.post('/invitations', requireBasicAuth, async (req, res) => {
 router.get('/summary', requireBasicAuth, async (req, res) => {
   try {
     const summary = await Guest.getSummary();
-    const recentGuests = await Guest.getAll();
+    const recentGuests = await Guest.getAllWithCompanions();
     
     res.json({
       success: true,
@@ -108,42 +108,38 @@ router.get('/summary', requireBasicAuth, async (req, res) => {
 router.get('/export', requireBasicAuth, async (req, res) => {
   try {
     const format = req.query.format || 'json';
-    const guests = await Guest.getAll();
-    
+    const guests = await Guest.getAllWithCompanions();
+
     if (format === 'csv') {
-      // Generar CSV con campos actualizados
-      const csvHeader = 'ID,Nombre,Email,Teléfono,Asiste,Acompañante,Nombre Acompañante,Género,Grupo Edad,Género Acompañante,Edad Acompañante,Restricciones,Menú,Alergias,Transporte,Ubicación Transporte,Alojamiento,Solicitudes Especiales,Notas,Fecha Creación\n';
+      const escapeCsv = (str) => str ? `"${str.replace(/"/g, '""')}"` : '""';
+      const csvHeader = 'ID,Nombre,Email,Teléfono,Asiste,Género,Acompañantes,Menú Principal,Rest. Dietéticas,Niños,Nombres Niños,Menú Niños,Transporte,Notas,Fecha\n';
       const csvRows = guests.map(guest => {
-        const escapeCsv = (str) => str ? `"${str.replace(/"/g, '""')}"` : '""';
         const attending = guest.attending === 1 ? 'Sí' : guest.attending === 0 ? 'No' : 'Pendiente';
-        const plusOne = guest.plus_one ? 'Sí' : 'No';
         const transport = guest.needs_transport ? 'Sí' : 'No';
-        const accommodation = guest.accommodation_needed ? 'Sí' : 'No';
-        
+        const children = guest.children ? 'Sí' : 'No';
+        const companionsStr = (guest.companions || []).length > 0
+          ? guest.companions.map(c => `${c.name}${c.gender ? ` (${c.gender})` : ''} — ${c.menu_choice || 'sin menú'}`).join(' | ')
+          : '';
+
         return [
           guest.id,
           escapeCsv(guest.name),
           escapeCsv(guest.email || ''),
           escapeCsv(guest.phone || ''),
           attending,
-          plusOne,
-          escapeCsv(guest.plus_one_name || ''),
           escapeCsv(guest.gender || ''),
-          escapeCsv(guest.age_group || ''),
-          escapeCsv(guest.plus_one_gender || ''),
-          escapeCsv(guest.plus_one_age_group || ''),
-          escapeCsv(guest.dietary_restrictions || ''),
+          escapeCsv(companionsStr),
           escapeCsv(guest.menu_choice || ''),
-          escapeCsv(guest.allergies || ''),
+          escapeCsv(guest.dietary_restrictions || ''),
+          children,
+          escapeCsv(guest.children_names || ''),
+          escapeCsv(guest.children_menu_choice || ''),
           transport,
-          escapeCsv(guest.transport_location || ''),
-          accommodation,
-          escapeCsv(guest.special_requests || ''),
           escapeCsv(guest.notes || ''),
           escapeCsv(guest.created_at || '')
         ].join(',');
       }).join('\n');
-      
+
       res.setHeader('Content-Type', 'text/csv');
       res.setHeader('Content-Disposition', 'attachment; filename="invitados.csv"');
       res.send(csvHeader + csvRows);

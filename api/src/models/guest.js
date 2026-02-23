@@ -31,11 +31,7 @@ export class Guest {
     const {
       attending,
       gender,
-      plus_one,
-      plus_one_name,
-      plus_one_gender,
-      plus_one_menu_choice,
-      plus_one_dietary_restrictions,
+      phone,
       children,
       children_count,
       children_names,
@@ -51,15 +47,11 @@ export class Guest {
     const normalizedData = {
       attending: (attending === true || attending === 1 || attending === "true") ? 1 : 0,
       gender: gender || null,
-      plus_one: (plus_one === true || plus_one === 1 || plus_one === "on") ? 1 : 0,
-      plus_one_name: plus_one_name || null,
-      plus_one_gender: plus_one_gender || null,
-      plus_one_menu_choice: plus_one_menu_choice || null,
-      plus_one_dietary_restrictions: plus_one_dietary_restrictions || null,
+      phone: phone || null,
       children: (children === true || children === 1 || children === "on") ? 1 : 0,
       children_count: parseInt(children_count) || 0,
       children_names: children_names || null,
-      children_menu_choice: children_menu_choice || null,
+      children_menu_choice: (children === true || children === 1 || children === "on") ? (children_menu_choice || 'ninos') : null,
       children_dietary_restrictions: children_dietary_restrictions || null,
       menu_choice: menu_choice || null,
       dietary_restrictions: dietary_restrictions || null,
@@ -71,11 +63,7 @@ export class Guest {
       UPDATE guests SET
         attending = ?,
         gender = ?,
-        plus_one = ?,
-        plus_one_name = ?,
-        plus_one_gender = ?,
-        plus_one_menu_choice = ?,
-        plus_one_dietary_restrictions = ?,
+        phone = ?,
         children = ?,
         children_count = ?,
         children_names = ?,
@@ -90,11 +78,7 @@ export class Guest {
     `, [
       normalizedData.attending,
       normalizedData.gender,
-      normalizedData.plus_one,
-      normalizedData.plus_one_name,
-      normalizedData.plus_one_gender,
-      normalizedData.plus_one_menu_choice,
-      normalizedData.plus_one_dietary_restrictions,
+      normalizedData.phone,
       normalizedData.children,
       normalizedData.children_count,
       normalizedData.children_names,
@@ -108,6 +92,33 @@ export class Guest {
     ]);
 
     return await Guest.findById(guestId);
+  }
+
+  static async getCompanions(guestId) {
+    return await dbAll('SELECT * FROM companions WHERE guest_id = ? ORDER BY id ASC', [guestId]);
+  }
+
+  static async setCompanions(guestId, companions) {
+    await dbRun('DELETE FROM companions WHERE guest_id = ?', [guestId]);
+    for (const c of companions) {
+      const name = (c.name || '').trim();
+      if (!name) continue;
+      await dbRun(
+        `INSERT INTO companions (guest_id, name, menu_choice, dietary_restrictions, gender) VALUES (?, ?, ?, ?, ?)`,
+        [guestId, name, c.menu_choice || null, c.dietary_restrictions || null, c.gender || null]
+      );
+    }
+  }
+
+  static async getAllWithCompanions() {
+    const guests = await dbAll('SELECT * FROM guests ORDER BY created_at DESC');
+    for (const guest of guests) {
+      guest.companions = await dbAll(
+        'SELECT id, name, menu_choice, dietary_restrictions, gender FROM companions WHERE guest_id = ? ORDER BY id ASC',
+        [guest.id]
+      );
+    }
+    return guests;
   }
 
   static async getAll() {
@@ -124,9 +135,20 @@ export class Guest {
     const attending = await dbGet('SELECT COUNT(*) as count FROM guests WHERE attending = 1');
     const notAttending = await dbGet('SELECT COUNT(*) as count FROM guests WHERE attending = 0');
     const pending = await dbGet('SELECT COUNT(*) as count FROM guests WHERE attending IS NULL');
-    
+
     // Estadísticas de acompañantes y niños
-    const plusOnes = await dbGet('SELECT COUNT(*) as count FROM guests WHERE attending = 1 AND plus_one = 1');
+    const withCompanions = await dbGet(`
+      SELECT COUNT(DISTINCT c.guest_id) as count
+      FROM companions c
+      INNER JOIN guests g ON c.guest_id = g.id
+      WHERE g.attending = 1
+    `);
+    const totalCompanions = await dbGet(`
+      SELECT COUNT(*) as count
+      FROM companions c
+      INNER JOIN guests g ON c.guest_id = g.id
+      WHERE g.attending = 1
+    `);
     const withChildren = await dbGet('SELECT COUNT(*) as count FROM guests WHERE attending = 1 AND children = 1');
     const totalChildren = await dbGet(`
       SELECT COALESCE(SUM(children_count), 0) as total
@@ -135,66 +157,112 @@ export class Guest {
 
     // Total de personas (invitados + acompañantes + niños)
     const totalPeople = await dbGet(`
-      SELECT 
-        (SELECT COUNT(*) FROM guests WHERE attending = 1) + 
-        (SELECT COUNT(*) FROM guests WHERE attending = 1 AND plus_one = 1) +
+      SELECT
+        (SELECT COUNT(*) FROM guests WHERE attending = 1) +
+        (SELECT COUNT(*) FROM companions c INNER JOIN guests g ON c.guest_id = g.id WHERE g.attending = 1) +
         (SELECT COALESCE(SUM(children_count), 0) FROM guests WHERE attending = 1 AND children = 1) as total
     `);
 
-    // Estadísticas por género (útil para organización)
+    // Estadísticas por género (invitados principales + acompañantes)
     const genderStats = await dbAll(`
-      SELECT 
-        COALESCE(gender, 'No especificado') as gender,
-        COUNT(*) as count
-      FROM guests WHERE attending = 1
-      GROUP BY gender
-    `);
-
-    const plusOneGenderStats = await dbAll(`
-      SELECT 
-        COALESCE(plus_one_gender, 'No especificado') as gender,
-        COUNT(*) as count
-      FROM guests WHERE attending = 1 AND plus_one = 1
-      GROUP BY plus_one_gender
+      SELECT gender, COUNT(*) as count FROM (
+        SELECT COALESCE(g.gender, 'No especificado') as gender
+        FROM guests g WHERE g.attending = 1
+        UNION ALL
+        SELECT c.gender
+        FROM companions c INNER JOIN guests g ON c.guest_id = g.id
+        WHERE g.attending = 1 AND c.gender IS NOT NULL
+      ) GROUP BY gender ORDER BY count DESC
     `);
 
     // Estadísticas de menú consolidadas (para catering)
     const allMenuChoices = await dbAll(`
-      SELECT menu_type, menu_choice, COUNT(*) as count FROM (
-        SELECT 'Principal' as menu_type, menu_choice 
+      SELECT menu_type, menu_choice, SUM(quantity) as count FROM (
+        SELECT 'Principal' as menu_type, menu_choice, 1 as quantity
         FROM guests WHERE attending = 1 AND menu_choice IS NOT NULL AND menu_choice != ''
         UNION ALL
-        SELECT 'Acompañante' as menu_type, plus_one_menu_choice as menu_choice
-        FROM guests WHERE attending = 1 AND plus_one = 1 AND plus_one_menu_choice IS NOT NULL AND plus_one_menu_choice != ''
+        SELECT 'Acompañante' as menu_type, c.menu_choice as menu_choice, 1 as quantity
+        FROM companions c INNER JOIN guests g ON c.guest_id = g.id
+        WHERE g.attending = 1 AND c.menu_choice IS NOT NULL AND c.menu_choice != ''
         UNION ALL
-        SELECT 'Niños' as menu_type, children_menu_choice as menu_choice
-        FROM guests WHERE attending = 1 AND children = 1 AND children_menu_choice IS NOT NULL AND children_menu_choice != ''
+        SELECT
+          'Niños' as menu_type,
+          children_menu_choice as menu_choice,
+          CASE WHEN children_count > 0 THEN children_count ELSE 0 END as quantity
+        FROM guests
+        WHERE attending = 1 AND children = 1 AND children_menu_choice IS NOT NULL AND children_menu_choice != ''
       ) GROUP BY menu_choice ORDER BY count DESC
     `);
 
     // Restricciones dietéticas consolidadas (crítico para catering)
     const allDietaryRestrictions = await dbAll(`
-      SELECT restriction, COUNT(*) as count FROM (
-        SELECT dietary_restrictions as restriction
+      SELECT restriction, GROUP_CONCAT(person_name, ', ') as people, COUNT(*) as count FROM (
+        SELECT dietary_restrictions as restriction, name as person_name
         FROM guests WHERE attending = 1 AND dietary_restrictions IS NOT NULL AND dietary_restrictions != ''
         UNION ALL
-        SELECT plus_one_dietary_restrictions as restriction
-        FROM guests WHERE attending = 1 AND plus_one = 1 AND plus_one_dietary_restrictions IS NOT NULL AND plus_one_dietary_restrictions != ''
+        SELECT c.dietary_restrictions as restriction, c.name as person_name
+        FROM companions c INNER JOIN guests g ON c.guest_id = g.id
+        WHERE g.attending = 1 AND c.dietary_restrictions IS NOT NULL AND c.dietary_restrictions != ''
         UNION ALL
-        SELECT children_dietary_restrictions as restriction
+        SELECT children_dietary_restrictions as restriction, name || ' (niños)' as person_name
         FROM guests WHERE attending = 1 AND children = 1 AND children_dietary_restrictions IS NOT NULL AND children_dietary_restrictions != ''
       ) GROUP BY restriction ORDER BY count DESC
     `);
 
     // Estadísticas de transporte (crítico para logística)
     const transportNeeded = await dbGet('SELECT COUNT(*) as count FROM guests WHERE attending = 1 AND needs_transport = 1');
-    
+    const transportGuests = await dbAll(`
+      SELECT id, name, children, children_count, children_names
+      FROM guests
+      WHERE attending = 1 AND needs_transport = 1
+      ORDER BY name
+    `);
+    const transportPeople = [];
+
+    for (const guest of transportGuests) {
+      // Host siempre incluido cuando solicita transporte
+      transportPeople.push({
+        name: guest.name,
+        role: 'host',
+        host: guest.name
+      });
+
+      const companions = await dbAll(
+        'SELECT name FROM companions WHERE guest_id = ? ORDER BY id ASC',
+        [guest.id]
+      );
+
+      companions.forEach((companion) => {
+        transportPeople.push({
+          name: companion.name,
+          role: 'companion',
+          host: guest.name
+        });
+      });
+
+      const childrenCount = guest.children ? (parseInt(guest.children_count, 10) || 0) : 0;
+      if (childrenCount > 0) {
+        const parsedChildrenNames = (guest.children_names || '')
+          .split(/[\n,;]+/)
+          .map((name) => name.trim())
+          .filter(Boolean);
+
+        for (let i = 0; i < childrenCount; i++) {
+          transportPeople.push({
+            name: parsedChildrenNames[i] || `Niño ${i + 1}`,
+            role: 'child',
+            host: guest.name
+          });
+        }
+      }
+    }
+
     // Desglose detallado de niños por familia
     const childrenBreakdown = await dbAll(`
-      SELECT 
+      SELECT
         children_count as count,
         COUNT(*) as families
-      FROM guests 
+      FROM guests
       WHERE attending = 1 AND children = 1 AND children_count > 0
       GROUP BY children_count
       ORDER BY children_count
@@ -202,8 +270,8 @@ export class Guest {
 
     // Lista de teléfonos para contacto
     const phoneNumbers = await dbAll(`
-      SELECT name, phone 
-      FROM guests 
+      SELECT name, phone
+      FROM guests
       WHERE attending = 1 AND phone IS NOT NULL AND phone != ""
       ORDER BY name
     `);
@@ -220,8 +288,9 @@ export class Guest {
 
       // Composición de invitados
       composition: {
-        soloGuests: attending.count - plusOnes.count - withChildren.count,
-        withPlusOne: plusOnes.count,
+        soloGuests: attending.count - withCompanions.count - withChildren.count,
+        withCompanions: withCompanions.count,
+        totalCompanions: totalCompanions.count,
         withChildren: withChildren.count,
         totalChildren: totalChildren.total,
         childrenBreakdown: childrenBreakdown
@@ -229,8 +298,7 @@ export class Guest {
 
       // Demografía (útil para organización)
       demographics: {
-        mainGuests: genderStats,
-        plusOnes: plusOneGenderStats
+        mainGuests: genderStats
       },
 
       // Catering (crítico para planificación)
@@ -244,6 +312,8 @@ export class Guest {
       logistics: {
         needsTransport: transportNeeded.count > 0,
         transportCount: transportNeeded.count,
+        transportPeopleTotal: transportPeople.length,
+        transportPeople,
         phoneNumbers: phoneNumbers
       }
     };

@@ -22,6 +22,7 @@ RUN npm ci --omit=dev
 # Copiar código fuente (excluyendo node_modules local)
 COPY src/ ./src/
 COPY scripts/ ./scripts/
+COPY migrations/ ./migrations/
 
 # Crear directorio para la base de datos
 RUN mkdir -p /app/data

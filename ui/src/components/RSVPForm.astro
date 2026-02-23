@@ -116,111 +116,6 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
       </div>
     </div>
 
-    <!-- Acompañantes y Niños -->
-    <div id="plus-one-section" class="bg-bg-panel border border-border-strong/60 rounded-lg p-6 hidden">
-      <div class="flex items-center mb-6">
-        <div class="w-10 h-10 bg-accent rounded-full flex items-center justify-center mr-4">
-          <svg class="w-5 h-5 text-accent-contrast" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"/>
-          </svg>
-        </div>
-        <h3 class="font-serif text-xl text-text-secondary">Acompañantes</h3>
-      </div>
-      
-      <div class="space-y-6">
-        <!-- Acompañante adulto -->
-        <div>
-          <label class="flex items-center space-x-4 cursor-pointer p-4 border border-border-strong/60 rounded-lg hover:bg-surface-1 transition-colors">
-            <input 
-              type="checkbox" 
-              id="plus_one" 
-              name="plus_one" 
-              class="w-5 h-5 text-accent focus:ring-accent rounded"
-            />
-            <span class="font-medium text-text-secondary">Vendré con acompañante adulto</span>
-          </label>
-          
-          <div id="plus-one-details" class="hidden mt-4 space-y-4">
-            <div class="grid md:grid-cols-2 gap-4">
-              <div>
-                <label for="plus_one_name" class="block text-sm font-medium text-text-secondary mb-2">
-                  Nombre completo del acompañante
-                </label>
-                <input 
-                  type="text" 
-                  id="plus_one_name" 
-                  name="plus_one_name" 
-                  class="w-full px-4 py-3 border border-border-strong rounded-lg focus:ring-2 focus:ring-accent focus:border-accent"
-                  placeholder="Nombre completo"
-                />
-              </div>
-              
-              <div>
-                <label for="plus_one_gender" class="block text-sm font-medium text-text-secondary mb-2">
-                  Sexo
-                </label>
-                <select 
-                  id="plus_one_gender" 
-                  name="plus_one_gender" 
-                  class="w-full px-4 py-3 border border-border-strong rounded-lg focus:ring-2 focus:ring-accent focus:border-accent"
-                >
-                  <option value="">Seleccionar</option>
-                  <option value="masculino">Masculino</option>
-                  <option value="femenino">Femenino</option>
-                  <option value="otro">Otro</option>
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Niños -->
-        <div>
-          <label class="flex items-center space-x-4 cursor-pointer p-4 border border-border-strong/60 rounded-lg hover:bg-surface-1 transition-colors">
-            <input 
-              type="checkbox" 
-              id="children" 
-              name="children" 
-              class="w-5 h-5 text-accent focus:ring-accent rounded"
-            />
-            <span class="font-medium text-text-secondary">Vendré con niños</span>
-          </label>
-          
-          <div id="children-details" class="hidden mt-4 space-y-4">
-            <div>
-              <label for="children_count" class="block text-sm font-medium text-text-secondary mb-2">
-                Número de niños
-              </label>
-              <select 
-                id="children_count" 
-                name="children_count" 
-                class="w-full px-4 py-3 border border-border-strong rounded-lg focus:ring-2 focus:ring-accent focus:border-accent"
-              >
-                <option value="">Seleccionar</option>
-                <option value="1">1 niño</option>
-                <option value="2">2 niños</option>
-                <option value="3">3 niños</option>
-                <option value="4">4 o más niños</option>
-              </select>
-            </div>
-            
-            <div>
-              <label for="children_names" class="block text-sm font-medium text-text-secondary mb-2">
-                Nombres de los niños
-              </label>
-              <textarea 
-                id="children_names" 
-                name="children_names" 
-                rows="3" 
-                class="w-full px-4 py-3 border border-border-strong rounded-lg focus:ring-2 focus:ring-accent focus:border-accent"
-                placeholder="Nombres y edades de los niños (ej: Ana 5 años, Carlos 8 años)"
-              ></textarea>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <!-- Preferencias alimentarias -->
     <div id="dietary-section" class="bg-bg-panel border border-border-strong/60 rounded-lg p-6 hidden">
       <div class="flex items-center mb-6">
@@ -269,88 +164,95 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
           </div>
         </div>
 
-        <!-- Menú del acompañante -->
-        <div id="plus-one-menu" class="border-l-4 border-border-strong pl-4 hidden">
-          <h4 class="font-medium text-text-secondary mb-4">Menú del acompañante</h4>
-          <div class="space-y-4">
-            <div>
-              <label for="plus_one_menu_choice" class="block text-sm font-medium text-text-secondary mb-2">
-                Menú preferido del acompañante
-              </label>
-              <select 
-                id="plus_one_menu_choice" 
-                name="plus_one_menu_choice" 
-                class="w-full px-4 py-3 border border-border-strong rounded-lg focus:ring-2 focus:ring-accent focus:border-accent"
-              >
-                <option value="">Selecciona una opción</option>
-                <option value="carne">Menú con carne</option>
-                <option value="pescado">Menú con pescado</option>
-                <option value="vegetariano">Menú vegetariano</option>
-                <option value="vegano">Menú vegano</option>
-              </select>
-            </div>
-            
-            <div>
-              <label for="plus_one_dietary_restrictions" class="block text-sm font-medium text-text-secondary mb-2">
-                Restricciones alimentarias del acompañante
-              </label>
-              <textarea 
-                id="plus_one_dietary_restrictions" 
-                name="plus_one_dietary_restrictions" 
-                rows="2" 
-                class="w-full px-4 py-3 border border-border-strong rounded-lg focus:ring-2 focus:ring-accent focus:border-accent"
-                placeholder="Ej: Sin gluten, sin lactosa, alergia a frutos secos..."
-              ></textarea>
-            </div>
+      </div>
+    </div>
+
+    <!-- Acompañantes y Niños -->
+    <div id="plus-one-section" class="bg-bg-panel border border-border-strong/60 rounded-lg p-6 hidden">
+      <div class="flex items-center mb-6">
+        <div class="w-10 h-10 bg-accent rounded-full flex items-center justify-center mr-4">
+          <svg class="w-5 h-5 text-accent-contrast" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"/>
+          </svg>
+        </div>
+        <h3 class="font-serif text-xl text-text-secondary">Acompañantes</h3>
+      </div>
+      
+      <div class="space-y-6">
+        <!-- Acompañantes adultos -->
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <span class="font-medium text-text-secondary">Acompañantes adultos</span>
+            <button type="button" id="add-companion-btn"
+              class="flex items-center space-x-2 text-sm text-accent hover:text-accent-hover font-medium disabled:opacity-40 disabled:cursor-not-allowed">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+              </svg>
+              <span>Añadir acompañante</span>
+            </button>
           </div>
+          <div id="companions-list" class="space-y-4"></div>
+          <p id="companions-empty-hint" class="text-sm text-text-muted mt-2">
+            Pulsa "Añadir acompañante" para incluir a alguien en tu grupo.
+          </p>
         </div>
 
-        <!-- Menú de niños -->
-        <div id="children-menu" class="border-l-4 border-status-info/40 pl-4 hidden">
-          <h4 class="font-medium text-text-secondary mb-4">Menú de los niños</h4>
-          <div class="space-y-4">
+        <!-- Niños -->
+        <div>
+          <label class="flex items-center space-x-4 cursor-pointer p-4 border border-border-strong/60 rounded-lg hover:bg-surface-1 transition-colors">
+            <input 
+              type="checkbox" 
+              id="children" 
+              name="children" 
+              class="w-5 h-5 text-accent focus:ring-accent rounded"
+            />
+            <span class="font-medium text-text-secondary">Vendré con niños</span>
+          </label>
+          
+          <div id="children-details" class="hidden mt-4 space-y-4">
             <div>
-              <label for="children_menu_choice" class="block text-sm font-medium text-text-secondary mb-2">
-                Menú para los niños
+              <label for="children_count" class="block text-sm font-medium text-text-secondary mb-2">
+                Número de niños
               </label>
               <select 
-                id="children_menu_choice" 
-                name="children_menu_choice" 
+                id="children_count" 
+                name="children_count" 
                 class="w-full px-4 py-3 border border-border-strong rounded-lg focus:ring-2 focus:ring-accent focus:border-accent"
               >
-                <option value="">Selecciona una opción</option>
-                <option value="ninos">Menú niños</option>
-                <option value="adulto">Menú de adulto</option>
+                <option value="">Seleccionar</option>
+                <option value="1">1 niño</option>
+                <option value="2">2 niños</option>
+                <option value="3">3 niños</option>
+                <option value="4">4 o más niños</option>
               </select>
             </div>
             
+            <div>
+              <label for="children_names" class="block text-sm font-medium text-text-secondary mb-2">
+                Nombres de los niños
+              </label>
+              <textarea 
+                id="children_names" 
+                name="children_names" 
+                rows="3" 
+                class="w-full px-4 py-3 border border-border-strong rounded-lg focus:ring-2 focus:ring-accent focus:border-accent"
+                placeholder="Nombres y edades de los niños (ej: Ana 5 años, Carlos 8 años)"
+              ></textarea>
+            </div>
+
             <div>
               <label for="children_dietary_restrictions" class="block text-sm font-medium text-text-secondary mb-2">
-                Restricciones alimentarias de los niños
+                Alergias o intolerancias de los niños
               </label>
-              <textarea 
-                id="children_dietary_restrictions" 
-                name="children_dietary_restrictions" 
-                rows="2" 
+              <textarea
+                id="children_dietary_restrictions"
+                name="children_dietary_restrictions"
+                rows="2"
                 class="w-full px-4 py-3 border border-border-strong rounded-lg focus:ring-2 focus:ring-accent focus:border-accent"
-                placeholder="Alergias o restricciones específicas de los niños..."
+                placeholder="Ej: alergia a frutos secos, intolerancia a la lactosa..."
               ></textarea>
             </div>
           </div>
-        </div>
-
-        <!-- Alergias importantes generales -->
-        <div>
-          <label for="allergies" class="block text-sm font-medium text-text-secondary mb-2">
-            Alergias importantes (cualquier persona del grupo)
-          </label>
-          <input 
-            type="text" 
-            id="allergies" 
-            name="allergies" 
-            class="w-full px-4 py-3 border border-border-strong rounded-lg focus:ring-2 focus:ring-accent focus:border-accent"
-            placeholder="Especifica alergias graves que debemos conocer"
-          />
         </div>
       </div>
     </div>
@@ -436,8 +338,12 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
       </svg>
     </div>
     <h3 class="font-serif text-2xl text-text-secondary mb-4">¡Genial, ya lo tenemos!</h3>
-    <p class="text-text-muted mb-8 max-w-md mx-auto">Gracias por confirmar. ¡Ya tenemos ganas de verte en la fiesta!</p>
-    
+    <p class="text-text-muted mb-6 max-w-md mx-auto">Gracias por confirmar tu asistencia.</p>
+
+    <div id="success-details" class="bg-bg-panel border border-border-strong/60 rounded-lg p-5 mb-8 text-left max-w-lg mx-auto space-y-3 text-sm">
+      <!-- populated by JS -->
+    </div>
+
     <div class="flex flex-col sm:flex-row gap-4 justify-center">
       <button 
         id="edit-rsvp-btn"
@@ -446,11 +352,11 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
         Editar mi Confirmación
       </button>
       
-      <a 
-        href="/"
+      <a
+        href="/guest-dashboard"
         class="bg-text-primary text-text-inverse px-8 py-3 rounded-lg font-medium hover:bg-text-secondary transition-colors text-center"
       >
-        Volver a Inicio
+        Ver mi Confirmación
       </a>
     </div>
   </div>
@@ -490,20 +396,60 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
         if (rsvpData.success) {
           console.log('Populating form with data:', rsvpData.form);
           populateForm(rsvpData.form);
+          loadingState?.classList.add('hidden');
+          rsvpForm?.classList.remove('hidden');
+        } else {
+          loadingState?.classList.add('hidden');
+          rsvpForm?.classList.remove('hidden');
         }
       } else {
         console.error('Failed to load RSVP data:', rsvpResponse.status);
+        loadingState?.classList.add('hidden');
+        rsvpForm?.classList.remove('hidden');
       }
-      
-      // Mostrar formulario
-      loadingState?.classList.add('hidden');
-      rsvpForm?.classList.remove('hidden');
       
     } catch (error) {
       console.error('Error loading RSVP data:', error);
       window.location.href = '/rsvp/login';
     }
   });
+
+  function populateSuccessDetails(data) {
+    const el = document.getElementById('success-details');
+    if (!el) return;
+
+    const attending = data.attending === 1 || data.attending === true;
+    const menuLabels = { carne: 'Menú con carne', pescado: 'Menú con pescado', vegetariano: 'Menú vegetariano', vegano: 'Menú vegano' };
+    const genderLabels = { masculino: 'Masculino', femenino: 'Femenino', otro: 'Otro' };
+
+    function row(label, value) {
+      return `<div class="flex justify-between gap-4"><span class="text-text-muted shrink-0">${label}:</span><span class="font-medium text-right">${value}</span></div>`;
+    }
+
+    const rows = [];
+
+    rows.push(`<div class="flex justify-between"><span class="text-text-muted">Asistencia:</span><span class="font-medium ${attending ? 'text-status-success' : 'text-status-danger'}">${attending ? 'Confirmada ✓' : 'No asiste'}</span></div>`);
+
+    if (data.phone) rows.push(row('Teléfono', data.phone));
+    if (data.gender) rows.push(row('Género', genderLabels[data.gender] || data.gender));
+    if (attending && data.menu_choice) rows.push(row('Tu menú', menuLabels[data.menu_choice] || data.menu_choice));
+    if (attending && data.dietary_restrictions) rows.push(row('Restricciones', data.dietary_restrictions));
+
+    if (attending && (data.companions || []).length > 0) {
+      const list = data.companions.map(c => `${c.name}${c.menu_choice ? ` — ${menuLabels[c.menu_choice] || c.menu_choice}` : ''}`).join('<br>');
+      rows.push(`<div><span class="text-text-muted block mb-1">Acompañantes (${data.companions.length}):</span><span class="font-medium">${list}</span></div>`);
+    }
+
+    if (attending && data.children) {
+      rows.push(row('Niños', `${data.children_count}${data.children_names ? ` (${data.children_names})` : ''}`));
+      if (data.children_dietary_restrictions) rows.push(row('Alergias/intolerancias niños', data.children_dietary_restrictions));
+    }
+
+    if (attending && data.needs_transport) rows.push(row('Transporte', 'Bus lanzadera solicitado'));
+    if (data.notes) rows.push(row('Notas', data.notes));
+
+    el.innerHTML = rows.join('<hr class="border-border-strong/30">') || '<p class="text-text-muted">Sin detalles adicionales.</p>';
+  }
 
   function populateForm(data) {
     console.log('=== POPULATE FORM DEBUG ===');
@@ -535,22 +481,13 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
       }
     }
     
-    // Acompañante
-    if (data.plus_one) {
-      console.log('Setting plus_one data:', data.plus_one_name, data.plus_one_gender);
-      document.getElementById('plus_one').checked = true;
-      document.getElementById('plus_one_name').value = data.plus_one_name || '';
-      if (data.plus_one_gender) {
-        document.getElementById('plus_one_gender').value = data.plus_one_gender;
-      }
-      if (data.plus_one_menu_choice) {
-        document.getElementById('plus_one_menu_choice').value = data.plus_one_menu_choice;
-      }
-      document.getElementById('plus_one_dietary_restrictions').value = data.plus_one_dietary_restrictions || '';
-      
-      // Mostrar secciones del acompañante
-      document.getElementById('plus-one-details')?.classList.remove('hidden');
+    // Acompañantes
+    companionCount = 0;
+    document.getElementById('companions-list').innerHTML = '';
+    for (const companion of (data.companions || [])) {
+      addCompanion(companion);
     }
+    updateCompanionUI();
     
     // Niños
     if (data.children) {
@@ -560,9 +497,6 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
         document.getElementById('children_count').value = data.children_count;
       }
       document.getElementById('children_names').value = data.children_names || '';
-      if (data.children_menu_choice) {
-        document.getElementById('children_menu_choice').value = data.children_menu_choice;
-      }
       document.getElementById('children_dietary_restrictions').value = data.children_dietary_restrictions || '';
       
       // Mostrar secciones de niños
@@ -600,20 +534,6 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
     if (attendingRadio) {
       toggleSections(attendingRadio.value === 'true');
     }
-    
-    // Verificar estado del acompañante
-    const plusOneCheckbox = document.getElementById('plus_one');
-    if (plusOneCheckbox) {
-      const detailsField = document.getElementById('plus-one-details');
-      const menuField = document.getElementById('plus-one-menu');
-      if (plusOneCheckbox.checked) {
-        detailsField?.classList.remove('hidden');
-        menuField?.classList.remove('hidden');
-      } else {
-        detailsField?.classList.add('hidden');
-        menuField?.classList.add('hidden');
-      }
-    }
   }
 
   function toggleSections(attending) {
@@ -628,42 +548,112 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
     });
   }
 
+  // Companion management
+  const MAX_COMPANIONS = 5;
+  let companionCount = 0;
+
+  function renderCompanionCard(index, data = {}) {
+    return `
+      <div data-companion-index="${index}" class="relative bg-surface-1 border border-border-strong/60 rounded-lg p-4">
+        <button type="button" class="remove-companion-btn absolute top-3 right-3 text-text-muted hover:text-status-danger transition-colors" aria-label="Eliminar acompañante">✕</button>
+        <p class="text-sm font-medium text-text-secondary mb-3">Acompañante ${index + 1}</p>
+        <div class="grid md:grid-cols-2 gap-4">
+          <input
+            type="text"
+            name="companions[${index}][name]"
+            value="${data.name || ''}"
+            placeholder="Nombre completo"
+            required
+            class="w-full px-4 py-3 border border-border-strong rounded-lg focus:ring-2 focus:ring-accent focus:border-accent"
+          />
+          <select
+            name="companions[${index}][menu_choice]"
+            required
+            class="w-full px-4 py-3 border border-border-strong rounded-lg focus:ring-2 focus:ring-accent focus:border-accent"
+          >
+            <option value="">Selecciona una opción</option>
+            <option value="carne" ${data.menu_choice === 'carne' ? 'selected' : ''}>Menú con carne</option>
+            <option value="pescado" ${data.menu_choice === 'pescado' ? 'selected' : ''}>Menú con pescado</option>
+            <option value="vegetariano" ${data.menu_choice === 'vegetariano' ? 'selected' : ''}>Menú vegetariano</option>
+            <option value="vegano" ${data.menu_choice === 'vegano' ? 'selected' : ''}>Menú vegano</option>
+          </select>
+        </div>
+        <div class="mt-3">
+          <select
+            name="companions[${index}][gender]"
+            required
+            class="w-full px-4 py-3 border border-border-strong rounded-lg focus:ring-2 focus:ring-accent focus:border-accent"
+          >
+            <option value="">Selecciona sexo</option>
+            <option value="masculino" ${data.gender === 'masculino' ? 'selected' : ''}>Masculino</option>
+            <option value="femenino" ${data.gender === 'femenino' ? 'selected' : ''}>Femenino</option>
+            <option value="otro" ${data.gender === 'otro' ? 'selected' : ''}>Otro</option>
+          </select>
+        </div>
+        <input
+          type="text"
+          name="companions[${index}][dietary_restrictions]"
+          value="${data.dietary_restrictions || ''}"
+          placeholder="Restricciones alimentarias (opcional)"
+          class="mt-3 w-full px-4 py-3 border border-border-strong rounded-lg focus:ring-2 focus:ring-accent focus:border-accent"
+        />
+      </div>
+    `;
+  }
+
+  function reindexCompanions() {
+    const cards = document.querySelectorAll('#companions-list [data-companion-index]');
+    cards.forEach((card, i) => {
+      card.setAttribute('data-companion-index', i);
+      card.querySelector('p').textContent = `Acompañante ${i + 1}`;
+      card.querySelectorAll('input, select').forEach(el => {
+        el.name = el.name.replace(/companions\[\d+\]/, `companions[${i}]`);
+      });
+    });
+    companionCount = cards.length;
+  }
+
+  function updateCompanionUI() {
+    const addBtn = document.getElementById('add-companion-btn');
+    const hint = document.getElementById('companions-empty-hint');
+    if (addBtn) addBtn.disabled = companionCount >= MAX_COMPANIONS;
+    if (hint) hint.classList.toggle('hidden', companionCount > 0);
+  }
+
+  function addCompanion(data = {}) {
+    const list = document.getElementById('companions-list');
+    if (!list || companionCount >= MAX_COMPANIONS) return;
+    const div = document.createElement('div');
+    div.innerHTML = renderCompanionCard(companionCount, data);
+    const card = div.firstElementChild;
+    card.querySelector('.remove-companion-btn').addEventListener('click', () => {
+      card.remove();
+      reindexCompanions();
+      updateCompanionUI();
+    });
+    list.appendChild(card);
+    companionCount++;
+    updateCompanionUI();
+  }
+
+  document.getElementById('add-companion-btn')?.addEventListener('click', () => addCompanion());
+
   // Event listeners
   document.addEventListener('change', (e) => {
     const target = e.target;
-    
+
     if (target.name === 'attending') {
       toggleSections(target.value === 'true');
     }
-    
-    if (target.id === 'plus_one') {
-      const detailsField = document.getElementById('plus-one-details');
-      const menuField = document.getElementById('plus-one-menu');
-      if (target.checked) {
-        detailsField?.classList.remove('hidden');
-        menuField?.classList.remove('hidden');
-      } else {
-        detailsField?.classList.add('hidden');
-        menuField?.classList.add('hidden');
-        document.getElementById('plus_one_name').value = '';
-        document.getElementById('plus_one_gender').value = '';
-        document.getElementById('plus_one_menu_choice').value = '';
-        document.getElementById('plus_one_dietary_restrictions').value = '';
-      }
-    }
-    
+
     if (target.id === 'children') {
       const childrenDetails = document.getElementById('children-details');
-      const childrenMenu = document.getElementById('children-menu');
       if (target.checked) {
         childrenDetails?.classList.remove('hidden');
-        childrenMenu?.classList.remove('hidden');
       } else {
         childrenDetails?.classList.add('hidden');
-        childrenMenu?.classList.add('hidden');
         document.getElementById('children_count').value = '';
         document.getElementById('children_names').value = '';
-        document.getElementById('children_menu_choice').value = '';
         document.getElementById('children_dietary_restrictions').value = '';
       }
     }
@@ -680,10 +670,60 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
     try {
       const formData = new FormData(e.target);
       const data = Object.fromEntries(formData.entries());
-      
+
+      // Serializar acompañantes desde los campos dinámicos
+      const companionsList = [];
+      let ci = 0;
+      while (document.querySelector(`[name="companions[${ci}][name]"]`)) {
+        companionsList.push({
+          name: (document.querySelector(`[name="companions[${ci}][name]"]`).value || '').trim(),
+          menu_choice: document.querySelector(`[name="companions[${ci}][menu_choice]"]`).value || null,
+          dietary_restrictions: (document.querySelector(`[name="companions[${ci}][dietary_restrictions]"]`).value || '').trim() || null,
+          gender: document.querySelector(`[name="companions[${ci}][gender]"]`)?.value || null
+        });
+        ci++;
+      }
+      data.companions = companionsList;
+
       // Convertir valores
       data.attending = data.attending === 'true';
-      data.plus_one = document.getElementById('plus_one')?.checked || false;
+
+      // Validaciones de negocio
+      const validationErrors = [];
+
+      if (data.attending) {
+        data.companions.forEach((companion, index) => {
+          const companionLabel = `Acompañante ${index + 1}`;
+          if (!companion.name) {
+            validationErrors.push(`${companionLabel}: el nombre es obligatorio.`);
+          }
+          if (!companion.menu_choice) {
+            validationErrors.push(`${companionLabel}: debes seleccionar un tipo de menú.`);
+          }
+          if (!companion.gender) {
+            validationErrors.push(`${companionLabel}: debes seleccionar el sexo.`);
+          }
+        });
+
+        if (data.children === 'on') {
+          const childrenCount = parseInt(data.children_count, 10) || 0;
+          const childrenNames = (data.children_names || '').trim();
+
+          if (childrenCount <= 0) {
+            validationErrors.push('Si vienes con niños, debes indicar cuántos niños vienen.');
+          }
+          if (!childrenNames) {
+            validationErrors.push('Si vienes con niños, debes rellenar los nombres de los niños.');
+          }
+        }
+      }
+
+      if (validationErrors.length > 0) {
+        throw new Error(validationErrors.join('\n'));
+      }
+
+      // Eliminar campos legacy que puedan venir del FormData
+      delete data.plus_one; delete data.plus_one_name; delete data.plus_one_gender;
       
       const response = await fetch(`${apiUrl}/api/rsvp/form`, {
         method: 'POST',
@@ -695,6 +735,8 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
       });
       
       if (response.ok) {
+        const responseData = await response.json();
+        populateSuccessDetails(responseData.form);
         document.getElementById('rsvp-form')?.classList.add('hidden');
         document.getElementById('success-message')?.classList.remove('hidden');
       } else {
@@ -703,7 +745,7 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
       
     } catch (error) {
       console.error('Error submitting RSVP:', error);
-      alert('Error al guardar. Por favor, inténtalo de nuevo.');
+      alert(error?.message || 'Error al guardar. Por favor, inténtalo de nuevo.');
     } finally {
       submitBtn.disabled = false;
       submitBtn.textContent = 'Confirmar Asistencia';

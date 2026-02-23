@@ -18,14 +18,16 @@ router.post('/auth/login', (req, res, next) => {
 router.get('/form', requireAuth, async (req, res) => {
   try {
     const guest = await Guest.findById(req.user.id);
-    
+
     if (!guest) {
       return res.status(404).json({
         success: false,
         message: 'Usuario no encontrado'
       });
     }
-    
+
+    const companions = await Guest.getCompanions(guest.id);
+
     res.json({
       success: true,
       form: {
@@ -35,11 +37,7 @@ router.get('/form', requireAuth, async (req, res) => {
         phone: guest.phone,
         gender: guest.gender,
         attending: guest.attending,
-        plus_one: guest.plus_one,
-        plus_one_name: guest.plus_one_name,
-        plus_one_gender: guest.plus_one_gender,
-        plus_one_menu_choice: guest.plus_one_menu_choice,
-        plus_one_dietary_restrictions: guest.plus_one_dietary_restrictions,
+        companions,
         children: guest.children,
         children_count: guest.children_count,
         children_names: guest.children_names,
@@ -63,22 +61,25 @@ router.get('/form', requireAuth, async (req, res) => {
 // POST /api/rsvp/form - Permite crear o actualizar la confirmación de asistencia
 router.post('/form', requireAuth, async (req, res) => {
   try {
-    const rsvpData = req.body;
+    const { companions = [], ...rsvpData } = req.body;
+    const validCompanions = companions
+      .filter(c => c && (c.name || '').trim().length > 0)
+      .slice(0, 5);
+
     const updatedGuest = await Guest.updateRSVP(req.user.id, rsvpData);
-    
+    await Guest.setCompanions(req.user.id, validCompanions);
+    const companionsResult = await Guest.getCompanions(req.user.id);
+
     res.json({
       success: true,
       message: 'RSVP actualizado correctamente',
       form: {
         id: updatedGuest.id,
         name: updatedGuest.name,
+        phone: updatedGuest.phone,
         gender: updatedGuest.gender,
         attending: updatedGuest.attending,
-        plus_one: updatedGuest.plus_one,
-        plus_one_name: updatedGuest.plus_one_name,
-        plus_one_gender: updatedGuest.plus_one_gender,
-        plus_one_menu_choice: updatedGuest.plus_one_menu_choice,
-        plus_one_dietary_restrictions: updatedGuest.plus_one_dietary_restrictions,
+        companions: companionsResult,
         children: updatedGuest.children,
         children_count: updatedGuest.children_count,
         children_names: updatedGuest.children_names,

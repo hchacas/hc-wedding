@@ -138,7 +138,7 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 # Wedding App specific
-api/wedding.db
+**/wedding.db
 backups/
 ssl/
 data/

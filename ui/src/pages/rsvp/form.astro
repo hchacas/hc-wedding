@@ -40,13 +40,6 @@ try {
 
       <!-- Botones de acción -->
       <div class="mt-8 text-center space-y-4">
-        <button
-          id="download-summary"
-          class="bg-text-primary text-text-inverse px-8 py-3 rounded-lg font-medium hover:bg-text-secondary transition-colors shadow-sm"
-        >
-          Descargar Resumen del Evento
-        </button>
-        
         <div>
           <a
             href="/"
@@ -84,13 +77,4 @@ try {
     }
   });
 
-  // Manejar descarga de resumen
-  document.getElementById('download-summary')?.addEventListener('click', () => {
-    const link = document.createElement('a');
-    link.href = '/images/summary/resumenBodaSheilaYHabib.png';
-    link.download = 'resumenBodaSheilaYHabib.png';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  });
 </script>

@@ -15,9 +15,9 @@ const ellosImages = [him1, him2, him3, him4].map((image) => image.src ?? image);
 ---
 
 <BaseLayout title="Dress Code - Sheila & Habib">
-  <main class="min-h-screen bg-bg-page">
+  <main class="min-h-screen bg-bg-page overflow-x-clip">
     <nav class="sticky top-0 z-10 bg-bg-page/80 backdrop-blur border-b border-border-soft/60">
-      <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="max-w-6xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between gap-3">
         <a href="/" class="inline-flex items-center gap-2 text-text-muted hover:text-text-secondary transition-colors">
           <svg
             class="h-4 w-4"
@@ -38,7 +38,7 @@ const ellosImages = [him1, him2, him3, him4].map((image) => image.src ?? image);
       </div>
     </nav>
 
-    <section class="container mx-auto px-6 py-16 max-w-5xl">
+    <section class="container mx-auto px-4 md:px-6 py-12 md:py-16 max-w-5xl">
       <header class="text-center">
         <h1 class="font-serif text-4xl md:text-6xl text-text-secondary mb-4 mt-4">
           Inspiración Boho Sencilla
@@ -243,28 +243,31 @@ const ellosImages = [him1, him2, him3, him4].map((image) => image.src ?? image);
               </p>
 
               <div class="mt-8 rounded-3xl border border-border-soft/70 bg-bg-page/35 p-6">
-                <div class="flex items-start justify-between gap-4">
-                  <div>
+                <div class="flex flex-col gap-4">
+                  <div class="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
                     <h4 class="font-medium text-text-secondary">Tienda colaboradora y online</h4>
-                    <p class="mt-2 text-sm text-text-muted">
-                      Queremos que disfrutéis del día sin complicaciones, por eso os sugerimos apostar por tejidos naturales
-                      como el lino. En la web de <span class="font-semibold italic text-text-secondary">Custimikelo</span>
-                      encontraréis camisas, americanas y pantalones ideales para el dress code de la celebración. Nos han
-                      regalado un código descuento para que todos los invitados puedan disfrutar de un 5% de descuento en su compra. Solo tenéis que usar el código.
-                    </p>
+                    <div class="w-full md:w-auto md:text-right">
+                    <p class="text-[11px] uppercase tracking-[0.3em] text-text-muted">Código</p>
+                    <div class="mt-2 inline-flex max-w-full flex-wrap items-center gap-2 rounded-xl border border-border-soft/70 bg-bg-card px-3 py-2">
+                      <p class="text-sm font-semibold text-text-secondary leading-none">BODORRIO</p>
+                      <span class="text-xs text-text-muted">· -5%</span>
+                    </div>
+                    </div>
                   </div>
 
-                  <div class="shrink-0 text-right">
-                    <p class="text-[11px] uppercase tracking-[0.3em] text-text-muted">Código</p>
-                    <p class="mt-1 inline-flex items-center px-3 py-1 rounded-full border border-border-soft/70 bg-bg-card text-sm font-semibold text-text-secondary">
-                      BODORRIO
-                    </p>
-                    <p class="mt-1 text-xs text-text-muted">-5%</p>
-                  </div>
+                  <p class="text-sm text-text-muted">
+                    Queremos que disfrutéis del día sin complicaciones, por eso os sugerimos apostar por tejidos naturales
+                    como el lino. En la web de <span class="font-semibold italic text-text-secondary">Custimikelo</span>
+                    encontraréis camisas, americanas y pantalones ideales para el dress code de la celebración.
+                  </p>
+                  <p class="w-full rounded-xl border border-accent/35 bg-accent/10 px-4 py-3 text-sm text-text-secondary">
+                    <span class="font-semibold">Nos han regalado un código descuento:</span> todos los invitados pueden
+                    disfrutar de un <span class="font-semibold">5% de descuento</span> en su compra. Solo tenéis que usar el código.
+                  </p>
                 </div>
 
-                <div class="mt-4 flex flex-wrap items-center gap-3 text-sm">
-                  <span class="text-text-muted">Link:</span>
+                <div class="mt-4 flex flex-col sm:flex-row sm:items-start gap-2 text-sm">
+                  <span class="text-text-muted shrink-0">Link:</span>
                   <a
                     class="text-text-secondary underline underline-offset-4 decoration-border-soft hover:decoration-text-secondary transition-colors break-all"
                     href="https://custimikelo.es/collections/camisas-lino-hombre"

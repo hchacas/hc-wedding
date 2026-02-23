@@ -9,14 +9,14 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
     <!-- Header -->
     <header class="bg-bg-panel shadow-sm border-b border-border-strong/60">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center py-6">
+        <div class="flex flex-col gap-4 py-5 sm:flex-row sm:justify-between sm:items-center">
           <div>
             <h1 class="font-serif text-2xl text-text-secondary">Panel de Administración</h1>
-            <p class="text-text-muted">Boda Sheila & Habib - 4 de Julio, 2026</p>
+            <p class="text-sm text-text-muted">Boda Sheila & Habib - 4 de Julio, 2026</p>
           </div>
-          <div class="flex items-center space-x-4">
-            <span id="admin-name" class="text-text-secondary"></span>
-            <button id="logout-btn" class="bg-text-primary text-text-inverse px-4 py-2 rounded-lg text-sm font-medium hover:bg-text-secondary transition-colors">
+          <div class="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center sm:gap-4">
+            <span id="admin-name" class="text-sm text-text-secondary"></span>
+            <button id="logout-btn" class="w-full sm:w-auto bg-text-primary text-text-inverse px-4 py-2 rounded-lg text-sm font-medium hover:bg-text-secondary transition-colors">
               Cerrar Sesión
             </button>
           </div>
@@ -34,18 +34,18 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
       <!-- Dashboard Content -->
       <div id="dashboard-content" class="hidden">
         <!-- Navigation Tabs -->
-        <div class="mb-8">
-          <nav class="flex space-x-8" aria-label="Tabs">
-            <button id="tab-overview" class="tab-button active whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm">
+        <div class="mb-8 border-b border-border-strong/60 pb-3">
+          <nav class="tabs-scroll flex gap-2 overflow-x-auto px-0.5 pb-1" aria-label="Tabs">
+            <button id="tab-overview" class="tab-button active snap-start shrink-0 whitespace-nowrap py-2.5 px-3 border text-sm rounded-md">
               📊 Resumen General
             </button>
-            <button id="tab-analytics" class="tab-button whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm">
+            <button id="tab-analytics" class="tab-button snap-start shrink-0 whitespace-nowrap py-2.5 px-3 border text-sm rounded-md">
               📈 Estadísticas Avanzadas
             </button>
-            <button id="tab-invitations" class="tab-button whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm">
+            <button id="tab-invitations" class="tab-button snap-start shrink-0 whitespace-nowrap py-2.5 px-3 border text-sm rounded-md">
               📧 Invitaciones Enviadas
             </button>
-            <button id="tab-guests" class="tab-button whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm">
+            <button id="tab-guests" class="tab-button snap-start shrink-0 whitespace-nowrap py-2.5 px-3 border text-sm rounded-md">
               👥 Lista de Invitados
             </button>
           </nav>
@@ -139,9 +139,9 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
                 <thead class="bg-surface-2">
                   <tr>
                     <th class="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Nombre</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Email</th>
+                    <th class="hidden lg:table-cell px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Email</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Estado</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Acompañante</th>
+                    <th class="hidden md:table-cell px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Acompañante</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Fecha</th>
                   </tr>
                 </thead>
@@ -284,9 +284,9 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
                   <thead class="bg-surface-2">
                     <tr>
                       <th class="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Invitado</th>
-                      <th class="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Mensaje</th>
+                      <th class="hidden lg:table-cell px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Mensaje</th>
                       <th class="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Estado</th>
-                      <th class="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Fecha Creación</th>
+                      <th class="hidden md:table-cell px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Fecha Creación</th>
                       <th class="px-6 py-3 text-left text-xs font-medium text-text-muted uppercase tracking-wider">Acciones</th>
                     </tr>
                   </thead>
@@ -301,7 +301,9 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
 
         <!-- Tab Content: Guests List -->
         <div id="content-guests" class="tab-content hidden">
-          <div class="bg-bg-panel rounded-lg shadow-sm border border-border-soft/60 overflow-hidden">
+          <div id="full-guests-cards" class="md:hidden bg-bg-panel rounded-lg shadow-sm border border-border-soft/60 divide-y divide-border-strong/60 overflow-hidden"></div>
+
+          <div class="hidden md:block bg-bg-panel rounded-lg shadow-sm border border-border-soft/60 overflow-hidden">
             <div class="px-6 py-4 border-b border-border-strong/60">
               <h3 class="font-serif text-lg text-text-secondary">Lista Completa de Invitados</h3>
             </div>
@@ -333,11 +335,11 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
     </div>    <!-- 
 Modal para crear invitación -->
     <div id="invitation-modal" class="hidden fixed inset-0 bg-text-secondary bg-opacity-50 overflow-y-auto h-full w-full z-50">
-      <div class="relative top-10 mx-auto p-5 border max-w-4xl shadow-lg rounded-md bg-bg-panel">
+      <div class="relative top-4 md:top-10 mx-4 md:mx-auto p-4 md:p-5 border w-auto max-w-4xl shadow-lg rounded-md bg-bg-panel">
         <div class="mt-3">
           <h3 class="text-lg font-medium text-text-primary mb-4">Crear Nueva Invitación</h3>
           
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 md:gap-6">
             <!-- Formulario -->
             <div>
               <form id="invitation-form" class="space-y-4">
@@ -355,7 +357,7 @@ Modal para crear invitación -->
                     placeholder="Mensaje especial para este invitado..."></textarea>
                 </div>
                 
-                <div class="flex justify-end space-x-3 pt-4">
+                <div class="flex flex-col-reverse sm:flex-row justify-end gap-3 pt-4">
                   <button type="button" id="cancel-invitation"
                     class="px-4 py-2 bg-border-strong text-text-secondary rounded-md hover:bg-border-strong/80 transition-colors">
                     Cancelar
@@ -406,7 +408,7 @@ Modal para crear invitación -->
 
     <!-- Modal de éxito -->
     <div id="success-modal" class="hidden fixed inset-0 bg-text-secondary bg-opacity-50 overflow-y-auto h-full w-full z-50">
-      <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-bg-panel">
+      <div class="relative top-12 md:top-20 mx-auto p-5 border w-[calc(100%-2rem)] max-w-md shadow-lg rounded-md bg-bg-panel">
         <div class="text-center">
           <div class="w-16 h-16 bg-status-success/15 rounded-full flex items-center justify-center mx-auto mb-4">
             <svg class="w-8 h-8 text-status-success" fill="currentColor" viewBox="0 0 24 24">
@@ -427,7 +429,7 @@ Modal para crear invitación -->
             </div>
           </div>
           
-          <div class="flex space-x-3">
+          <div class="flex flex-col sm:flex-row gap-3">
             <button id="view-invitation-btn"
               class="flex-1 px-4 py-2 bg-status-info text-text-inverse rounded-md hover:bg-status-info/80 transition-colors">
               Ver Invitación
@@ -443,7 +445,7 @@ Modal para crear invitación -->
 
     <!-- Modal de confirmación de eliminación -->
     <div id="delete-confirmation-modal" class="hidden fixed inset-0 bg-text-secondary bg-opacity-50 overflow-y-auto h-full w-full z-50">
-      <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-bg-panel">
+      <div class="relative top-12 md:top-20 mx-auto p-5 border w-[calc(100%-2rem)] max-w-md shadow-lg rounded-md bg-bg-panel">
         <div class="text-center">
           <div class="w-16 h-16 bg-status-danger/15 rounded-full flex items-center justify-center mx-auto mb-4">
             <svg class="w-8 h-8 text-status-danger" fill="currentColor" viewBox="0 0 24 24">
@@ -457,7 +459,7 @@ Modal para crear invitación -->
           </p>
           <p class="text-sm text-text-muted mb-6">Esta acción no se puede deshacer.</p>
           
-          <div class="flex space-x-3">
+          <div class="flex flex-col-reverse sm:flex-row gap-3">
             <button id="cancel-delete"
               class="flex-1 px-4 py-2 bg-border-strong text-text-secondary rounded-md hover:bg-border-strong/80 transition-colors">
               Cancelar
@@ -485,11 +487,11 @@ Modal para crear invitación -->
 
 <style>
   .tab-button {
-    @apply border-transparent text-text-muted hover:text-text-secondary hover:border-border-strong;
+    @apply border-border-strong/70 bg-bg-panel text-text-muted hover:text-text-secondary hover:bg-surface-2 transition-colors;
   }
   
   .tab-button.active {
-    @apply border-accent text-accent;
+    @apply border-accent text-accent bg-accent/10;
   }
   
   .tab-content {
@@ -498,6 +500,11 @@ Modal para crear invitación -->
   
   .tab-content.hidden {
     display: none;
+  }
+
+  .tabs-scroll {
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
   }
 </style><script define:vars={{ apiUrl }}>
 
@@ -541,6 +548,7 @@ Modal para crear invitación -->
         // Actualizar botones
         tabButtons.forEach(btn => btn.classList.remove('active'));
         button.classList.add('active');
+        button.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
         
         // Actualizar contenido
         tabContents.forEach(content => content.classList.add('hidden'));
@@ -732,10 +740,13 @@ Modal para crear invitación -->
       
       return `
         <tr>
-          <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-text-primary">${guest.name}</td>
-          <td class="px-6 py-4 whitespace-nowrap text-sm">${guest.email || '-'}</td>
+          <td class="px-6 py-4 text-sm font-medium text-text-primary">
+            <p class="whitespace-nowrap">${guest.name}</p>
+            <p class="mt-1 text-xs text-text-muted md:hidden">Acompañantes: ${plusOne.replace(/<br>/g, ', ')}</p>
+          </td>
+          <td class="hidden lg:table-cell px-6 py-4 whitespace-nowrap text-sm">${guest.email || '-'}</td>
           <td class="px-6 py-4 whitespace-nowrap text-sm ${statusClass}">${status}</td>
-          <td class="px-6 py-4 text-sm text-text-muted">${plusOne}</td>
+          <td class="hidden md:table-cell px-6 py-4 text-sm text-text-muted">${plusOne}</td>
           <td class="px-6 py-4 whitespace-nowrap text-sm text-text-muted">${date}</td>
         </tr>
       `;
@@ -870,12 +881,12 @@ Modal para crear invitación -->
       return `
         <tr>
           <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-text-primary">${invitation.guest_name}</td>
-          <td class="px-6 py-4 whitespace-nowrap text-sm text-text-muted">${message}</td>
+          <td class="hidden lg:table-cell px-6 py-4 whitespace-nowrap text-sm text-text-muted">${message}</td>
           <td class="px-6 py-4 whitespace-nowrap text-sm text-status-info">${status}</td>
-          <td class="px-6 py-4 whitespace-nowrap text-sm text-text-muted">${date}</td>
+          <td class="hidden md:table-cell px-6 py-4 whitespace-nowrap text-sm text-text-muted">${date}</td>
           <td class="px-6 py-4 whitespace-nowrap text-sm text-text-muted">
-            <button onclick="viewInvitation('${invitation.token}')" class="text-status-info hover:text-status-info/80 mr-2" title="Ver invitación">Ver</button>
-            <button onclick="copyInvitationLink('${invitation.token}')" class="text-status-success hover:text-status-success/80 mr-2" title="Copiar enlace">Copiar</button>
+            <button onclick="viewInvitation('${invitation.token}')" class="text-status-info hover:text-status-info/80 mr-2 inline-block mb-1 md:mb-0" title="Ver invitación">Ver</button>
+            <button onclick="copyInvitationLink('${invitation.token}')" class="text-status-success hover:text-status-success/80 mr-2 inline-block mb-1 md:mb-0" title="Copiar enlace">Copiar</button>
             <button onclick="deleteInvitation('${invitation.id}', '${invitation.guest_name}')" class="text-status-danger hover:text-status-danger/80" title="Eliminar invitación">Eliminar</button>
           </td>
         </tr>
@@ -886,6 +897,7 @@ Modal para crear invitación -->
   // Actualizar tabla completa de invitados
   function updateFullGuestsTable(guests) {
     const tbody = document.getElementById('full-guests-table-body');
+    const cardsContainer = document.getElementById('full-guests-cards');
     if (!tbody) return;
 
     tbody.innerHTML = guests.map(guest => {
@@ -921,6 +933,40 @@ Modal para crear invitación -->
         </tr>
       `;
     }).join('');
+
+    if (cardsContainer) {
+      cardsContainer.innerHTML = guests.map(guest => {
+        const status = guest.attending === 1 ? 'Confirmado' : guest.attending === 0 ? 'No asiste' : 'Pendiente';
+        const statusClass = guest.attending === 1 ? 'text-status-success' : guest.attending === 0 ? 'text-status-danger' : 'text-status-warning';
+        const companions = (guest.companions || []).length > 0
+          ? guest.companions.map(c => formatCompanionEntry(c)).join(' · ')
+          : 'Ninguno';
+        const menu = formatMenuLabel(guest.menu_choice);
+        const children = guest.children ? `${guest.children_count} (${guest.children_names || 'sin nombres'})` : 'No';
+        const transport = guest.needs_transport ? 'Sí' : 'No';
+
+        return `
+          <article class="p-4 space-y-3">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <h4 class="text-sm font-medium text-text-primary">${guest.name}</h4>
+                <p class="text-xs text-text-muted">${guest.email || '-'}</p>
+              </div>
+              <span class="text-xs font-medium ${statusClass}">${status}</span>
+            </div>
+            <div class="grid grid-cols-2 gap-x-3 gap-y-2 text-xs">
+              <p class="text-text-muted">Menú: <span class="text-text-secondary">${menu}</span></p>
+              <p class="text-text-muted">Niños: <span class="text-text-secondary">${children}</span></p>
+              <p class="text-text-muted">Transporte: <span class="text-text-secondary">${transport}</span></p>
+              <p class="text-text-muted">Sexo: <span class="text-text-secondary">${formatGenderLabel(guest.gender)}</span></p>
+            </div>
+            <p class="text-xs text-text-muted"><span class="text-text-secondary">Acompañantes:</span> ${companions}</p>
+            ${guest.dietary_restrictions ? `<p class="text-xs text-text-muted"><span class="text-text-secondary">Restricciones:</span> ${guest.dietary_restrictions}</p>` : ''}
+            ${guest.notes ? `<p class="text-xs text-text-muted"><span class="text-text-secondary">Notas:</span> ${guest.notes}</p>` : ''}
+          </article>
+        `;
+      }).join('');
+    }
   }
   
   // Variables para el modal de eliminación

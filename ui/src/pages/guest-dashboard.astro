@@ -56,13 +56,6 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
             >
               Editar mi Confirmación
             </a>
-
-            <button
-              id="download-summary"
-              class="w-full bg-text-primary text-text-inverse py-3 px-6 rounded-lg font-medium hover:bg-text-secondary transition-colors"
-            >
-              Descargar Resumen
-            </button>
           </div>
         </div>
 
@@ -90,19 +83,19 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
 
           <div class="space-y-6">
             <div class="border-l-4 border-accent pl-4">
-              <h3 class="font-medium text-text-secondary mb-2">Ceremonia Civil</h3>
+              <h3 class="font-medium text-text-secondary mb-2">Evento completo</h3>
               <p class="text-sm text-text-muted">Sábado, 4 de Julio 2026</p>
               <p class="text-sm text-text-muted">
-                19:00h - Los Jardines Palacio de La Dehesa
+                Los Jardines Palacio de La Dehesa · Lucena, Córdoba
               </p>
             </div>
 
             <div class="border-l-4 border-accent pl-4">
-              <h3 class="font-medium text-text-secondary mb-2">
-                Cóctel, Cena y Fiesta
-              </h3>
-              <p class="text-sm text-text-muted">20:30h - Mismo lugar</p>
-              <p class="text-sm text-text-muted">Lucena, Córdoba</p>
+              <h3 class="font-medium text-text-secondary mb-2">Horarios de la fiesta</h3>
+              <p class="text-sm text-text-muted">20:15h · Ceremonia civil</p>
+              <p class="text-sm text-text-muted">21:00h · Cóctel</p>
+              <p class="text-sm text-text-muted">23:30h · Cena</p>
+              <p class="text-sm text-text-muted">00:30h · Fiesta</p>
             </div>
 
             <div class="border-l-4 border-accent pl-4">
@@ -110,9 +103,13 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
               <p class="text-sm text-text-muted">
                 Confirma antes del 1 de Junio 2026
               </p>
-              <p class="text-sm text-text-muted">
-                Código de vestimenta: Elegante
-              </p>
+              <p class="text-sm text-text-muted">Código de vestimenta: Boho sencillo.</p>
+              <a
+                href="/#dresscode"
+                class="inline-flex mt-2 text-sm text-accent hover:text-accent-hover underline underline-offset-4"
+              >
+                Ver dresscode general
+              </a>
             </div>
           </div>
         </div>
@@ -126,7 +123,7 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
           Enlaces Útiles
         </h2>
 
-        <div class="grid md:grid-cols-3 gap-6">
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           <a
             href="/"
             class="bg-surface-1 hover:bg-surface-2 rounded-lg p-6 text-center transition-colors group"
@@ -172,6 +169,31 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
             <p class="text-sm text-text-muted">Información sobre cómo llegar</p>
           </a>
 
+          <a
+            href="/dresscode"
+            class="bg-surface-1 hover:bg-surface-2 rounded-lg p-6 text-center transition-colors group border border-border-soft/60"
+          >
+            <div
+              class="w-12 h-12 bg-accent rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-accent-hover transition-colors"
+            >
+              <svg
+                class="w-6 h-6 text-accent-contrast"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M9.049 2.927C9.469 1.608 10.531 1.608 10.951 2.927L12.06 6.4a1 1 0 00.95.69h3.652c1.371 0 1.796 1.755.687 2.564l-2.955 2.148a1 1 0 00-.364 1.118l1.11 3.473c.42 1.318-.984 2.413-2.093 1.604l-2.956-2.149a1 1 0 00-1.176 0l-2.955 2.149c-1.11.809-2.514-.286-2.093-1.604l1.11-3.473a1 1 0 00-.364-1.118L2.651 9.654c-1.11-.809-.684-2.564.687-2.564H6.99a1 1 0 00.95-.69l1.109-3.473z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+            </div>
+            <p class="font-medium text-text-secondary mb-2">Dresscode inspiración</p>
+            <p class="text-sm text-text-muted">
+              Ver guía completa de inspiración Boho sencilla.
+            </p>
+          </a>
+
           <button
             id="logout-btn"
             class="bg-surface-1 hover:bg-surface-2 rounded-lg p-6 text-center transition-colors group"
@@ -193,6 +215,47 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
             <p class="font-medium text-text-secondary mb-2">Cerrar Sesión</p>
             <p class="text-sm text-text-muted">Salir de mi cuenta</p>
           </button>
+        </div>
+      </div>
+
+      <div class="mt-8 bg-bg-panel rounded-lg shadow-sm border border-border-soft/60 p-8 text-center">
+        <div class="space-y-1">
+          <p class="text-[11px] tracking-[0.35em] uppercase text-text-muted/70">Lista de boda</p>
+          <h2 class="font-serif text-2xl text-text-secondary">Regalo de Boda</h2>
+        </div>
+
+        <p class="mt-4 text-sm text-text-muted max-w-md mx-auto leading-relaxed">
+          Con tu presencia nos es más que suficiente, pero si quieres ayudarnos con nuestro viaje de novios,
+          aquí te dejamos nuestros datos bancarios.
+        </p>
+
+        <div class="mt-6 bg-surface-1 border border-border-soft rounded-lg px-6 py-5 text-left space-y-3 max-w-md mx-auto">
+          <div class="space-y-0.5">
+            <p class="text-[10px] tracking-[0.3em] uppercase text-text-muted/70">Beneficiarios</p>
+            <p class="text-sm font-medium text-text-secondary">Sheila María Nieto Serrano</p>
+            <p class="text-sm font-medium text-text-secondary">Habib Chalup Castro</p>
+          </div>
+          <div class="border-t border-border-soft/60 pt-3 space-y-1">
+            <p class="text-[10px] tracking-[0.3em] uppercase text-text-muted/70">IBAN</p>
+            <div class="flex items-center justify-between gap-2">
+              <p class="text-sm font-mono font-medium text-text-secondary tracking-wider">
+                ES91 2100 0418 4502 0005 1332
+              </p>
+              <button
+                id="copy-iban-btn"
+                data-iban="ES9121000418450200051332"
+                aria-label="Copiar IBAN"
+                class="flex-shrink-0 text-accent hover:text-accent-hover transition-colors"
+                title="Copiar IBAN"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+              </button>
+            </div>
+            <p id="iban-feedback" class="text-[11px] text-accent hidden">¡IBAN copiado!</p>
+          </div>
         </div>
       </div>
     </div>
@@ -379,13 +442,14 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
     }
   });
 
-  // Download summary
-  document.getElementById("download-summary")?.addEventListener("click", () => {
-    const link = document.createElement('a');
-    link.href = '/images/summary/resumenBodaSheilaYHabib.png';
-    link.download = 'resumenBodaSheilaYHabib.png';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  document.getElementById("copy-iban-btn")?.addEventListener("click", async () => {
+    const iban = document.getElementById("copy-iban-btn")?.getAttribute("data-iban");
+    const feedback = document.getElementById("iban-feedback");
+    if (!iban) return;
+    await navigator.clipboard.writeText(iban);
+    if (feedback) {
+      feedback.classList.remove("hidden");
+      setTimeout(() => feedback.classList.add("hidden"), 2000);
+    }
   });
 </script>

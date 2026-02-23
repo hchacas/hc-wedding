@@ -2,18 +2,18 @@
 // Sección RSVP en la página principal
 ---
 
-<section class="py-20 bg-text-secondary" id="rsvp">
+<section class="py-12 md:py-14 bg-text-secondary" id="rsvp">
   <div class="container mx-auto px-4 text-center max-w-4xl">
-    <div class="mb-16">
+    <div class="mb-10">
       <h2 class="font-serif text-4xl md:text-5xl text-text-inverse mb-6">RSVP</h2>
-      <div class="w-24 h-0.5 bg-accent mx-auto mb-8"></div>
+      <div class="w-24 h-0.5 bg-accent mx-auto mb-5"></div>
       <p class="text-xl text-text-inverse/80 leading-relaxed">
         ¡Necesitamos saber si vienes! Confirma antes del <strong class="text-accent">1 de Junio de 2026</strong>
       </p>
     </div>
 
     <!-- Botones principales -->
-    <div class="mb-16 space-y-4">
+    <div class="mb-10 space-y-4">
       <div>
         <a 
           href="/rsvp/login" 
@@ -22,21 +22,12 @@
           Confirmar Asistencia
         </a>
       </div>
-      
-      <div>
-        <button 
-          id="download-summary-main"
-          class="bg-text-primary text-text-inverse px-8 py-3 text-base font-medium hover:bg-text-secondary transition-colors shadow-sm"
-        >
-          Descargar Resumen del Evento
-        </button>
-      </div>
     </div>
 
     <!-- Sección de preguntas -->
-    <div class="bg-text-primary rounded-lg p-8">
-      <h3 class="font-serif text-2xl text-text-inverse mb-8">¿Dudas? ¡Pregúntanos!</h3>
-      <div class="space-y-4 text-text-inverse/80">
+    <div class="bg-text-primary rounded-lg p-6 md:p-7">
+      <h3 class="font-serif text-2xl text-text-inverse mb-5">¿Dudas? ¡Pregúntanos!</h3>
+      <div class="space-y-3 text-text-inverse/80">
         <p>Para cualquier cosa que necesites, ¡Escríbenos!</p>
         <div class="flex flex-col md:flex-row justify-center items-center space-y-2 md:space-y-0 md:space-x-8">
           <span class="text-text-inverse/80">
@@ -49,15 +40,3 @@
     </div>
   </div>
 </section>
-
-<script>
-  // Botón de descarga de resumen
-  document.getElementById('download-summary-main')?.addEventListener('click', () => {
-    const link = document.createElement('a');
-    link.href = '/images/summary/resumenBodaSheilaYHabib.png';
-    link.download = 'resumenBodaSheilaYHabib.png';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  });
-</script>

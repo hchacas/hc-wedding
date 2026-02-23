@@ -355,11 +355,11 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
         Editar mi Confirmación
       </button>
       
-      <a 
-        href="/"
+      <a
+        href="/guest-dashboard"
         class="bg-text-primary text-text-inverse px-8 py-3 rounded-lg font-medium hover:bg-text-secondary transition-colors text-center"
       >
-        Volver a Inicio
+        Ver mi Confirmación
       </a>
     </div>
   </div>
@@ -399,14 +399,8 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
         if (rsvpData.success) {
           console.log('Populating form with data:', rsvpData.form);
           populateForm(rsvpData.form);
-          if (rsvpData.form.attending !== null && rsvpData.form.attending !== undefined) {
-            populateSuccessDetails(rsvpData.form);
-            loadingState?.classList.add('hidden');
-            successMessage?.classList.remove('hidden');
-          } else {
-            loadingState?.classList.add('hidden');
-            rsvpForm?.classList.remove('hidden');
-          }
+          loadingState?.classList.add('hidden');
+          rsvpForm?.classList.remove('hidden');
         } else {
           loadingState?.classList.add('hidden');
           rsvpForm?.classList.remove('hidden');

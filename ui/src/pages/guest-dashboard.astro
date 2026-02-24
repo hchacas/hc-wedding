@@ -98,6 +98,22 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
               <p class="text-sm text-text-muted">00:30h · Fiesta</p>
             </div>
 
+            <div class="bg-accent/10 border border-accent/30 rounded-lg p-4">
+              <div class="flex items-start gap-3">
+                <div class="w-12 h-12 bg-accent rounded-full flex items-center justify-center flex-shrink-0">
+                  <svg class="w-6 h-6 text-accent-contrast" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M18,11H6V6H18M16.5,17A1.5,1.5 0 0,1 15,15.5A1.5,1.5 0 0,1 16.5,14A1.5,1.5 0 0,1 18,15.5A1.5,1.5 0 0,1 16.5,17M7.5,17A1.5,1.5 0 0,1 6,15.5A1.5,1.5 0 0,1 7.5,14A1.5,1.5 0 0,1 9,15.5A1.5,1.5 0 0,1 7.5,17M4,16C4,16.88 4.39,17.67 5,18.22V20A1,1 0 0,0 6,21H7A1,1 0 0,0 8,20V19H16V20A1,1 0 0,0 17,21H18A1,1 0 0,0 19,20V18.22C19.61,17.67 20,16.88 20,16V6C20,2.5 16.42,2 12,2C7.58,2 4,2.5 4,6V16Z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-base text-text-secondary mb-1">Bus Lanzadera</h3>
+                  <p class="text-sm text-text-secondary leading-relaxed">Priego de Córdoba · Carcabuey · Jardines Palacio de La Dehesa</p>
+                  <p class="text-xs md:text-sm text-text-muted mt-1">Si te alojas en Hotel Los Bronces, el servicio está incluido y no necesitas confirmarlo en el RSVP.</p>
+                  <p class="text-sm font-semibold text-text-secondary mt-1">¡Confírmanos en el RSVP!</p>
+                </div>
+              </div>
+            </div>
+
             <div class="border-l-4 border-accent pl-4">
               <h3 class="font-medium text-text-secondary mb-2">Recordatorio</h3>
               <p class="text-sm text-text-muted">
@@ -126,7 +142,7 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           <a
             href="/"
-            class="bg-surface-1 hover:bg-surface-2 rounded-lg p-6 text-center transition-colors group"
+            class="bg-surface-1 hover:bg-surface-2 rounded-lg p-6 text-center transition-colors group h-full w-full flex flex-col items-center justify-start"
           >
             <div
               class="w-12 h-12 bg-accent rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-accent-hover transition-colors"
@@ -149,7 +165,7 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
 
           <a
             href="/#viaje"
-            class="bg-surface-1 hover:bg-surface-2 rounded-lg p-6 text-center transition-colors group"
+            class="bg-surface-1 hover:bg-surface-2 rounded-lg p-6 text-center transition-colors group h-full w-full flex flex-col items-center justify-start"
           >
             <div
               class="w-12 h-12 bg-accent rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-accent-hover transition-colors"
@@ -171,7 +187,7 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
 
           <a
             href="/dresscode"
-            class="bg-surface-1 hover:bg-surface-2 rounded-lg p-6 text-center transition-colors group border border-border-soft/60"
+            class="bg-surface-1 hover:bg-surface-2 rounded-lg p-6 text-center transition-colors group border border-border-soft/60 h-full w-full flex flex-col items-center justify-start"
           >
             <div
               class="w-12 h-12 bg-accent rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-accent-hover transition-colors"
@@ -196,7 +212,7 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
 
           <button
             id="logout-btn"
-            class="bg-surface-1 hover:bg-surface-2 rounded-lg p-6 text-center transition-colors group"
+            class="bg-surface-1 hover:bg-surface-2 rounded-lg p-6 text-center transition-colors group h-full w-full flex flex-col items-center justify-start"
           >
             <div
               class="w-12 h-12 bg-accent rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-accent-hover transition-colors"
@@ -225,8 +241,8 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
         </div>
 
         <p class="mt-4 text-sm text-text-muted max-w-md mx-auto leading-relaxed">
-          Con tu presencia nos es más que suficiente, pero si quieres ayudarnos con nuestro viaje de novios,
-          aquí te dejamos nuestros datos bancarios.
+          Vuestro cariño es suficiente, pero si queréis colaborar con nuestra felicidad y futuro juntos,
+          os dejamos este número de cuenta.
         </p>
 
         <div class="mt-6 bg-surface-1 border border-border-soft rounded-lg px-6 py-5 text-left space-y-3 max-w-md mx-auto">
@@ -239,11 +255,11 @@ const apiUrl = import.meta.env.API_URL || 'http://localhost:3001';
             <p class="text-[10px] tracking-[0.3em] uppercase text-text-muted/70">IBAN</p>
             <div class="flex items-center justify-between gap-2">
               <p class="text-sm font-mono font-medium text-text-secondary tracking-wider">
-                ES91 2100 0418 4502 0005 1332
+                ES36 1563 2626 3732 6754 2505
               </p>
               <button
                 id="copy-iban-btn"
-                data-iban="ES9121000418450200051332"
+                data-iban="ES3615632626373267542505"
                 aria-label="Copiar IBAN"
                 class="flex-shrink-0 text-accent hover:text-accent-hover transition-colors"
                 title="Copiar IBAN"
